@@ -1,0 +1,23 @@
+{
+    "signIn": {
+        "forgotPassword": "Forgot Password",
+        "primaryButton": "Sign In",
+        "dontHaveAccount": "Don't have an account? ",
+        "createAnAccount": "Create an Account ",
+        "here": "here",
+        "password": "Password",
+        "email": "Email",
+        "emailError": "Please provide a valid email address.",
+        "passwordError": "Your password must be longer than 6 char."
+    },
+    "signUp": {
+        "iAccept": "I accept the ",
+        "termAndConditions": "Terms & Conditions",
+        "primaryButton": "Create My Account",
+        "alreadyHaveAccount": "Already have an account? ",
+        "signIn": "Sign In ",
+        "here": "here",
+        "accept": "",
+        "termAndConditionsText": "# Terms & Conditions for EmpathAI \nLast updated: 08/10/24 \nPlease read these Terms and Conditions ('Terms', 'Terms and Conditions') carefully before using the **EmpathAI** mobile application (the 'Service') operated by **EmpathAI** ('us', 'we', or 'our'). \n Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users, and others who access or use the Service. \n By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the Service. \n ## 1. **Use of the Service** \n The Service is intended for individuals who seek assistance in analyzing and understanding their emotions through AI-powered insights. EmpathAI is not a substitute for professional medical or psychological advice. By using the Service, you agree that EmpathAI is provided for informational purposes only and is not designed to provide mental health diagnoses or treatment. \n ## 2. **Accounts** \n When you create an account with us, you must provide accurate, complete, and current information. Failure to do so constitutes a breach of these Terms, which may result in the termination of your account. \n You are responsible for maintaining the confidentiality of your account and password, including any activities or actions under your password. \n ## 3. **Privacy** \n Our Privacy Policy governs the collection, use, and sharing of any personal data you provide while using the Service. By using the Service, you agree to our Privacy Policy. \n ## 4. **Intellectual Property** \n The Service and its original content, features, and functionality are and will remain the exclusive property of **[Your Company Name]**. Unauthorized use, reproduction, or distribution of any part of the Service without prior written consent is prohibited. \n ## 5. **Termination** \n We may terminate or suspend your access to the Service immediately, without prior notice or liability, for any reason, including without limitation if you breach these Terms. \n Upon termination, your right to use the Service will immediately cease. If you wish to terminate your account, you may discontinue using the Service. \n ## 6. **Limitations of Liability** \n EmpathAI is provided 'as is' and 'as available' without warranties of any kind, whether express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement. \n **[Your Company Name]** shall not be liable for any damages, losses, or injuries arising from the use or inability to use the Service. This includes, but is not limited to, any indirect, incidental, special, consequential, or punitive damages. \n ## 7. **Medical Disclaimer** \n EmpathAI is not a healthcare provider and does not offer any medical or psychological diagnosis, treatment, or advice. The AI-powered insights provided by the Service are for informational and educational purposes only and are not intended to replace professional mental health services. \n If you are experiencing a medical emergency, mental health crisis, or are in need of professional therapy, we strongly advise you to consult a licensed healthcare professional. \n ## 8. **Changes to Terms** \n We reserve the right to modify or replace these Terms at any time. When changes are made, we will notify users by posting the updated terms within the Service or through other communication channels. Continued use of the Service following any changes to the Terms constitutes acceptance of the revised terms. \n ## 9. **Governing Law** \n These Terms shall be governed and construed in accordance with the laws of **[Your Country/State]**, without regard to its conflict of law provisions. \n ## 10. **Contact Us** \n If you have any questions about these Terms, please contact us at **[Your Contact Information]**."
+    }
+}
