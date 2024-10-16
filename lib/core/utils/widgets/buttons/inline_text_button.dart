@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:nfc_box/core/extensions/context_extension.dart';
+import 'package:nfc_box/config/theme/theme_extensions/inline_text_button_theme.dart';
+import '../../../extensions/context_extension.dart';
 
 class InlineTextButton extends TextSpan {
   const InlineTextButton(
@@ -13,7 +14,8 @@ class InlineTextButton extends TextSpan {
     // super.recognizer,
   }) : super();
   @override
-  TextStyle? get style => context.textTheme.labelLarge;
+  TextStyle? get style =>
+      context.theme.extension<InlineTextButtonTheme>()?.style;
   final void Function()? onTap;
   final BuildContext context;
   @override

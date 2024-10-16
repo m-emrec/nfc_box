@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nfc_box/config/theme/theme_extensions/inline_text_button_theme.dart';
 
 import '../../core/constants/app_paddings.dart';
 import '../../core/constants/border_radiuses.dart';
@@ -24,8 +25,17 @@ class AppTheme {
     outlinedButtonTheme: _outlinedButtonTheme(),
     textButtonTheme: _textButtonTheme(),
     inputDecorationTheme: _inputDecoration(),
-    extensions: const [],
+    extensions: _extensions,
   );
+
+  static final Iterable<ThemeExtension<dynamic>>? _extensions = [
+    InlineTextButtonTheme(
+      style: TextStyles()
+          .textTheme
+          .labelLarge
+          ?.copyWith(color: AppColors.accentOrange),
+    ),
+  ];
 
   static InputDecorationTheme _inputDecoration() {
     return InputDecorationTheme(
