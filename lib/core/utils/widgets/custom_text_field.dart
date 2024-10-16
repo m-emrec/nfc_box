@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_assets.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
@@ -16,26 +15,32 @@ abstract class CustomTextField extends TextFormField {
     this.textInputAction = TextInputAction.done,
     this.helperText,
     this.suffix,
+    super.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.obscured = false,
   });
 
   final String? label;
-  bool get obscured => false;
-  Image get prefixIcon;
-  late bool showError;
+  bool obscured;
+  Widget get prefixIcon;
   final TextInputType? keyboardType;
   TextCapitalization textCapitalization;
   TextInputAction textInputAction;
   String? helperText;
   Widget? suffix;
+
+  /// if the [TextField] is not empty and is not valid then it can show error.
+  /// if the [TextField] is empty don't show error
+  bool shouldShowError(FormFieldState<String> state) {
+    bool isEmpty = controller?.text.isEmpty ?? true;
+    bool isValid = !state.hasError;
+    return !isEmpty && !isValid;
+  }
+
   @override
   FormFieldBuilder<String> get builder => (state) {
-        bool isEmpty = controller!.text.isEmpty;
-        bool isValid = !state.hasError;
-
-        /// if the [TextField] is not empty and is not valid then it can show error.
-        /// if the [TextField] is empty don't show error
-        bool showError = isEmpty == false && isValid == false;
+        bool showError = shouldShowError(state);
         return TextFormField(
+          validator: validator,
           style: TextStyles().textTheme.bodyLarge,
           textCapitalization: textCapitalization,
           controller: controller,
@@ -43,6 +48,7 @@ abstract class CustomTextField extends TextFormField {
           keyboardType: keyboardType,
           textInputAction: textInputAction,
           decoration: InputDecoration(
+            errorText: state.errorText,
             helperText: helperText,
             labelText: label,
             // helperStyle: ,
@@ -66,22 +72,4 @@ abstract class CustomTextField extends TextFormField {
           ),
         );
       };
-}
-
-class EmailField extends CustomTextField {
-  EmailField({
-    super.key,
-    super.controller,
-  }) : super(
-          label: "Email",
-          validator: (value) => value!.length < 3 ? "asd" : null,
-          autofillHints: [AutofillHints.email],
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
-          helperText: "xx@xxx.com",
-        );
-  @override
-  Image get prefixIcon => Image.asset(
-        AppAssets.emailFieldIconPath,
-      );
 }

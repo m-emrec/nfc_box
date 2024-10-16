@@ -28,7 +28,7 @@ class AppTheme {
     extensions: _extensions,
   );
 
-  static final Iterable<ThemeExtension<dynamic>>? _extensions = [
+  static final Iterable<ThemeExtension<dynamic>> _extensions = [
     InlineTextButtonTheme(
       style: TextStyles()
           .textTheme

@@ -29,9 +29,9 @@ class _PlayGroundState extends State<PlayGround> {
               autovalidateMode: AutovalidateMode.always,
               child: Column(
                 children: [
-                  EmailField(
-                    controller: TextEditingController(),
-                  ),
+                  // EmailField(
+                  //   controller: TextEditingController(),
+                  // ),
                 ],
               ),
             ),
