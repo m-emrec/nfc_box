@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/view/sign_in.dart';
+import '../../features/auth/view/sign_up.dart';
 import '../../playground.dart';
 
 enum Routes {
@@ -21,7 +22,7 @@ class AppRouter {
   GoRouter get router => _router;
 // GoRouter configuration
   final _router = GoRouter(
-    initialLocation: Routes.signIn.path,
+    initialLocation: Routes.signUp.path,
     routes: [
       /// Home Page
       /// TODO: Change this when you built Home
@@ -31,17 +32,17 @@ class AppRouter {
         routes: [],
       ),
 
-      // /// [SignUp] page
-      // GoRoute(
-      //   name: Routes.signUp.name,
-      //   path: Routes.signUp.path,
-      //   pageBuilder: (context, state) => CustomTransitionPage(
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //       return FadeTransition(opacity: animation, child: child);
-      //     },
-      //     child: SignUp(),
-      //   ),
-      // ),
+      /// [SignUp] page
+      GoRoute(
+        name: Routes.signUp.name,
+        path: Routes.signUp.path,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: SignUp(),
+        ),
+      ),
 
       /// [SignIn] page
       GoRoute(

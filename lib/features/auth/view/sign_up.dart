@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/core/extensions/context_extension.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -11,14 +12,14 @@ import 'widgets/google_sign_in_button.dart';
 import 'widgets/or_divider.dart';
 import 'widgets/password_field.dart';
 
-class SignIn extends ConsumerStatefulWidget {
-  const SignIn({super.key});
+class SignUp extends ConsumerStatefulWidget {
+  const SignUp({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SignInState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignUpState();
 }
 
-class _SignInState extends ConsumerState<SignIn> {
+class _SignUpState extends ConsumerState<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -48,19 +49,8 @@ class _SignInState extends ConsumerState<SignIn> {
                 Gap(AppPaddings.mPadding),
 
                 /// PasswordField
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    PasswordField(
-                      controller: passwordController,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forgot Password",
-                      ),
-                    ),
-                  ],
+                PasswordField(
+                  controller: passwordController,
                 ),
               ],
             ),
@@ -69,18 +59,24 @@ class _SignInState extends ConsumerState<SignIn> {
             /// Sign In Button
             ResponsiveElevatedButton(
               onPressed: () {},
-              child: const Text("Sign In"),
+              child: const Text("Create Your Account"),
             ),
             MaxGap(AppPaddings.sPadding),
 
             /// Dont have an account
             Text.rich(
               TextSpan(
-                text: "Don't have an account ? ",
+                text: "Already have an account ? ",
                 children: [
                   InlineTextButton(
                     context,
-                    text: "Create One",
+                    text: "Sign In",
+                    children: [
+                      TextSpan(
+                        text: " here",
+                        style: context.textTheme.bodyMedium,
+                      )
+                    ],
                   ),
                 ],
               ),
