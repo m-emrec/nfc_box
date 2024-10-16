@@ -1,48 +1,87 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/core/constants/app_paddings.dart';
-import 'package:nfc_box/logger.dart';
+import '../../constants/app_assets.dart';
 
-import '../../../config/theme/app_theme.dart';
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
 
-class CustomTextField extends TextFormField {
+abstract class CustomTextField extends TextFormField {
   CustomTextField({
     super.key,
     super.controller,
-  }) : super(
-          // autovalidateMode: AutovalidateMode.,
-          validator: (value) => value!.length < 3 ? "asdasd" : null,
-        );
+    super.validator,
+    this.label,
+    super.autofillHints,
+    this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
+    this.textInputAction = TextInputAction.done,
+    this.helperText,
+    this.suffix,
+  });
 
+  final String? label;
+  bool get obscured => false;
+  Image get prefixIcon;
+  late bool showError;
+  final TextInputType? keyboardType;
+  TextCapitalization textCapitalization;
+  TextInputAction textInputAction;
+  String? helperText;
+  Widget? suffix;
   @override
   FormFieldBuilder<String> get builder => (state) {
         bool isEmpty = controller!.text.isEmpty;
         bool isValid = !state.hasError;
+
+        /// if the [TextField] is not empty and is not valid then it can show error.
+        /// if the [TextField] is empty don't show error
+        bool showError = isEmpty == false && isValid == false;
         return TextFormField(
-          textAlignVertical: TextAlignVertical.top,
+          style: TextStyles().textTheme.bodyLarge,
+          textCapitalization: textCapitalization,
           controller: controller,
+          obscureText: obscured,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
           decoration: InputDecoration(
-              alignLabelWithHint: false,
-              labelText: "Label",
-              prefixIconConstraints: BoxConstraints(
-                minHeight: 48,
-                minWidth: 48,
+            helperText: helperText,
+            // helperStyle: ,
+            suffix: suffix,
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: showError
+                    ? AppColors.accentError[50]!
+                    : AppColors.accentOrange,
               ),
-              prefixIcon: Align(
-                heightFactor: 0,
-                widthFactor: 0,
-                alignment: Alignment.centerLeft,
-                child: Icon(
-                  Icons.email,
-                  size: 24,
-                  color: isEmpty
-                      ? AppColors.gray500
-                      : isValid
-                          ? AppColors.tealColor
-                          : AppColors.errorTextColor,
-                ),
-              )),
+            ),
+            labelText: label,
+            prefixIcon: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                showError
+                    ? AppColors.accentError[40]!
+                    : AppColors.neutralGray500[40]!,
+                BlendMode.srcATop,
+              ),
+              child: prefixIcon,
+            ),
+          ),
         );
       };
+}
+
+class EmailField extends CustomTextField {
+  EmailField({
+    super.key,
+    super.controller,
+  }) : super(
+          label: "Email",
+          validator: (value) => value!.length < 3 ? "asd" : null,
+          autofillHints: [AutofillHints.email],
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          helperText: "xx@xxx.com",
+        );
+  @override
+  Image get prefixIcon => Image.asset(
+        AppAssets.emailFieldIconPath,
+      );
 }

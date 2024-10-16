@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/theme/app_theme.dart';
+import '../../constants/colors.dart';
 
 class ResponsiveElevatedButton extends StatelessWidget {
   const ResponsiveElevatedButton({
@@ -90,7 +90,7 @@ class ResponsiveElevatedButton extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    isPrimary ? AppColors.blueColor : AppColors.tealColor,
+                    isPrimary ? AppColors.primaryBlue : AppColors.secondaryTeal,
               ),
               onPressed: onPressed,
               child: child,

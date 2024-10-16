@@ -3,12 +3,15 @@ part "enums/asset_enum.dart";
 /// I use this class to use assets .
 class AppAssets {
   /// Images
-  static String logoPath = _AssetEnum.logo.path;
-  static String pageEffect = _AssetEnum.pageEffect.path;
+  static String logoPath = _ImagePaths.logo.path;
+  static String mainPageIllustration = _ImagePaths.mainPageIllustration.path;
 
   /// Icons
-  static String emailFieldIconPath = _AssetEnum.emailFieldIcon.path;
-  static String passwordIconPath = _AssetEnum.passwordIcon.path;
-  static String facebookIcon = _AssetEnum.facebookIcon.path;
-  static String googleIcon = _AssetEnum.googleIcon.path;
+  static String emailFieldIconPath = _IconPaths.emailFieldIcon.path;
+  static String passwordIconPath = _IconPaths.passwordIcon.path;
+  static String chooseImagePath = _IconPaths.chooseImage.path;
+  static String removeBoxPath = _IconPaths.removeBox.path;
+  static String savePath = _IconPaths.save.path;
+  static String sortPath = _IconPaths.sort.path;
+  static String viewTypePath = _IconPaths.viewType.path;
 }
