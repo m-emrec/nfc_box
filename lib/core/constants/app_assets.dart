@@ -14,4 +14,9 @@ class AppAssets {
   static String savePath = _IconPaths.save.path;
   static String sortPath = _IconPaths.sort.path;
   static String viewTypePath = _IconPaths.viewType.path;
+
+  /// Animations
+
+  static String googleAni = _AnimationPaths.google.path;
+  static String facebookAni = _AnimationPaths.facebook.path;
 }

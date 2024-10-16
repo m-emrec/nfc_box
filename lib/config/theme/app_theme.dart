@@ -101,6 +101,7 @@ class AppTheme {
           horizontal: AppPaddings.mPadding,
           vertical: AppPaddings.sPadding,
         ),
+        maximumSize: const Size.fromHeight(52),
         side: BorderSide(color: AppColors.secondaryLightTeal),
         shape: RoundedRectangleBorder(
           borderRadius: AppBorderRadius.smallBorderRadius,

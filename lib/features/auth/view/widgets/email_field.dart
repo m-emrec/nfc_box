@@ -10,11 +10,12 @@ class EmailField extends CustomTextField {
   }) : super(
           label: "Email",
           validator: (value) =>
-              value!.length < 3 ? "Please write a valid email address" : null,
+              value!.length < 6 ? "Please write a valid email address" : null,
           autofillHints: [AutofillHints.email],
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           helperText: "xx@xxx.com",
+          focusNode: FocusNode(),
         );
 
   @override

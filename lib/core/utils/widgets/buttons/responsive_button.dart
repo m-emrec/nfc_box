@@ -111,15 +111,17 @@ class ResponsiveOutlinedButton extends StatelessWidget {
   const ResponsiveOutlinedButton({
     super.key,
     this.onPressed,
+    this.style,
     required this.child,
   });
-
+  final ButtonStyle? style;
   @override
   Widget build(BuildContext context) {
     assert(context.findAncestorWidgetOfExactType<Row>() != null,
         "You have to wrap this this widget with Row !");
     return Expanded(
       child: OutlinedButton(
+        style: style,
         onPressed: onPressed,
         child: child,
       ),

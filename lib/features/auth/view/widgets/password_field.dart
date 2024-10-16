@@ -13,6 +13,7 @@ class PasswordField extends CustomTextField {
               ? "Your password must be longer than 6 characters"
               : null,
           obscured: true,
+          focusNode: FocusNode(),
         );
 
   @override
@@ -35,5 +36,7 @@ class PasswordField extends CustomTextField {
       );
 
   @override
-  Widget get prefixIcon => Image.asset(AppAssets.passwordIconPath);
+  Widget get prefixIcon => Image.asset(
+        AppAssets.passwordIconPath,
+      );
 }
