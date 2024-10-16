@@ -44,6 +44,7 @@ abstract class CustomTextField extends TextFormField {
           textInputAction: textInputAction,
           decoration: InputDecoration(
             helperText: helperText,
+            labelText: label,
             // helperStyle: ,
             suffix: suffix,
             focusedBorder: UnderlineInputBorder(
@@ -53,7 +54,6 @@ abstract class CustomTextField extends TextFormField {
                     : AppColors.accentOrange,
               ),
             ),
-            labelText: label,
             prefixIcon: ColorFiltered(
               colorFilter: ColorFilter.mode(
                 showError
