@@ -4,7 +4,7 @@ import 'package:nfc_box/logger.dart';
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
 
-abstract class CustomTextField extends TextFormField {
+class CustomTextField extends TextFormField {
   CustomTextField({
     super.key,
     super.controller,
@@ -19,33 +19,23 @@ abstract class CustomTextField extends TextFormField {
     super.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.obscured = false,
     this.focusNode,
+    this.prefixIcon,
+    this.color,
   });
 
+  final Color? color;
   final FocusNode? focusNode;
   final String? label;
   bool obscured;
-  Widget get prefixIcon;
+  Widget? prefixIcon;
   final TextInputType? keyboardType;
   TextCapitalization textCapitalization;
   TextInputAction textInputAction;
   String? helperText;
   Widget? suffix;
 
-  /// if the [TextField] is not empty and is not valid then it can show error.
-  /// if the [TextField] is empty don't show error
-  bool shouldShowError(FormFieldState<String> state) {
-    bool isEmpty = controller?.text.isEmpty ?? true;
-    bool isValid = !state.hasError;
-    bool hasFocus = focusNode?.hasFocus ?? false;
-    return !isValid;
-  }
-
   @override
   FormFieldBuilder<String> get builder => (state) {
-        bool isFocused = focusNode?.hasFocus ?? false;
-        // logger.i(isFocused);
-        bool showError = shouldShowError(state);
-
         return TextFormField(
           focusNode: focusNode,
           validator: validator,
@@ -63,20 +53,12 @@ abstract class CustomTextField extends TextFormField {
             suffix: suffix,
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: showError
-                    ? AppColors.accentError[40]!
-                    : isFocused
-                        ? AppColors.accentOrange[50]! // Highlight when focused
-                        : AppColors.neutralGray500[40]!,
+                color: color ?? AppColors.neutralGray500[40]!,
               ),
             ),
             prefixIcon: ColorFiltered(
               colorFilter: ColorFilter.mode(
-                showError
-                    ? AppColors.accentError[40]!
-                    : isFocused
-                        ? AppColors.accentOrange // Highlight when focused
-                        : AppColors.neutralGray500[40]!,
+                color ?? Colors.transparent,
                 BlendMode.srcATop,
               ),
               child: prefixIcon,

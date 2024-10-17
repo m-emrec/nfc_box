@@ -26,6 +26,7 @@ class AppTheme {
     textButtonTheme: _textButtonTheme(),
     inputDecorationTheme: _inputDecoration(),
     extensions: _extensions,
+    checkboxTheme: CheckboxThemeData(),
   );
 
   static final Iterable<ThemeExtension<dynamic>> _extensions = [

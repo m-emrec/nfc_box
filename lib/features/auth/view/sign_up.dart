@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/core/extensions/context_extension.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/buttons/inline_text_button.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
 import 'widgets/email_field.dart';
@@ -51,6 +51,28 @@ class _SignUpState extends ConsumerState<SignUp> {
                 /// PasswordField
                 PasswordField(
                   controller: passwordController,
+                ),
+              ],
+            ),
+
+            MaxGap(AppPaddings.mPadding),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Text.rich(
+                    softWrap: true,
+                    TextSpan(
+                      text: "I accept the ",
+                      children: [
+                        InlineTextButton(context, text: "Terms & Conditions"),
+                      ],
+                    ),
+                  ),
+                ),
+                Checkbox(
+                  value: false,
+                  onChanged: (_) {},
                 ),
               ],
             ),
