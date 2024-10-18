@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_box/core/constants/app_assets.dart';
-import 'package:nfc_box/core/utils/widgets/custom_text_field.dart';
 
-import '../../../../core/utils/mixins/text_fied_validator_mixin.dart';
+import '../../../../core/constants/app_assets.dart';
+import '../../../../core/utils/mixins/text_field_validator_mixin.dart';
+import '../../../../core/utils/widgets/custom_text_field.dart';
 
 class PasswordField extends StatefulWidget {
   const PasswordField({
@@ -36,8 +36,9 @@ class _PasswordFieldState extends State<PasswordField>
 
   @override
   void dispose() {
-    widget.controller.dispose();
-    _focusNode.removeListener(() {});
+    // widget.controller.dispose();
+    // _focusNode.removeListener(() {});
+    disposeTextFieldState();
     super.dispose();
   }
 

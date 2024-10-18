@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nfc_box/config/routes/router.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -74,23 +77,39 @@ class _SignInState extends ConsumerState<SignIn> {
             MaxGap(AppPaddings.sPadding),
 
             /// Dont have an account
-            Text.rich(
-              TextSpan(
-                text: "Don't have an account ? ",
-                children: [
-                  InlineTextButton(
-                    context,
-                    text: "Create One",
-                  ),
-                ],
-              ),
-            ),
+            const _DontHaveAnAccount(),
             const Spacer(),
             const OrDivider(),
             MaxGap(AppPaddings.lPadding),
             const GoogleSignInButton(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _DontHaveAnAccount extends StatelessWidget {
+  const _DontHaveAnAccount();
+
+  static const String _dontHaveAnAccount = "Don't have an account ?";
+  static const String _createOne = " Create One";
+  void onSignUpTapped(BuildContext context) {
+    context.goNamed(Routes.signUp.name);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(
+        text: _dontHaveAnAccount,
+        children: [
+          InlineTextButton(
+            context,
+            text: _createOne,
+            onTap: () => onSignUpTapped(context),
+          ),
+        ],
       ),
     );
   }

@@ -62,7 +62,7 @@ mixin TextFieldStateMixin {
 
       return stateColor;
     }
-    if (!validated && _hasFocus && _controller.text.isNotEmpty) {
+    if (!validated && _controller.text.isNotEmpty) {
       stateColor = AppColors.accentError[70];
       _setState(() {});
 

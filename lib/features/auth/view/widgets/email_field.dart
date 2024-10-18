@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_box/core/utils/mixins/text_fied_validator_mixin.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/utils/mixins/text_field_validator_mixin.dart';
 import '../../../../core/utils/widgets/custom_text_field.dart';
 
 class EmailField extends StatefulWidget {
@@ -40,6 +40,8 @@ class _EmailFieldState extends State<EmailField> with TextFieldStateMixin {
         AppAssets.emailFieldIconPath,
       ),
       validator: validator,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
     );
   }
 }

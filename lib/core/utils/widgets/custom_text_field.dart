@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/text_styles.dart';
@@ -49,7 +48,6 @@ class CustomTextField extends TextFormField {
             errorText: state.errorText,
             helperText: helperText,
             labelText: label,
-            // helperStyle: ,
             suffix: suffix,
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
