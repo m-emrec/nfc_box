@@ -15,7 +15,7 @@ class AppTheme {
     useMaterial3: true,
 
     /// colors
-    scaffoldBackgroundColor: AppColors.neutralBackgroundLight,
+    scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
     primaryColor: AppColors.primaryBlue[50],
     textTheme: TextStyles().textTheme,
 
@@ -26,8 +26,24 @@ class AppTheme {
     textButtonTheme: _textButtonTheme(),
     inputDecorationTheme: _inputDecoration(),
     extensions: _extensions,
-    checkboxTheme: CheckboxThemeData(),
+    checkboxTheme: _checkboxTheme(),
   );
+
+  static CheckboxThemeData _checkboxTheme() => CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.accentSuccess[90]!;
+            }
+            return Colors.transparent;
+          },
+        ),
+        shape: const CircleBorder(),
+        side: BorderSide(
+          color: AppColors.secondaryLightTeal,
+          width: 2.5,
+        ),
+      );
 
   static final Iterable<ThemeExtension<dynamic>> _extensions = [
     InlineTextButtonTheme(
@@ -74,7 +90,7 @@ class AppTheme {
 
   static AppBarTheme _appBarTheme() {
     return AppBarTheme(
-      color: AppColors.neutralBackgroundLight,
+      color: AppColors.neutralBackgroundLight[50],
       systemOverlayStyle: const SystemUiOverlayStyle(
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,

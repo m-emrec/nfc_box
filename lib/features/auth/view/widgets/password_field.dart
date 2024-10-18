@@ -32,7 +32,9 @@ class _PasswordFieldState extends State<PasswordField>
     super.initState();
   }
 
-  String? validator(value) => value!.length < 2 ? "asdad" : null;
+  String? validator(value) => value!.length < 6
+      ? "Your password must be longer than 6 characters"
+      : null;
 
   @override
   void dispose() {

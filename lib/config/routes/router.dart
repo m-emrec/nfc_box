@@ -23,7 +23,7 @@ class AppRouter {
   GoRouter get router => _router;
 // GoRouter configuration
   final _router = GoRouter(
-    initialLocation: Routes.signIn.path,
+    initialLocation: Routes.signUp.path,
     routes: [
       /// Home Page
       /// TODO: Change this when you built Home

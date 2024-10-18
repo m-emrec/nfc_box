@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_assets.dart';
@@ -27,7 +28,9 @@ class _EmailFieldState extends State<EmailField> with TextFieldStateMixin {
     super.initState();
   }
 
-  String? validator(value) => value!.length < 2 ? "asdad" : null;
+  String? validator(value) => EmailValidator.validate(value)
+      ? null
+      : "Please write a valid email address\nex: xxx@xxx.com";
 
   @override
   Widget build(BuildContext context) {
