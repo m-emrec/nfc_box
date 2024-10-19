@@ -7,7 +7,12 @@ import '../../../../core/utils/widgets/custom_text_field.dart';
 
 class EmailField extends StatefulWidget {
   final TextEditingController controller;
-  const EmailField({super.key, required this.controller});
+  final TextInputAction textInputAction;
+  const EmailField({
+    super.key,
+    required this.controller,
+    this.textInputAction = TextInputAction.next,
+  });
 
   @override
   State<EmailField> createState() => _EmailFieldState();
@@ -44,7 +49,7 @@ class _EmailFieldState extends State<EmailField> with TextFieldStateMixin {
       ),
       validator: validator,
       keyboardType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.next,
+      textInputAction: widget.textInputAction,
     );
   }
 }

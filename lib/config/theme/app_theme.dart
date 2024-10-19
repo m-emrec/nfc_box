@@ -91,9 +91,9 @@ class AppTheme {
   static AppBarTheme _appBarTheme() {
     return AppBarTheme(
       color: AppColors.neutralBackgroundLight[50],
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppColors.neutralBackgroundLight.withOpacity(0.1),
+        systemNavigationBarColor: AppColors.neutralBackgroundLight,
         statusBarIconBrightness: Brightness.dark,
       ),
     );

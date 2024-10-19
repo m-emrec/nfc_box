@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -10,10 +11,10 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/buttons/inline_text_button.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
-import 'widgets/email_field.dart';
+import '../../../logger.dart';
+import 'widgets/auth_form.dart';
 import 'widgets/google_sign_in_button.dart';
 import 'widgets/or_divider.dart';
-import 'widgets/password_field.dart';
 
 class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
@@ -25,6 +26,15 @@ class SignUp extends ConsumerStatefulWidget {
 class _SignUpState extends ConsumerState<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey();
+
+  void onTapSignUp() {
+    if (formKey.currentState?.validate() ?? false) {
+      logger.d("Valid");
+    } else {
+      logger.d("Not Valid");
+    }
+  }
 
   final String createYourAccount = 'Create Your Account';
   @override
@@ -43,20 +53,10 @@ class _SignUpState extends ConsumerState<SignUp> {
             const Spacer(
               flex: 3,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                /// EmailField
-                EmailField(
-                  controller: emailController,
-                ),
-                Gap(AppPaddings.mPadding),
-
-                /// PasswordField
-                PasswordField(
-                  controller: passwordController,
-                ),
-              ],
+            AuthForm(
+              formKey: formKey,
+              emailController: emailController,
+              passwordController: passwordController,
             ),
 
             MaxGap(AppPaddings.mPadding),
@@ -65,7 +65,7 @@ class _SignUpState extends ConsumerState<SignUp> {
 
             /// Sign In Button
             ResponsiveElevatedButton(
-              onPressed: () {},
+              onPressed: onTapSignUp,
               child: Text(createYourAccount),
             ),
             MaxGap(AppPaddings.sPadding),

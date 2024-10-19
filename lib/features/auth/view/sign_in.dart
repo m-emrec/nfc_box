@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:nfc_box/config/routes/router.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/buttons/inline_text_button.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
-import 'widgets/email_field.dart';
+import '../../../logger.dart';
+import 'widgets/auth_form.dart';
 import 'widgets/google_sign_in_button.dart';
 import 'widgets/or_divider.dart';
-import 'widgets/password_field.dart';
 
 class SignIn extends ConsumerStatefulWidget {
   const SignIn({super.key});
@@ -24,6 +24,15 @@ class SignIn extends ConsumerStatefulWidget {
 class _SignInState extends ConsumerState<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey();
+
+  void onTapSignIn() {
+    if (formKey.currentState?.validate() ?? false) {
+      logger.d("Valid");
+    } else {
+      logger.d("Not Valid");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,37 +50,17 @@ class _SignInState extends ConsumerState<SignIn> {
             const Spacer(
               flex: 3,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                /// EmailField
-                EmailField(
-                  controller: emailController,
-                ),
-                Gap(AppPaddings.mPadding),
-
-                /// PasswordField
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    PasswordField(
-                      controller: passwordController,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forgot Password",
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            AuthForm(
+              formKey: formKey,
+              emailController: emailController,
+              passwordController: passwordController,
+              showForgotPassword: true,
             ),
             MaxGap(AppPaddings.lPadding),
 
             /// Sign In Button
             ResponsiveElevatedButton(
-              onPressed: () {},
+              onPressed: onTapSignIn,
               child: const Text("Sign In"),
             ),
             MaxGap(AppPaddings.sPadding),
