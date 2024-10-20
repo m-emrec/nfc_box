@@ -1,9 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
 import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
+import 'package:nfc_box/features/auth/model/credentials.dart';
+import 'package:nfc_box/features/auth/providers/provider.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -27,12 +32,18 @@ class _SignUpState extends ConsumerState<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
-
+  bool _isAccepted = false;
   void onTapSignUp() {
     if (formKey.currentState?.validate() ?? false) {
-      logger.d("Valid");
-    } else {
-      logger.d("Not Valid");
+      if (_isAccepted) {
+        ref.read(authServiceViewModelProvider.notifier).signUpWithEmail(
+              Credentials(
+                  email: emailController.text,
+                  password: passwordController.text),
+            );
+      } else {
+        Toast.errToast(title: "Please accept Terms & Conditions");
+      }
     }
   }
 
@@ -60,7 +71,14 @@ class _SignUpState extends ConsumerState<SignUp> {
             ),
 
             MaxGap(AppPaddings.mPadding),
-            const _TermsAndConditions(),
+            _TermsAndConditions(
+              isAccepted: _isAccepted,
+              onAcceptedChanged: (value) {
+                setState(() {
+                  _isAccepted = value;
+                });
+              },
+            ),
             MaxGap(AppPaddings.lPadding),
 
             /// Sign In Button
@@ -84,7 +102,13 @@ class _SignUpState extends ConsumerState<SignUp> {
 }
 
 class _TermsAndConditions extends StatefulWidget {
-  const _TermsAndConditions();
+  final bool isAccepted;
+  final ValueChanged<bool> onAcceptedChanged;
+
+  const _TermsAndConditions({
+    required this.isAccepted,
+    required this.onAcceptedChanged,
+  });
 
   @override
   State<_TermsAndConditions> createState() => _TermsAndConditionsState();
@@ -94,94 +118,21 @@ class _TermsAndConditionsState extends State<_TermsAndConditions> {
   static const String _iAcceptThe = 'I accept the';
   static const String _termsConditions = 'Terms & Conditions';
 
-  bool _isAccepted = false;
-
   void showTermsAndConditions(BuildContext context) {
-    showModalBottomSheet(
+    showBottomSheet(
       context: context,
-      isScrollControlled: true,
-      constraints: BoxConstraints(maxHeight: context.screenSize.height * .9),
-      enableDrag: true,
-      backgroundColor: context.theme.scaffoldBackgroundColor,
-      elevation: 5,
-      showDragHandle: true,
       builder: (context) => _bottomSheet(),
     );
   }
 
-  SingleChildScrollView _bottomSheet() {
-    return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      child: Column(
-        children: [
-          Markdown(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: AppPaddings.authHPadding +
-                  EdgeInsets.only(bottom: AppPaddings.lPadding),
-              data: """
-# NFCBox Terms and Conditions
-
-**Last Updated:** [Date]
-
-Welcome to NFCBox. By downloading, installing, or using the NFCBox mobile application ("App"), you agree to be bound by the following terms and conditions ("Terms"). Please read these Terms carefully before using our services.
-
-## 1. Acceptance of Terms
-
-By accessing or using the NFCBox App, you agree to comply with and be bound by these Terms and all applicable laws and regulations. If you do not agree with any part of these Terms, you must not use the App.
-
-## 2. Use of the App
-
-NFCBox is designed to help users manage NFC chips and their associated data. You are responsible for ensuring that your use of the App is in compliance with all applicable laws and regulations.
-
-## 3. Account Registration
-
-To use some features of NFCBox, you may be required to create an account. You agree to provide accurate and complete information when registering for an account and to keep this information up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.
-
-## 4. NFC Chip Functionality
-
-NFCBox allows users to interact with NFC chips for various purposes. You acknowledge that NFCBox is not responsible for the content or security of any data stored on the NFC chips, and you are solely responsible for ensuring that your use of the chips complies with any applicable laws and security requirements.
-
-## 5. Security and Privacy
-
-NFCBox takes security seriously. However, we cannot guarantee that your data is completely secure from unauthorized access. You are responsible for maintaining the security of your devices and NFC chips. NFCBox will not be liable for any loss or damage arising from unauthorized access to your account or data.
-
-For more information on how we handle your personal data, please refer to our **Privacy Policy**.
-
-## 6. Prohibited Activities
-
-You agree not to use NFCBox for any illegal or unauthorized purpose, including but not limited to:
-- Tampering with NFC chips you do not own.
-- Using NFCBox in a manner that may damage, disable, or impair the App or its services.
-- Violating any laws or regulations applicable in your jurisdiction.
-
-## 7. Intellectual Property
-
-All content, features, and functionality (including but not limited to text, graphics, logos, icons, and software) of the NFCBox App are owned by or licensed to NFCBox and are protected by intellectual property laws. You agree not to reproduce, distribute, or otherwise exploit any part of the App without prior written consent from NFCBox.
-
-## 8. Limitation of Liability
-
-NFCBox is provided on an "as is" and "as available" basis. We make no warranties or guarantees regarding the availability, accuracy, or reliability of the App. NFCBox shall not be liable for any indirect, incidental, or consequential damages arising from your use or inability to use the App.
-
-## 9. Changes to Terms
-
-NFCBox reserves the right to modify these Terms at any time. Any changes will be posted within the App, and your continued use of the App after such modifications constitutes your acceptance of the revised Terms.
-
-## 10. Termination
-
-We reserve the right to terminate or suspend your account at any time, with or without notice, for violating these Terms or for any other reason at our discretion.
-
-## 11. Governing Law
-
-These Terms shall be governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law principles.
-
-## 12. Contact Information
-
-If you have any questions or concerns about these Terms, please contact us at:
-
-**Email:** [Your Contact Email]
-""")
-        ],
+  _bottomSheet() {
+    return const CustomBottomSheet(
+      content: Markdown(
+        physics: ClampingScrollPhysics(),
+        shrinkWrap: true,
+        selectable: true,
+        data:
+            "# NFCBox Terms and Conditions\n\n**Last Updated:** [Date]\n\nWelcome to NFCBox. By downloading, installing, or using the NFCBox mobile application (\"App\"), you agree to be bound by the following terms and conditions (\"Terms\"). Please read these Terms carefully before using our services.\n\n## 1. Acceptance of Terms\n\nBy accessing or using the NFCBox App, you agree to comply with and be bound by these Terms and all applicable laws and regulations. If you do not agree with any part of these Terms, you must not use the App.\n\n## 2. Use of the App\n\nNFCBox is designed to help users manage NFC chips and their associated data. You are responsible for ensuring that your use of the App is in compliance with all applicable laws and regulations.\n\n## 3. Account Registration\n\nTo use some features of NFCBox, you may be required to create an account. You agree to provide accurate and complete information when registering for an account and to keep this information up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.\n\n## 4. NFC Chip Functionality\n\nNFCBox allows users to interact with NFC chips for various purposes. You acknowledge that NFCBox is not responsible for the content or security of any data stored on the NFC chips, and you are solely responsible for ensuring that your use of the chips complies with any applicable laws and security requirements.\n\n## 5. Security and Privacy\n\nNFCBox takes security seriously. However, we cannot guarantee that your data is completely secure from unauthorized access. You are responsible for maintaining the security of your devices and NFC chips. NFCBox will not be liable for any loss or damage arising from unauthorized access to your account or data.\n\nFor more information on how we handle your personal data, please refer to our **Privacy Policy**.\n\n## 6. Prohibited Activities\n\nYou agree not to use NFCBox for any illegal or unauthorized purpose, including but not limited to:\n- Tampering with NFC chips you do not own.\n- Using NFCBox in a manner that may damage, disable, or impair the App or its services.\n- Violating any laws or regulations applicable in your jurisdiction.\n\n## 7. Intellectual Property\n\nAll content, features, and functionality (including but not limited to text, graphics, logos, icons, and software) of the NFCBox App are owned by or licensed to NFCBox and are protected by intellectual property laws. You agree not to reproduce, distribute, or otherwise exploit any part of the App without prior written consent from NFCBox.\n\n## 8. Limitation of Liability\n\nNFCBox is provided on an \"as is\" and \"as available\" basis. We make no warranties or guarantees regarding the availability, accuracy, or reliability of the App. NFCBox shall not be liable for any indirect, incidental, or consequential damages arising from your use or inability to use the App.\n\n## 9. Changes to Terms\n\nNFCBox reserves the right to modify these Terms at any time. Any changes will be posted within the App, and your continued use of the App after such modifications constitutes your acceptance of the revised Terms.\n\n## 10. Termination\n\nWe reserve the right to terminate or suspend your account at any time, with or without notice, for violating these Terms or for any other reason at our discretion.\n\n## 11. Governing Law\n\nThese Terms shall be governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law principles.\n\n## 12. Contact Information\n\nIf you have any questions or concerns about these Terms, please contact us at:\n\n**Email:** [Your Contact Email]\n",
       ),
     );
   }
@@ -207,10 +158,8 @@ If you have any questions or concerns about these Terms, please contact us at:
           ),
         ),
         Checkbox(
-          value: _isAccepted,
-          onChanged: (val) => setState(() {
-            _isAccepted = val ?? false;
-          }),
+          value: widget.isAccepted,
+          onChanged: (val) => widget.onAcceptedChanged(val ?? false),
         ),
       ],
     );

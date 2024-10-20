@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/core/extensions/context_extension.dart';
-import 'package:nfc_box/features/auth/view/widgets/forgot_password_sheet.dart';
 
 import '../../../../core/constants/app_paddings.dart';
-import '../../../../core/constants/colors.dart';
 import 'email_field.dart';
+import 'forgot_password_sheet.dart';
 import 'password_field.dart';
 
 class AuthForm extends StatelessWidget {

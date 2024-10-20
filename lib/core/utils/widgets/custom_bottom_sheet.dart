@@ -27,12 +27,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
   late AnimationController _animationController;
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Durations.medium2);
-    _animationController.forward();
-    _animationController.addListener(() => setState(() {
-          // logger.i(context.mediaQuery.viewInsets);
-        }));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Durations.medium2,
+    );
+    _animationController.forward(from: 0.1);
+    _animationController.addListener(() => setState(() {}));
     super.initState();
   }
 
@@ -46,6 +46,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
   double get _keyboardSize => context.mediaQuery.viewInsets.bottom;
 
   double get _maxHeight =>
+      context.screenSize.height *
+          widget.heightFactor *
+          _animationController.value +
+      _keyboardSize;
+
+  double get _minHeight =>
       context.screenSize.height *
           widget.heightFactor *
           _animationController.value +
@@ -66,17 +72,21 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
       enableDrag: true,
       animationController: _animationController,
       constraints: BoxConstraints(
+        minHeight: _minHeight,
         maxHeight: _maxHeight,
         minWidth: context.screenSize.width,
+        maxWidth: context.screenSize.width,
       ),
       builder: (context) {
         return Column(
           children: [
-            Text(
-              widget.title ?? "",
-              style: context.textTheme.titleMedium,
-            ),
-            Expanded(
+            widget.title == null
+                ? const SizedBox()
+                : Text(
+                    widget.title ?? "",
+                    style: context.textTheme.titleMedium,
+                  ),
+            Flexible(
               child: widget.content ?? const SizedBox(),
             ),
           ],
