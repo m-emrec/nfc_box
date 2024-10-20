@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:nfc_box/core/resources/data_state.dart';
-import 'package:nfc_box/core/resources/error_manager.dart';
-import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
-import 'package:nfc_box/features/auth/model/credentials.dart';
-import 'package:nfc_box/features/auth/service/auth_service.dart';
+import '../../../core/resources/data_state.dart';
+import '../../../core/resources/error_manager.dart';
+import '../../../core/utils/widgets/custom_toast.dart';
+import '../model/credentials.dart';
+import '../service/auth_service.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final AuthService _authService;
@@ -15,26 +15,22 @@ class AuthViewModel extends ChangeNotifier {
     await _handleDataState(
         () => _authService.signInWithEmail(credentials: credentials),
         msg: "Successfully Signed In");
-    notifyListeners();
   }
 
   Future<void> signUpWithEmail(Credentials credentials) async {
     await _handleDataState(
         () => _authService.signUpWithEmail(credentials: credentials),
         msg: "Welcome to Nfc Box");
-    notifyListeners();
   }
 
   Future<void> googleSignIn() async {
     await _handleDataState(() => _authService.signInWithGoogle(),
         msg: "Successfully Signed In");
-    notifyListeners();
   }
 
   Future<void> forgotPassword(Credentials credentials) async {
     await _handleDataState(
         () => _authService.forgotPassword(credentials: credentials));
-    notifyListeners();
   }
 
   _handleDataState(Function func, {String? msg}) async {

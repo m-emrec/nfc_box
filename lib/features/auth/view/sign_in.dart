@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:nfc_box/config/routes/router.dart';
+import 'package:nfc_box/features/auth/mixins/sign_in_mixin.dart';
 import 'package:nfc_box/features/auth/model/credentials.dart';
 import 'package:nfc_box/features/auth/providers/provider.dart';
 
@@ -25,20 +26,7 @@ class SignIn extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SignInState();
 }
 
-class _SignInState extends ConsumerState<SignIn> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey();
-
-  void onTapSignIn() {
-    if (formKey.currentState?.validate() ?? false) {
-      ref.read(authServiceViewModelProvider.notifier).signInWithEmail(
-            Credentials(
-                email: emailController.text, password: passwordController.text),
-          );
-    }
-  }
-
+class _SignInState extends ConsumerState<SignIn> with SignInMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

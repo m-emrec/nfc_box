@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
 import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
+import 'package:nfc_box/features/auth/mixins/sign_up_mixin.dart';
 import 'package:nfc_box/features/auth/model/credentials.dart';
 import 'package:nfc_box/features/auth/providers/provider.dart';
 
@@ -28,26 +29,7 @@ class SignUp extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SignUpState();
 }
 
-class _SignUpState extends ConsumerState<SignUp> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey();
-  bool _isAccepted = false;
-  void onTapSignUp() {
-    if (formKey.currentState?.validate() ?? false) {
-      if (_isAccepted) {
-        ref.read(authServiceViewModelProvider.notifier).signUpWithEmail(
-              Credentials(
-                  email: emailController.text,
-                  password: passwordController.text),
-            );
-      } else {
-        Toast.errToast(title: "Please accept Terms & Conditions");
-      }
-    }
-  }
-
-  final String createYourAccount = 'Create Your Account';
+class _SignUpState extends ConsumerState<SignUp> with SignUpMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,10 +54,10 @@ class _SignUpState extends ConsumerState<SignUp> {
 
             MaxGap(AppPaddings.mPadding),
             _TermsAndConditions(
-              isAccepted: _isAccepted,
+              isAccepted: isAccepted,
               onAcceptedChanged: (value) {
                 setState(() {
-                  _isAccepted = value;
+                  isAccepted = value;
                 });
               },
             ),
