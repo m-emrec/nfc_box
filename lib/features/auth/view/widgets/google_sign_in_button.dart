@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nfc_box/features/auth/providers/provider.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/context_extension.dart';
 import '../../../../core/utils/widgets/buttons/responsive_button.dart';
 
-class GoogleSignInButton extends StatelessWidget {
+class GoogleSignInButton extends ConsumerWidget {
   const GoogleSignInButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Row(
       children: [
         ResponsiveOutlinedButton(
@@ -19,6 +21,8 @@ class GoogleSignInButton extends StatelessWidget {
             AppAssets.googleAni,
             repeat: false,
           ),
+          onPressed: () =>
+              ref.read(authServiceViewModelProvider).googleSignIn(),
         ),
       ],
     );
