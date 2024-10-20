@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/logger.dart';
+import 'package:nfc_box/features/auth/service/auth_service.dart';
 
 import '../../features/auth/view/sign_in.dart';
 import '../../features/auth/view/sign_up.dart';
 import '../../playground.dart';
+import 'auth_checker.dart';
 
 enum Routes {
   signIn,
@@ -20,13 +22,32 @@ enum Routes {
 }
 
 class AppRouter {
+  AppRouter() {
+    AuthService().authStateChanges.listen((user) {
+      _authChangeNotifier.notify();
+    });
+  }
   GoRouter get router => _router;
-// GoRouter configuration
+  static final AuthChangeNotifier _authChangeNotifier = AuthChangeNotifier();
+
   final _router = GoRouter(
-    initialLocation: Routes.signIn.path,
+    refreshListenable: _authChangeNotifier,
+    initialLocation: "/",
+    redirect: (context, state) {
+      final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+      final loggingIn = state.uri.toString() == Routes.signIn.path;
+
+      // If the user is not logged in, redirect to the login page
+      if (!isLoggedIn && !loggingIn) return Routes.signIn.path;
+
+      // If the user is logged in and tries to access login, redirect to home
+      if (isLoggedIn && loggingIn) return '/';
+
+      // No redirection needed
+      return null;
+    },
     routes: [
       /// Home Page
-      /// TODO: Change this when you built Home
       GoRoute(
         path: '/',
         builder: (context, state) => const PlayGround(),
@@ -38,19 +59,6 @@ class AppRouter {
         name: Routes.signUp.name,
         path: Routes.signUp.path,
         builder: (context, state) => const SignUp(),
-        // pageBuilder: (context, state) => CustomTransitionPage(
-        //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        //     Animation<Offset> a =
-        //         Tween<Offset>(end: Offset(0, 0), begin: Offset(1000, 400))
-        //             .animate(animation);
-
-        //     return SizeTransition(
-        //       sizeFactor: animation,
-        //       child: child,
-        //     );
-        //   },
-        //   child: const SignUp(),
-        // ),
       ),
 
       /// [SignIn] page
@@ -58,16 +66,6 @@ class AppRouter {
         name: Routes.signIn.name,
         path: Routes.signIn.path,
         builder: (context, state) => const SignIn(),
-        // pageBuilder: (context, state) => CustomTransitionPage(
-        //   key: state.pageKey,
-        //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        //     return FadeTransition(
-        //       opacity: animation,
-        //       child: child,
-        //     );
-        //   },
-        //   child: const SignIn(),
-        // ),
       ),
     ],
   );

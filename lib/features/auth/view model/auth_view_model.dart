@@ -15,22 +15,26 @@ class AuthViewModel extends ChangeNotifier {
     await _handleDataState(
         () => _authService.signInWithEmail(credentials: credentials),
         msg: "Successfully Signed In");
+    notifyListeners();
   }
 
   Future<void> signUpWithEmail(Credentials credentials) async {
     await _handleDataState(
         () => _authService.signUpWithEmail(credentials: credentials),
         msg: "Welcome to Nfc Box");
+    notifyListeners();
   }
 
   Future<void> googleSignIn() async {
     await _handleDataState(() => _authService.signInWithGoogle(),
         msg: "Successfully Signed In");
+    notifyListeners();
   }
 
   Future<void> forgotPassword(Credentials credentials) async {
     await _handleDataState(
         () => _authService.forgotPassword(credentials: credentials));
+    notifyListeners();
   }
 
   _handleDataState(Function func, {String? msg}) async {

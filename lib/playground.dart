@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_box/core/utils/widgets/buttons/inline_text_button.dart';
@@ -54,7 +56,7 @@ class _PlayGroundState extends State<PlayGround> {
             ResponsiveElevatedButton(
               isPrimary: false,
               onPressed: () {
-                a.currentState!.validate();
+                FirebaseAuth.instance.signOut();
               },
               child: Text("LAbel"),
             ),
