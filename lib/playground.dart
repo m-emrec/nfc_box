@@ -50,12 +50,12 @@ class _PlayGroundState extends State<PlayGround> {
               ),
             ),
             ResponsiveElevatedButton(
-              onPressed: () {},
+              onPressed: () async {},
               child: const Text("LAbel"),
             ),
             ResponsiveElevatedButton(
               isPrimary: false,
-              onPressed: () {
+              onPressed: () async {
                 FirebaseAuth.instance.signOut();
               },
               child: Text("LAbel"),
@@ -63,7 +63,7 @@ class _PlayGroundState extends State<PlayGround> {
             Row(
               children: [
                 ResponsiveOutlinedButton(
-                  onPressed: () {},
+                  onPressed: () async {},
                   child: const Text("data"),
                 ),
               ],

@@ -49,6 +49,7 @@ class AuthService extends FirebaseUtils {
       );
       return DataSuccess(null);
     } catch (e) {
+      logger.e(e);
       return DataFailed(e);
     }
   }

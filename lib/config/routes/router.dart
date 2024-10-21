@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/logger.dart';
 import '../../features/auth/service/auth_service.dart';
 
 import '../../features/auth/view/sign_in.dart';
@@ -58,15 +59,15 @@ class AppRouter {
     ],
   );
 
-  static FutureOr<String?> _authChecker(context, state) {
+  static FutureOr<String?> _authChecker(context, GoRouterState state) {
     final isLoggedIn = FirebaseAuth.instance.currentUser != null;
-    final loggingIn = state.uri.toString() == Routes.signIn.path;
+    final currentPath = state.fullPath;
 
     // If the user is not logged in, redirect to the login page
-    if (!isLoggedIn && !loggingIn) return Routes.signIn.path;
+    if (!isLoggedIn && currentPath == "/") return Routes.signIn.path;
 
     // If the user is logged in and tries to access login, redirect to home
-    if (isLoggedIn && loggingIn) return '/';
+    if (isLoggedIn) return '/';
 
     // No redirection needed
     return null;

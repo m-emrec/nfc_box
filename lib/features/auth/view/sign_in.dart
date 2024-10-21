@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -7,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:nfc_box/config/routes/router.dart';
 import 'package:nfc_box/features/auth/mixins/sign_in_mixin.dart';
-import 'package:nfc_box/features/auth/model/credentials.dart';
 import 'package:nfc_box/features/auth/providers/provider.dart';
 
 import '../../../core/constants/app_assets.dart';

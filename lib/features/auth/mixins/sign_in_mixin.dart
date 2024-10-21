@@ -10,9 +10,9 @@ mixin SignInMixin on ConsumerState<SignIn> {
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
 
-  void onTapSignIn() {
+  Future<void> onTapSignIn() async {
     if (formKey.currentState?.validate() ?? false) {
-      ref.read(authServiceViewModelProvider.notifier).signInWithEmail(
+      await ref.read(authServiceViewModelProvider.notifier).signInWithEmail(
             Credentials(
                 email: emailController.text, password: passwordController.text),
           );

@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:nfc_box/logger.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
@@ -10,7 +12,7 @@ class AuthViewModel extends ChangeNotifier {
 
   AuthViewModel({required AuthService authService})
       : _authService = authService;
-
+  bool? isLoading;
   Future<void> signInWithEmail(Credentials credentials) async {
     await _handleDataState(
         () => _authService.signInWithEmail(credentials: credentials),
@@ -30,18 +32,20 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> forgotPassword(Credentials credentials) async {
     await _handleDataState(
-        () => _authService.forgotPassword(credentials: credentials));
+        () => _authService.forgotPassword(credentials: credentials),
+        msg: "Password reset email sent.\nPlease check your email address");
   }
 
   _handleDataState(Function func, {String? msg}) async {
-    final DataState _dataState = await func();
+    final DataState dataState = await func();
 
-    if (_dataState is DataSuccess && msg != null) {
+    if (dataState is DataSuccess && msg != null) {
       Toast.succToast(title: msg);
-    } else {
+    }
+    if (dataState is DataFailed) {
       Toast.errToast(
         title: AppErrorText.errorMessageConverter(
-          _dataState.exception.toString(),
+          dataState.exception.toString(),
         ),
       );
     }

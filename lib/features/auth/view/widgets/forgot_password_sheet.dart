@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nfc_box/features/auth/model/credentials.dart';
+import 'package:nfc_box/features/auth/providers/provider.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/utils/widgets/buttons/responsive_button.dart';
@@ -24,13 +28,26 @@ class ForgotPasswordSheet extends StatelessWidget {
               controller: _controller,
               textInputAction: TextInputAction.done,
             ),
-            ResponsiveElevatedButton(
-              onPressed: () {},
-              child: Text(sendEmail),
+            Consumer(
+              builder: (context, ref, child) => ResponsiveElevatedButton(
+                onPressed: () => onTap(context, ref),
+                child: Text(sendEmail),
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  onTap(BuildContext context, WidgetRef ref) async {
+    await ref
+        .read(authServiceViewModelProvider)
+        .forgotPassword(
+          Credentials(email: _controller.text, password: ""),
+        )
+        .whenComplete(() {
+      if (context.mounted) context.pop();
+    });
   }
 }

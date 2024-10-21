@@ -11,23 +11,28 @@ class AppTheme {
   ThemeData get theme => _theme;
 
   final ThemeData _theme = ThemeData(
-    brightness: Brightness.light,
-    useMaterial3: true,
+      brightness: Brightness.light,
+      useMaterial3: true,
 
-    /// colors
-    scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
-    primaryColor: AppColors.primaryBlue[50],
-    textTheme: TextStyles().textTheme,
+      /// colors
+      scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
+      primaryColor: AppColors.primaryBlue[50],
+      textTheme: TextStyles().textTheme,
 
-    /// Widget Themes
-    appBarTheme: _appBarTheme(),
-    elevatedButtonTheme: _elevatedButtonTheme(),
-    outlinedButtonTheme: _outlinedButtonTheme(),
-    textButtonTheme: _textButtonTheme(),
-    inputDecorationTheme: _inputDecoration(),
-    extensions: _extensions,
-    checkboxTheme: _checkboxTheme(),
-  );
+      /// Widget Themes
+      appBarTheme: _appBarTheme(),
+      elevatedButtonTheme: _elevatedButtonTheme(),
+      outlinedButtonTheme: _outlinedButtonTheme(),
+      textButtonTheme: _textButtonTheme(),
+      inputDecorationTheme: _inputDecoration(),
+      extensions: _extensions,
+      checkboxTheme: _checkboxTheme(),
+      progressIndicatorTheme: _progressIndicatorTheme());
+
+  static ProgressIndicatorThemeData _progressIndicatorTheme() =>
+      ProgressIndicatorThemeData(
+        color: AppColors.secondaryTeal[30],
+      );
 
   static CheckboxThemeData _checkboxTheme() => CheckboxThemeData(
         fillColor: WidgetStateProperty.resolveWith<Color>(
@@ -136,6 +141,7 @@ class AppTheme {
           horizontal: AppPaddings.mPadding,
           vertical: AppPaddings.sPadding,
         ),
+        maximumSize: const Size.fromHeight(52),
         shape: RoundedRectangleBorder(
           borderRadius: AppBorderRadius.smallBorderRadius,
         ),
