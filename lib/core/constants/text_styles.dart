@@ -49,6 +49,12 @@ class TextStyles {
       );
 
   final TextTheme textTheme = TextTheme(
+    titleLarge: _font(
+      foreground: Paint()..color = AppColors.primaryTextColor,
+    ),
+    titleMedium: _font(),
+    titleSmall: _font(),
+
     /// Body
     bodyLarge: _font(
       color: AppColors.primaryTextColor,

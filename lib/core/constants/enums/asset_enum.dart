@@ -3,7 +3,7 @@ part of '../app_assets.dart';
 /// This enum contains path's of every image used in this project.
 enum _ImagePaths {
   logo("${_rootImagePath}logo.png"),
-  mainPageIllustration("${_rootImagePath}mainPagİll.png"),
+  mainPageIllustration("${_rootImagePath}mainPageİll.png"),
   ;
 
   static const String _rootImagePath = "lib/core/assets/images/";

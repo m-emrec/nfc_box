@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/features/home/view/home.dart';
+import 'package:nfc_box/features/items/view/item_list.dart';
+import 'package:nfc_box/logger.dart';
 import '../../features/auth/service/auth_service.dart';
 
 import '../../features/auth/view/sign_in.dart';
@@ -12,7 +15,7 @@ import 'auth_checker.dart';
 enum Routes {
   signIn,
   signUp,
-  ;
+  itemList;
 
   String get path => "/$name";
   final String? data;
@@ -39,15 +42,11 @@ class AppRouter {
       /// Home Page
       GoRoute(
         path: '/',
-        builder: (context, state) => const PlayGround(),
+        builder: (context, state) => const Home(),
         routes: [
           GoRoute(
-            path: "a",
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(
-                title: Text("data"),
-              ),
-            ),
+            path: Routes.itemList.path,
+            builder: (context, state) => const ItemList(),
           ),
         ],
       ),
@@ -78,6 +77,7 @@ class AppRouter {
     final isLoggedIn = FirebaseAuth.instance.currentUser != null;
     final currentPath = state.fullPath;
 
+    logger.i(state.uri);
     // If the user is not logged in and current path is not [Routes.signUp] redirect to the login page
     if (!isLoggedIn && currentPath != Routes.signUp.path) {
       return Routes.signIn.path;
