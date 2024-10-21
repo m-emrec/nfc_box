@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/core/constants/app_paddings.dart';
+import '../../../../core/constants/app_paddings.dart';
 
 import '../../../../core/constants/colors.dart';
 
@@ -12,61 +12,51 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String or = 'or';
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Flexible(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: ShaderMask(
-              blendMode: BlendMode.srcATop,
-              shaderCallback: (bounds) {
-                return LinearGradient(
-                  colors: [
-                    AppColors.accentOrange[0]!,
-                    AppColors.accentOrange[60]!,
-                  ],
-                ).createShader(bounds);
-              },
-              child: Container(
-                height: 2,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              ),
-            ),
-          ),
+        _divider(
+          Alignment.centerRight,
+          Alignment.centerLeft,
         ),
         Gap(AppPaddings.xxsPadding),
-        const Text("or"),
+        const Text(or),
         Gap(AppPaddings.xxsPadding),
-        Flexible(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: ShaderMask(
-              blendMode: BlendMode.srcATop,
-              shaderCallback: (bounds) {
-                return LinearGradient(
-                  colors: [
-                    AppColors.accentOrange[60]!,
-                    AppColors.accentOrange[0]!,
-                  ],
-                ).createShader(bounds);
-              },
-              child: Container(
-                height: 2,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              ),
-            ),
-          ),
-        ),
+        _divider(Alignment.centerLeft, Alignment.centerRight),
       ],
+    );
+  }
+
+  Flexible _divider(
+    AlignmentGeometry begin,
+    AlignmentGeometry end,
+  ) {
+    return Flexible(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: ShaderMask(
+          blendMode: BlendMode.srcATop,
+          shaderCallback: (bounds) {
+            return LinearGradient(
+              colors: [
+                AppColors.accentOrange[60]!,
+                AppColors.accentOrange[0]!,
+              ],
+              begin: begin,
+              end: end,
+            ).createShader(bounds);
+          },
+          child: Container(
+            height: 2,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(999),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

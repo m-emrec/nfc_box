@@ -3,15 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:nfc_box/config/routes/router.dart';
-import 'package:nfc_box/features/auth/mixins/sign_in_mixin.dart';
-import 'package:nfc_box/features/auth/providers/provider.dart';
-
+import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/buttons/inline_text_button.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
-import '../../../logger.dart';
+import '../mixins/sign_in_mixin.dart';
 import 'widgets/auth_form.dart';
 import 'widgets/google_sign_in_button.dart';
 import 'widgets/or_divider.dart';
@@ -24,6 +21,7 @@ class SignIn extends ConsumerStatefulWidget {
 }
 
 class _SignInState extends ConsumerState<SignIn> with SignInMixin {
+  static const String signIn = 'Sign In';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +49,7 @@ class _SignInState extends ConsumerState<SignIn> with SignInMixin {
             /// Sign In Button
             ResponsiveElevatedButton(
               onPressed: onTapSignIn,
-              child: const Text("Sign In"),
+              child: const Text(signIn),
             ),
             MaxGap(AppPaddings.sPadding),
 

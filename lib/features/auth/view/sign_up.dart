@@ -1,15 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
-import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
-import 'package:nfc_box/features/auth/mixins/sign_up_mixin.dart';
-import 'package:nfc_box/features/auth/model/credentials.dart';
-import 'package:nfc_box/features/auth/providers/provider.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -17,7 +10,8 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/widgets/buttons/inline_text_button.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
-import '../../../logger.dart';
+import '../../../core/utils/widgets/custom_bottom_sheet.dart';
+import '../mixins/sign_up_mixin.dart';
 import 'widgets/auth_form.dart';
 import 'widgets/google_sign_in_button.dart';
 import 'widgets/or_divider.dart';

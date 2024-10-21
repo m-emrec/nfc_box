@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/logger.dart';
 import '../../features/auth/service/auth_service.dart';
 
 import '../../features/auth/view/sign_in.dart';
@@ -40,7 +40,16 @@ class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) => const PlayGround(),
-        routes: const [],
+        routes: [
+          GoRoute(
+            path: "a",
+            builder: (context, state) => Scaffold(
+              appBar: AppBar(
+                title: Text("data"),
+              ),
+            ),
+          ),
+        ],
       ),
 
       /// [SignUp] page
@@ -59,12 +68,20 @@ class AppRouter {
     ],
   );
 
+  /// This function checks if the user is authenticated or not.
+  ///
+  /// If user is trying to reach home page but he is not authenticated ,
+  /// he will be redirected to [SignIn]
+  ///
+  ///
   static FutureOr<String?> _authChecker(context, GoRouterState state) {
     final isLoggedIn = FirebaseAuth.instance.currentUser != null;
     final currentPath = state.fullPath;
 
-    // If the user is not logged in, redirect to the login page
-    if (!isLoggedIn && currentPath == "/") return Routes.signIn.path;
+    // If the user is not logged in and current path is not [Routes.signUp] redirect to the login page
+    if (!isLoggedIn && currentPath != Routes.signUp.path) {
+      return Routes.signIn.path;
+    }
 
     // If the user is logged in and tries to access login, redirect to home
     if (isLoggedIn) return '/';

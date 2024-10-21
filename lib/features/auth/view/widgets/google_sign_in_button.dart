@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nfc_box/features/auth/providers/provider.dart';
+
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/context_extension.dart';
 import '../../../../core/utils/widgets/buttons/responsive_button.dart';
+import '../../providers/provider.dart';
 
 class GoogleSignInButton extends ConsumerWidget {
   const GoogleSignInButton({super.key});

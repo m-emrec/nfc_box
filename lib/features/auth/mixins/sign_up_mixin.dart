@@ -11,6 +11,7 @@ mixin SignUpMixin on ConsumerState<SignUp> {
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
   bool isAccepted = false;
+
   Future<void> onTapSignUp() async {
     if (formKey.currentState?.validate() ?? false) {
       if (isAccepted) {
@@ -20,10 +21,11 @@ mixin SignUpMixin on ConsumerState<SignUp> {
                   password: passwordController.text),
             );
       } else {
-        Toast.errToast(title: "Please accept Terms & Conditions");
+        Toast.errToast(title: pleaseAcceptTermsConditions);
       }
     }
   }
 
+  final String pleaseAcceptTermsConditions = 'Please accept Terms & Conditions';
   final String createYourAccount = 'Create Your Account';
 }

@@ -5,9 +5,6 @@ class AppColors {
 
   /// Widget Colors
 
-  // Accent Colors
-  static Color accent = const HSLColor.fromAHSL(1.0, 0, 0, 0.851).toColor();
-
   // Text Colors
   static Color secondaryTextColor =
       const HSLColor.fromAHSL(1.0, 0, 0, 0.29).toColor();

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/features/auth/model/credentials.dart';
-import 'package:nfc_box/features/auth/providers/provider.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/utils/widgets/buttons/responsive_button.dart';
 import '../../../../core/utils/widgets/custom_bottom_sheet.dart';
+import '../../model/credentials.dart';
+import '../../providers/provider.dart';
 import 'email_field.dart';
 
 class ForgotPasswordSheet extends StatelessWidget {
   ForgotPasswordSheet({super.key});
   final TextEditingController _controller = TextEditingController();
+  final String forgotPassword = 'Forgot Password';
+  final String sendEmail = 'Send Email';
   @override
   Widget build(BuildContext context) {
-    var forgotPassword = 'Forgot Password';
-    var sendEmail = 'Send Email';
     return CustomBottomSheet(
       heightFactor: .3,
       title: forgotPassword,

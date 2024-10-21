@@ -38,12 +38,11 @@ class _PasswordFieldState extends State<PasswordField>
 
   @override
   void dispose() {
-    // widget.controller.dispose();
-    // _focusNode.removeListener(() {});
     disposeTextFieldState();
     super.dispose();
   }
 
+  final String label = 'Password';
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
@@ -51,7 +50,7 @@ class _PasswordFieldState extends State<PasswordField>
       focusNode: _focusNode,
       obscured: obscured,
       controller: widget.controller,
-      label: "Password",
+      label: label,
       prefixIcon: Image.asset(
         AppAssets.passwordIconPath,
       ),

@@ -40,6 +40,8 @@ class AuthForm extends StatelessWidget {
               PasswordField(
                 controller: passwordController,
               ),
+
+              /// if [showForgotPassword] is true , show ForgotPassword button
               Visibility(
                 visible: showForgotPassword,
                 child: TextButton(

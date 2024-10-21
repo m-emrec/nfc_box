@@ -12,7 +12,7 @@ import '../../constants/colors.dart';
 ///
 /// `Error`state returns [AppColors.accentError]
 ///
-/// To use this mixin, first you have to call [initTextFieldState] inside [initState]
+/// **To use this mixin, first you have to call [initTextFieldState] inside [initState]**
 ///
 /// To `dispose`it you can call [disposeTextFieldState] inside [dispose]
 mixin TextFieldStateMixin {
@@ -52,7 +52,8 @@ mixin TextFieldStateMixin {
     });
   }
 
-  /// This function returns a [Color]
+  /// This function changes the color depending on the TextField State
+  /// and returns the color.
   Color? setColorState() {
     Color? stateColor;
     bool validated = _fieldValidator!(_controller.text) == null;

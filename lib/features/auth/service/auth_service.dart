@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nfc_box/logger.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
 import '../../../core/resources/firebase_utils.dart';
@@ -15,11 +14,11 @@ class AuthService extends FirebaseUtils {
       await auth.createUserWithEmailAndPassword(
           email: credentials.email, password: credentials.password);
       return DataSuccess(null);
+    } on FirebaseAuthException catch (e) {
+      return DataFailed(e.code);
     } catch (e) {
       return DataFailed(
-        AppErrorText.errorMessageConverter(
-          e.toString(),
-        ),
+        e,
       );
     }
   }
@@ -48,8 +47,9 @@ class AuthService extends FirebaseUtils {
         email: credentials.email,
       );
       return DataSuccess(null);
+    } on FirebaseAuthException catch (e) {
+      return DataFailed(e.code);
     } catch (e) {
-      logger.e(e);
       return DataFailed(e);
     }
   }
@@ -62,7 +62,6 @@ class AuthService extends FirebaseUtils {
     } on FirebaseAuthException catch (e) {
       return DataFailed(e);
     } catch (e) {
-      logger.e(e);
       return DataFailed(e);
     }
   }

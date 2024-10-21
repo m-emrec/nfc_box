@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nfc_box/logger.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
@@ -36,7 +35,7 @@ class AuthViewModel extends ChangeNotifier {
         msg: "Password reset email sent.\nPlease check your email address");
   }
 
-  _handleDataState(Function func, {String? msg}) async {
+  Future<void> _handleDataState(Function func, {String? msg}) async {
     final DataState dataState = await func();
 
     if (dataState is DataSuccess && msg != null) {

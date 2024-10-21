@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nfc_box/config/theme/theme_extensions/inline_text_button_theme.dart';
 
 import '../../core/constants/app_paddings.dart';
 import '../../core/constants/border_radiuses.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/text_styles.dart';
+import 'theme_extensions/inline_text_button_theme.dart';
 
 class AppTheme {
   ThemeData get theme => _theme;
