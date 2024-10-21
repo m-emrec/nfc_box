@@ -37,15 +37,17 @@ class AppRouter {
   final _router = GoRouter(
     refreshListenable: _authChangeNotifier,
     initialLocation: "/",
-    redirect: _authChecker,
+    // redirect: _authChecker,
     routes: [
       /// Home Page
       GoRoute(
+        redirect: _authChecker,
         path: '/',
         builder: (context, state) => const Home(),
         routes: [
           GoRoute(
             path: Routes.itemList.path,
+            name: Routes.itemList.name,
             builder: (context, state) => const ItemList(),
           ),
         ],
@@ -53,6 +55,7 @@ class AppRouter {
 
       /// [SignUp] page
       GoRoute(
+        redirect: _authChecker,
         name: Routes.signUp.name,
         path: Routes.signUp.path,
         builder: (context, state) => const SignUp(),
@@ -60,6 +63,7 @@ class AppRouter {
 
       /// [SignIn] page
       GoRoute(
+        redirect: _authChecker,
         name: Routes.signIn.name,
         path: Routes.signIn.path,
         builder: (context, state) => const SignIn(),
@@ -75,16 +79,17 @@ class AppRouter {
   ///
   static FutureOr<String?> _authChecker(context, GoRouterState state) {
     final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    final bool loggingIn = state.matchedLocation == Routes.signIn.path;
+    final bool signingUp = state.matchedLocation == Routes.signUp.path;
     final currentPath = state.fullPath;
 
-    logger.i(state.uri);
     // If the user is not logged in and current path is not [Routes.signUp] redirect to the login page
     if (!isLoggedIn && currentPath != Routes.signUp.path) {
       return Routes.signIn.path;
     }
 
     // If the user is logged in and tries to access login, redirect to home
-    if (isLoggedIn) return '/';
+    if (loggingIn || signingUp && isLoggedIn) return '/';
 
     // No redirection needed
     return null;

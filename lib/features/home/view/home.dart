@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -35,7 +36,9 @@ class Home extends StatelessWidget {
                 height: context.screenSize.height * .6,
               ),
               ResponsiveElevatedButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  FirebaseAuth.instance.signOut();
+                },
                 child: Text(
                   readNFC,
                 ),
@@ -45,7 +48,7 @@ class Home extends StatelessWidget {
                 children: [
                   ResponsiveOutlinedButton(
                     onPressed: () async {
-                      context.go(Routes.itemList.path);
+                      context.goNamed(Routes.itemList.name);
                     },
                     child: Text(
                       seeItems,
