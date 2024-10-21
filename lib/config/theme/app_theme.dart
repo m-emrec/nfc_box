@@ -27,7 +27,15 @@ class AppTheme {
       inputDecorationTheme: _inputDecoration(),
       extensions: _extensions,
       checkboxTheme: _checkboxTheme(),
-      progressIndicatorTheme: _progressIndicatorTheme());
+      progressIndicatorTheme: _progressIndicatorTheme(),
+      floatingActionButtonTheme: _floatingActionButtonTheme());
+
+  static FloatingActionButtonThemeData _floatingActionButtonTheme() =>
+      FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primaryBlue[50],
+        foregroundColor: AppColors.neutralGray100[50],
+        elevation: 3,
+      );
 
   static ProgressIndicatorThemeData _progressIndicatorTheme() =>
       ProgressIndicatorThemeData(

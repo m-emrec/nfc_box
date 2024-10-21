@@ -34,7 +34,7 @@ class AppRouter {
   GoRouter get router => _router;
   static final AuthChangeNotifier _authChangeNotifier = AuthChangeNotifier();
 
-  final _router = GoRouter(
+  static final GoRouter _router = GoRouter(
     refreshListenable: _authChangeNotifier,
     initialLocation: "/",
     // redirect: _authChecker,
