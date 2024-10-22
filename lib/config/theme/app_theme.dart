@@ -103,6 +103,9 @@ class AppTheme {
 
   static AppBarTheme _appBarTheme() {
     return AppBarTheme(
+      actionsIconTheme: IconThemeData(
+        color: AppColors.secondaryTeal[50],
+      ),
       color: AppColors.neutralBackgroundLight[50],
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: AppColors.neutralBackgroundLight.withOpacity(0.1),

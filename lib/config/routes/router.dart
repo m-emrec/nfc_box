@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/features/home/view/home.dart';
 import 'package:nfc_box/features/items/view/item_list.dart';
-import 'package:nfc_box/logger.dart';
 import '../../features/auth/service/auth_service.dart';
 
 import '../../features/auth/view/sign_in.dart';
 import '../../features/auth/view/sign_up.dart';
-import '../../playground.dart';
 import 'auth_checker.dart';
 
 enum Routes {
