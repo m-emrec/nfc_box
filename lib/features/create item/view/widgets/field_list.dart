@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/core/constants/app_paddings.dart';
-import 'package:nfc_box/core/utils/widgets/custom_text_field.dart';
-import 'package:nfc_box/features/create%20item/model/field_model.dart';
-import 'package:nfc_box/features/create%20item/model/item.dart';
-import 'package:nfc_box/features/create%20item/view/widgets/fields/date_field.dart';
-import 'package:nfc_box/features/create%20item/view/widgets/fields/field_name.dart';
-import 'package:nfc_box/logger.dart';
 
+import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/utils/widgets/buttons/responsive_button.dart';
+import '../../../../core/utils/widgets/custom_text_field.dart';
+import '../../model/field_model.dart';
 import '../../providers/providers.dart';
+import 'fields/date_field_entry.dart';
+import 'fields/field_name_entry.dart';
 
 class FieldList extends ConsumerStatefulWidget {
   const FieldList({super.key});
@@ -19,30 +17,6 @@ class FieldList extends ConsumerStatefulWidget {
 }
 
 class _FieldListState extends ConsumerState<FieldList> {
-  showBottomSheet() async {
-    ref.read(fieldListProvider.notifier).update((list) => [
-          ...list,
-          FieldModel(
-            fieldName: FieldName(
-              index: 1,
-              controller: TextEditingController(),
-            ),
-            field: CustomTextField(),
-            fieldNameController: TextEditingController(),
-            fieldController: TextEditingController(),
-          ),
-        ]);
-    // await showModalBottomSheet(
-    //   context: context,
-    //   builder: (context) => const ChooseFieldTypeSheet(),
-    // );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -51,26 +25,49 @@ class _FieldListState extends ConsumerState<FieldList> {
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       children: [
         ...ref.watch(fieldListProvider).map(
-              (e) => Padding(
+              (field) => Padding(
                 padding: EdgeInsets.only(bottom: AppPaddings.lPadding),
                 child: Column(
                   children: [
-                    e.fieldName,
+                    field.fieldName,
                     Padding(
                       padding: EdgeInsets.only(left: AppPaddings.lPadding),
-                      child: e.field,
+                      child: field.field,
                     ),
                   ],
                 ),
               ),
             ),
-        FieldDate(),
+        const DateFieldEntry(),
         ResponsiveElevatedButton(
-          onPressed: () => showBottomSheet(),
+          onPressed: () async => showBottomSheet(),
           isPrimary: false,
-          child: const Text("Add Field"),
+          child: const Text(addField),
         ),
       ],
     );
   }
+
+  void showBottomSheet() async {
+    ref.read(fieldListProvider.notifier).update((list) => [
+          ...list,
+          FieldModel(
+            fieldName: FieldNameEntry(
+              index: 1,
+              controller: TextEditingController(),
+            ),
+            field: CustomTextField(),
+            fieldNameController: TextEditingController(),
+            fieldController: TextEditingController(),
+          ),
+        ]);
+
+    /// TODO : un comment this
+    // await showModalBottomSheet(
+    //   context: context,
+    //   builder: (context) => const ChooseFieldTypeSheet(),
+    // );
+  }
+
+  static const String addField = 'Add Field';
 }

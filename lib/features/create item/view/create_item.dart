@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/features/create%20item/providers/providers.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
+import '../providers/providers.dart';
 import 'widgets/field_list.dart';
 import 'widgets/image_container.dart';
 
 class CreateItem extends ConsumerWidget {
   const CreateItem({super.key});
 
+  static const String addItem = 'Add Item';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var addItem = 'Add Item';
     return PopScope(
       onPopInvokedWithResult: (didPop, result) =>
           ref.read(fieldListProvider).clear(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text(addItem),
+          title: const Text(addItem),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
@@ -38,7 +38,7 @@ class CreateItem extends ConsumerWidget {
                     label: "Item Name",
                   ),
                   Gap(AppPaddings.lPadding),
-                  FieldList(),
+                  const FieldList(),
                 ],
               ),
             ),

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:nfc_box/core/utils/widgets/custom_text_field.dart';
 
-class FieldText extends StatelessWidget {
+/// This field is for Text entries
+class TextFieldEntry extends StatelessWidget {
   final TextEditingController controller;
-  const FieldText({
+  const TextFieldEntry({
     super.key,
     required this.controller,
   });

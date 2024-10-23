@@ -1,17 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+/// This model used for creating a new item
 class CreateItemModel {
   final String? title;
   final String? imageUrl;
   final String? id;
   final DateTime? createdDate;
+  final Map? fields;
 
   CreateItemModel({
     this.title,
     this.imageUrl,
     this.id,
     this.createdDate,
+    this.fields,
   });
 
   CreateItemModel copyWith({
@@ -19,12 +22,14 @@ class CreateItemModel {
     String? imageUrl,
     String? id,
     DateTime? createdDate,
+    Map? fields,
   }) {
     return CreateItemModel(
       title: title ?? this.title,
       imageUrl: imageUrl ?? this.imageUrl,
       id: id ?? this.id,
       createdDate: createdDate ?? this.createdDate,
+      fields: fields ?? this.fields,
     );
   }
 
@@ -34,6 +39,7 @@ class CreateItemModel {
       'imageUrl': imageUrl,
       'id': id,
       'createdDate': createdDate?.millisecondsSinceEpoch,
+      'fields': fields,
     };
   }
 
@@ -45,6 +51,9 @@ class CreateItemModel {
       createdDate: map['createdDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int)
           : null,
+      fields: Map.from(
+        (map['fields'] as Map),
+      ),
     );
   }
 
@@ -55,24 +64,6 @@ class CreateItemModel {
 
   @override
   String toString() {
-    return 'CreateItemModel(title: $title, imageUrl: $imageUrl, id: $id, createdDate: $createdDate)';
-  }
-
-  @override
-  bool operator ==(covariant CreateItemModel other) {
-    if (identical(this, other)) return true;
-
-    return other.title == title &&
-        other.imageUrl == imageUrl &&
-        other.id == id &&
-        other.createdDate == createdDate;
-  }
-
-  @override
-  int get hashCode {
-    return title.hashCode ^
-        imageUrl.hashCode ^
-        id.hashCode ^
-        createdDate.hashCode;
+    return 'CreateItemModel(title: $title, imageUrl: $imageUrl, id: $id, createdDate: $createdDate, fields: $fields)';
   }
 }

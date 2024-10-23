@@ -4,7 +4,7 @@ import '../../../../../core/constants/app_paddings.dart';
 
 class ColorField extends StatelessWidget {
   ColorField({super.key});
-  final List<int> _allColors = [
+  final List<int> _colorList = [
     Colors.red.value,
     Colors.green.value,
     Colors.blue.value,
@@ -29,12 +29,14 @@ class ColorField extends StatelessWidget {
       height: 48,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: _allColors.length,
+        itemCount: _colorList.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.only(right: AppPaddings.sPadding),
             child: CircleAvatar(
-              backgroundColor: Color(_allColors[index]),
+              backgroundColor: Color(
+                _colorList[index],
+              ),
             ),
           );
         },

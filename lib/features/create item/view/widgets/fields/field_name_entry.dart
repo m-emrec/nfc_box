@@ -1,14 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:nfc_box/core/extensions/context_extension.dart';
-
 import '../../../../../core/constants/colors.dart';
+import '../../../../../core/extensions/context_extension.dart';
 import '../../../../../core/utils/widgets/custom_text_field.dart';
 
-class FieldName extends StatelessWidget {
+/// This will be used as the name of the elected field
+class FieldNameEntry extends StatelessWidget {
   final int index;
-  const FieldName({
+  const FieldNameEntry({
     super.key,
     required this.index,
     required this.controller,
