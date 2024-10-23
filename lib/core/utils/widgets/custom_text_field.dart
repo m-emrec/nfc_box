@@ -54,13 +54,15 @@ class CustomTextField extends TextFormField {
                 color: color ?? AppColors.neutralGray500[40]!,
               ),
             ),
-            prefixIcon: ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                color ?? Colors.transparent,
-                BlendMode.srcATop,
-              ),
-              child: prefixIcon,
-            ),
+            prefixIcon: prefixIcon == null
+                ? null
+                : ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      color ?? Colors.transparent,
+                      BlendMode.srcATop,
+                    ),
+                    child: prefixIcon,
+                  ),
           ),
         );
       };

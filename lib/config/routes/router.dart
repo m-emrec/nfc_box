@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/features/create%20item/view/create_item.dart';
 import 'package:nfc_box/features/home/view/home.dart';
 import 'package:nfc_box/features/items/view/item_list.dart';
 import '../../features/auth/service/auth_service.dart';
@@ -12,7 +13,8 @@ import 'auth_checker.dart';
 enum Routes {
   signIn,
   signUp,
-  itemList;
+  itemList,
+  createItem;
 
   String get path => "/$name";
   final String? data;
@@ -46,6 +48,11 @@ class AppRouter {
             path: Routes.itemList.path,
             name: Routes.itemList.name,
             builder: (context, state) => const ItemList(),
+          ),
+          GoRoute(
+            path: Routes.createItem.path,
+            name: Routes.createItem.name,
+            builder: (context, state) => const CreateItem(),
           ),
         ],
       ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nfc_box/core/utils/widgets/buttons/responsive_button.dart';
 
+import '../../../config/routes/router.dart';
 import '../../../core/constants/app_paddings.dart';
 
 import '../model/item.dart';
@@ -26,7 +29,7 @@ class ItemList extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => context.pushNamed(Routes.createItem.name),
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
