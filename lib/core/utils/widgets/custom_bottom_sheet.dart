@@ -26,18 +26,17 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
-      dragHandleColor: AppColors.neutralBackgroundLight[100],
-      backgroundColor:
-          widget.backgroundColor ?? AppColors.neutralBackgroundLight[50],
+      dragHandleColor: _properties.handleColor,
+      backgroundColor: widget.backgroundColor ?? _properties.backgroundColor,
       onClosing: () {
         context.pop();
       },
-      shadowColor: AppColors.neutralBackgroundLight[100],
+      shadowColor: _properties.shadowColor,
       elevation: 5,
       showDragHandle: true,
       enableDrag: true,
-      animationController: _animationController,
-      constraints: constraints(context),
+      animationController: _properties._animationController,
+      constraints: _properties.constraints(context),
       builder: (context) {
         return Column(
           children: [
@@ -56,38 +55,55 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
     );
   }
 
-  late AnimationController _animationController;
+  late _CustomBottomSheetProperties _properties;
   @override
   void initState() {
-    _animationController = AnimationController(
+    _properties = _CustomBottomSheetProperties(
+        context: context, heightFactor: widget.heightFactor);
+    _properties._animationController = AnimationController(
       vsync: this,
       duration: Durations.medium2,
     );
-    _animationController.forward(from: 0.1);
-    _animationController.addListener(() => setState(() {}));
+    _properties._animationController.forward(from: 0.1);
+    _properties._animationController.addListener(() => setState(() {}));
     super.initState();
   }
 
   @override
   void dispose() {
-    _animationController.removeListener(() {});
-    _animationController.dispose();
+    _properties.dispose();
     super.dispose();
   }
+}
+
+final class _CustomBottomSheetProperties {
+  final BuildContext context;
+  final double heightFactor;
+  late AnimationController _animationController;
+
+  _CustomBottomSheetProperties({
+    required this.context,
+    required this.heightFactor,
+  });
+
+  void dispose() {
+    _animationController.removeListener(() {});
+    _animationController.dispose();
+  }
+
+  final Color? shadowColor = AppColors.neutralBackgroundLight[100];
+  final Color? handleColor = AppColors.neutralBackgroundLight[100];
+  final Color? backgroundColor = AppColors.neutralBackgroundLight[50];
 
   ///I get keyboard size , this way I can change the maxHeight of the BottomSheet
   double get _keyboardSize => context.mediaQuery.viewInsets.bottom;
 
   double get _maxHeight =>
-      context.screenSize.height *
-          widget.heightFactor *
-          _animationController.value +
+      context.screenSize.height * heightFactor * _animationController.value +
       _keyboardSize;
 
   double get _minHeight =>
-      context.screenSize.height *
-          widget.heightFactor *
-          _animationController.value +
+      context.screenSize.height * heightFactor * _animationController.value +
       _keyboardSize;
 
   BoxConstraints constraints(BuildContext context) {

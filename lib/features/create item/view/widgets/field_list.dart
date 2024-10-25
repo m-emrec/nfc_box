@@ -6,6 +6,7 @@ import '../../../../core/utils/widgets/buttons/responsive_button.dart';
 import '../../../../core/utils/widgets/custom_text_field.dart';
 import '../../model/field_model.dart';
 import '../../providers/providers.dart';
+import 'choose_field_type_sheet.dart';
 import 'fields/date_field_entry.dart';
 import 'fields/field_name_entry.dart';
 
@@ -38,7 +39,7 @@ class _FieldListState extends ConsumerState<FieldList> {
                 ),
               ),
             ),
-        const DateFieldEntry(),
+        // const DateFieldEntry(),
         ResponsiveElevatedButton(
           onPressed: () async => showBottomSheet(),
           isPrimary: false,
@@ -49,24 +50,10 @@ class _FieldListState extends ConsumerState<FieldList> {
   }
 
   void showBottomSheet() async {
-    ref.read(fieldListProvider.notifier).update((list) => [
-          ...list,
-          FieldModel(
-            fieldName: FieldNameEntry(
-              index: 1,
-              controller: TextEditingController(),
-            ),
-            field: CustomTextField(),
-            fieldNameController: TextEditingController(),
-            fieldController: TextEditingController(),
-          ),
-        ]);
-
-    /// TODO : un comment this
-    // await showModalBottomSheet(
-    //   context: context,
-    //   builder: (context) => const ChooseFieldTypeSheet(),
-    // );
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => const ChooseFieldTypeSheet(),
+    );
   }
 
   static const String addField = 'Add Field';

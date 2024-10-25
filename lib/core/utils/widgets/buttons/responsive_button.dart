@@ -24,31 +24,6 @@ class ResponsiveElevatedButton extends StatefulWidget {
 class _ResponsiveElevatedButtonState extends State<ResponsiveElevatedButton> {
   bool? isLoading;
 
-  /// I use this Function to show a [CircularProgressIndicator] on the Button
-  /// and I block user interaction with [showDialog].
-  ///
-  /// This way user can't interact with something before the given Function completes
-  void onTap() async {
-    if (widget.onPressed != null) {
-      setLoadingState(true);
-
-      /// Show a dialog to prevent user interaction
-      showDialog(
-        context: context,
-        barrierColor: Colors.black.withOpacity(0.2),
-        barrierDismissible: false,
-        builder: (context) {
-          return const SizedBox();
-        },
-      );
-      await widget.onPressed!();
-      setLoadingState(false);
-      if (context.mounted) {
-        context.pop();
-      }
-    }
-  }
-
   setLoadingState(val) {
     setState(() {
       isLoading = val;
@@ -71,7 +46,13 @@ class _ResponsiveElevatedButtonState extends State<ResponsiveElevatedButton> {
                     ? AppColors.primaryBlue
                     : AppColors.secondaryTeal,
               ),
-              onPressed: isLoading ?? false ? null : onTap,
+              onPressed: isLoading ?? false
+                  ? null
+                  : () => _ManageLoadingState.setLoadingState(
+                        context: context,
+                        setState: setLoadingState,
+                        func: widget.onPressed,
+                      ),
               child: isLoading ?? false
                   ? const SizedBox(
                       height: 24,
@@ -173,25 +154,6 @@ class ResponsiveOutlinedButton extends StatefulWidget {
 
 class _ResponsiveOutlinedButtonState extends State<ResponsiveOutlinedButton> {
   bool? isLoading;
-  void onTap() async {
-    if (widget.onPressed != null) {
-      set(true);
-
-      showDialog(
-        context: context,
-        barrierColor: Colors.transparent,
-        barrierDismissible: false,
-        builder: (context) {
-          return const SizedBox();
-        },
-      );
-      await widget.onPressed!();
-      set(false);
-      if (context.mounted) {
-        context.pop();
-      }
-    }
-  }
 
   set(val) {
     setState(() {
@@ -206,7 +168,13 @@ class _ResponsiveOutlinedButtonState extends State<ResponsiveOutlinedButton> {
     return Expanded(
       child: OutlinedButton(
         style: widget.style,
-        onPressed: isLoading ?? false ? null : onTap,
+        onPressed: isLoading ?? false
+            ? null
+            : () => _ManageLoadingState.setLoadingState(
+                  context: context,
+                  setState: set,
+                  func: widget.onPressed,
+                ),
         child: isLoading ?? false
             ? const SizedBox(
                 height: 32,
@@ -216,5 +184,45 @@ class _ResponsiveOutlinedButtonState extends State<ResponsiveOutlinedButton> {
             : widget.child,
       ),
     );
+  }
+}
+
+/// Use [setLoadingState] function to show a [CircularProgressIndicator] on the button.
+///
+class _ManageLoadingState {
+  /// I use this Function to show a [CircularProgressIndicator] on the Button
+  /// and I block user interaction with [showDialog].
+  ///
+  /// This way user can't interact with something before the given Function completes
+  ///
+  ///### Parameters
+  /// It takes [BuildContext] to use [showDialog]
+  ///
+  /// A [Function] func to execute
+  ///
+  /// and another [Function]setState to set the state of the button
+  ///
+  static void setLoadingState({
+    required BuildContext context,
+    Function? func,
+    required Function setState,
+  }) async {
+    if (func != null) {
+      setState(true);
+
+      showDialog(
+        context: context,
+        barrierColor: Colors.transparent,
+        barrierDismissible: false,
+        builder: (context) {
+          return const SizedBox();
+        },
+      );
+      await func();
+      setState(false);
+      if (context.mounted) {
+        context.pop();
+      }
+    }
   }
 }

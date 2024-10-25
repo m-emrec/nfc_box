@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../../config/theme/theme_extensions/inline_text_button_theme.dart';
 import '../../../extensions/context_extension.dart';
 
+/// It is made for using a Clickable text in TextSpan widget.
+///
+/// it needs a
+///
+/// [BuildContext] context to use theme.
+///
+/// And a [Function] to execute.
 class InlineTextButton extends TextSpan {
   const InlineTextButton(
     this.context, {
