@@ -16,6 +16,12 @@ class CustomBottomSheet extends StatefulWidget {
   final Widget? content;
   final Color? backgroundColor;
   final double heightFactor;
+
+  ///This method is used to show the bottom sheet
+  ///
+  ///[context] used for [showModalBottomSheet]
+  ///
+  ///[widget] is the widget that will be shown in the bottom sheet
   static void show(BuildContext context, {required Widget widget}) {
     showModalBottomSheet(
       context: context,
