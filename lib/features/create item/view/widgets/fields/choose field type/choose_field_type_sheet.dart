@@ -23,14 +23,13 @@ class ChooseFieldTypeSheet extends ConsumerWidget {
       heightFactor: 0.25,
       content: ListView(
         children: List.generate(
-          _ChooseFieldTypeSheetProperties._fieldNames.length,
+          _ChooseFieldTypeSheetUtils._fieldNames.length,
           (index) => ListTile(
-            title:
-                Text(_ChooseFieldTypeSheetProperties._fieldNames[index].name),
-            onTap: () => _ChooseFieldTypeSheetProperties.onSelected(
+            title: Text(_ChooseFieldTypeSheetUtils._fieldNames[index].name),
+            onTap: () => _ChooseFieldTypeSheetUtils.onSelected(
               context,
               ref: ref,
-              fieldName: _ChooseFieldTypeSheetProperties._fieldNames[index],
+              fieldName: _ChooseFieldTypeSheetUtils._fieldNames[index],
             ),
           ),
         ),

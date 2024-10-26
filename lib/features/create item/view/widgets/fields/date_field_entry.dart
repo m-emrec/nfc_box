@@ -6,7 +6,9 @@ import '../../../../../core/constants/app_paddings.dart';
 class DateFieldEntry extends StatefulWidget {
   const DateFieldEntry({
     super.key,
+    required this.controller,
   });
+  final TextEditingController controller;
 
   @override
   State<DateFieldEntry> createState() => _DateFieldEntryState();
@@ -52,5 +54,6 @@ class _DateFieldEntryState extends State<DateFieldEntry> {
     setState(() {
       selectedDate = date;
     });
+    widget.controller.text = selectedDate.toString();
   }
 }

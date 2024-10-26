@@ -1,7 +1,16 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 /// This model used for creating a new item
+///
+/// title`[String]` is the title of the item
+///
+/// imageUrl [String] is the image url of the item
+///
+/// id [String] is the id of the item
+///
+/// createdDate[DateTime] is the date when the item is created
+///
+/// fields [Map] is the list of fields of the item
 class CreateItemModel {
   final String? title;
   final String? imageUrl;

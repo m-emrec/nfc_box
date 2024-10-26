@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../constants/colors.dart';
 import '../../extensions/context_extension.dart';
@@ -22,8 +23,8 @@ class CustomBottomSheet extends StatefulWidget {
   ///[context] used for [showModalBottomSheet]
   ///
   ///[widget] is the widget that will be shown in the bottom sheet
-  static void show(BuildContext context, {required Widget widget}) {
-    showModalBottomSheet(
+  static Future show(BuildContext context, {required Widget widget}) async {
+    await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) => widget,

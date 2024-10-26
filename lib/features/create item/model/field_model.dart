@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_box/features/create%20item/view/widgets/fields/text_field_entry.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../view/widgets/fields/field_name_entry.dart';
 
@@ -34,9 +32,9 @@ class FieldModel {
   factory FieldModel.createModel({
     required int fieldIndex,
     required Widget field,
+    required TextEditingController fieldController,
   }) {
     final TextEditingController fieldNameController = TextEditingController();
-    final TextEditingController fieldController = TextEditingController();
 
     final Widget fieldName = FieldNameEntry(
       index: fieldIndex,

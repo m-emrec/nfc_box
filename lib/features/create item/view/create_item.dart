@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
+import '../../../core/utils/widgets/custom_bottom_sheet.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
 import '../providers/providers.dart';
 import 'widgets/field_list.dart';
@@ -14,7 +15,6 @@ import 'widgets/image_container.dart';
 class CreateItem extends ConsumerWidget {
   const CreateItem({super.key});
 
-  static const String addItem = 'Add Item';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PopScope(
@@ -23,10 +23,13 @@ class CreateItem extends ConsumerWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text(addItem),
+          title: const Text(_CreateItemUtils.addItem),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            final a = ref.watch(fieldListProvider);
+            logger.i(a[0].fieldController.text);
+          },
           child: const Icon(Icons.check),
         ),
         body: Padding(
@@ -35,17 +38,25 @@ class CreateItem extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  /// Image container to choose a image
                   const ImageContainer(),
                   Gap(AppPaddings.lPadding),
+
+                  /// This is the text field for the item name
                   CustomTextField(
-                    label: "Item Name",
+                    label: _CreateItemUtils.itemName,
                   ),
                   Gap(AppPaddings.lPadding),
+
+                  ///list of fields
                   const FieldList(),
+
+                  ///button to add a field
                   ResponsiveElevatedButton(
-                    onPressed: () async => showBottomSheet(context),
+                    onPressed: () async =>
+                        _CreateItemUtils.showBottomSheet(context),
                     isPrimary: false,
-                    child: const Text(addField),
+                    child: const Text(_CreateItemUtils.addField),
                   ),
                 ],
               ),
@@ -55,15 +66,19 @@ class CreateItem extends ConsumerWidget {
       ),
     );
   }
+}
 
-  void showBottomSheet(
+/// This class contains the properties for the CreateItem widget
+final class _CreateItemUtils {
+  static const String addField = 'Add Field';
+  static const String addItem = 'Add Item';
+  static const String itemName = 'Item Name';
+  static void showBottomSheet(
     context,
   ) async {
-    CustomBottomSheet.show(
+    await CustomBottomSheet.show(
       context,
       widget: const ChooseFieldTypeSheet(),
     );
   }
-
-  static const String addField = 'Add Field';
 }
