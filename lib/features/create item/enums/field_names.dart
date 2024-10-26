@@ -5,6 +5,7 @@
 /// If there is a need to add a new field to teh app in the future , update this.
 enum FieldNames {
   Color,
-  Text,
+  Text(),
   Date,
+  ;
 }

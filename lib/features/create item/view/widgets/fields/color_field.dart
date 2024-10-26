@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constants/app_paddings.dart';
 
 class ColorField extends StatelessWidget {
-  ColorField({super.key});
-  final List<int> _colorList = [
+  const ColorField({super.key});
+  static List<int> _colorList = [
     Colors.red.value,
     Colors.green.value,
     Colors.blue.value,
