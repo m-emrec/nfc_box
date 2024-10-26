@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../../../core/constants/app_paddings.dart';
 
@@ -14,6 +15,7 @@ class ColorField extends StatefulWidget {
 }
 
 class _ColorFieldState extends State<ColorField> {
+  final _ColorFieldUtils _colorFieldUtils = _ColorFieldUtils();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,36 +23,40 @@ class _ColorFieldState extends State<ColorField> {
       height: 48,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: _ColorFieldUtils._colorList.length,
+        itemCount: _colorFieldUtils._colorList.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: EdgeInsets.only(right: AppPaddings.sPadding),
+            padding: _colorFieldUtils.padding,
             child: GestureDetector(
-              onTap: () => _ColorFieldUtils.selectColor(
+              onTap: () => _colorFieldUtils.selectColor(
                 index,
                 func: () => setState(
                   () {},
                 ),
                 controller: widget.controller,
               ),
-              child: Badge(
-                isLabelVisible: _ColorFieldUtils.isLabelVisible(index),
-                child: CircleAvatar(
-                  backgroundColor: Color(
-                    _ColorFieldUtils._colorList[index],
-                  ),
-                ),
-              ),
+              child: _colorItem(index),
             ),
           );
         },
       ),
     );
   }
+
+  Badge _colorItem(int index) {
+    return Badge(
+      isLabelVisible: _colorFieldUtils.isLabelVisible(index),
+      child: CircleAvatar(
+        backgroundColor: Color(
+          _colorFieldUtils._colorList[index],
+        ),
+      ),
+    );
+  }
 }
 
 final class _ColorFieldUtils {
-  static void selectColor(
+  void selectColor(
     int index, {
     required Function func,
     required TextEditingController controller,
@@ -60,9 +66,14 @@ final class _ColorFieldUtils {
     func();
   }
 
-  static bool isLabelVisible(index) => selectedIndex == index;
-  static int? selectedIndex;
-  static final List<int> _colorList = [
+  bool isLabelVisible(index) => selectedIndex == index;
+
+  EdgeInsets padding = EdgeInsets.only(
+    right: AppPaddings.sPadding,
+    top: AppPaddings.xsPadding,
+  );
+  int? selectedIndex;
+  final List<int> _colorList = [
     Colors.red.value,
     Colors.green.value,
     Colors.blue.value,
