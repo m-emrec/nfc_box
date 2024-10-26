@@ -9,6 +9,7 @@ mixin SignInMixin on ConsumerState<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
+  final String signIn = 'Sign In';
 
   Future<void> onTapSignIn() async {
     if (formKey.currentState?.validate() ?? false) {

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import 'email_field.dart';
 import 'forgot_password_sheet.dart';
 import 'password_field.dart';
 
+/// AuthForm is a [StatelessWidget] that returns a [Form] widget
+/// with [EmailField] and [PasswordField] as children
+/// [showForgotPassword] is a boolean that determines if the [ForgotPasswordSheet] should be shown
+/// [formKey] is a [GlobalKey<FormState>] that is used to validate the form
+/// [emailController] is a [TextEditingController] that is used to control the email field
+/// [passwordController] is a [TextEditingController] that is used to control the password field
+/// [forgotPassword] is a string that is used as the text for the [TextButton] that shows the [ForgotPasswordSheet]
 class AuthForm extends StatelessWidget {
   const AuthForm({
     super.key,
@@ -58,11 +66,10 @@ class AuthForm extends StatelessWidget {
     );
   }
 
-  PersistentBottomSheetController showForgotPasswordSheet(
-      BuildContext context) {
-    return showBottomSheet(
-      context: context,
-      builder: (context) => ForgotPasswordSheet(),
+  void showForgotPasswordSheet(BuildContext context) {
+    CustomBottomSheet.show(
+      context,
+      widget: ForgotPasswordSheet(),
     );
   }
 }

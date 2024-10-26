@@ -95,9 +95,9 @@ class _TermsAndConditionsState extends State<_TermsAndConditions> {
   static const String _termsConditions = 'Terms & Conditions';
 
   void showTermsAndConditions(BuildContext context) {
-    showBottomSheet(
-      context: context,
-      builder: (context) => _bottomSheet(),
+    CustomBottomSheet.show(
+      context,
+      widget: _bottomSheet(),
     );
   }
 

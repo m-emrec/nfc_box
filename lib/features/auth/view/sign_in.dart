@@ -21,7 +21,6 @@ class SignIn extends ConsumerStatefulWidget {
 }
 
 class _SignInState extends ConsumerState<SignIn> with SignInMixin {
-  static const String signIn = 'Sign In';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +48,7 @@ class _SignInState extends ConsumerState<SignIn> with SignInMixin {
             /// Sign In Button
             ResponsiveElevatedButton(
               onPressed: onTapSignIn,
-              child: const Text(signIn),
+              child: Text(signIn),
             ),
             MaxGap(AppPaddings.sPadding),
 
