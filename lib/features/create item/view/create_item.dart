@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
 
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/utils/widgets/buttons/responsive_button.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
 import '../providers/providers.dart';
 import 'widgets/field_list.dart';
+import 'widgets/fields/choose field type/choose_field_type_sheet.dart';
 import 'widgets/image_container.dart';
 
 class CreateItem extends ConsumerWidget {
@@ -39,6 +42,11 @@ class CreateItem extends ConsumerWidget {
                   ),
                   Gap(AppPaddings.lPadding),
                   const FieldList(),
+                  ResponsiveElevatedButton(
+                    onPressed: () async => showBottomSheet(context),
+                    isPrimary: false,
+                    child: const Text(addField),
+                  ),
                 ],
               ),
             ),
@@ -47,4 +55,15 @@ class CreateItem extends ConsumerWidget {
       ),
     );
   }
+
+  void showBottomSheet(
+    context,
+  ) async {
+    CustomBottomSheet.show(
+      context,
+      widget: const ChooseFieldTypeSheet(),
+    );
+  }
+
+  static const String addField = 'Add Field';
 }

@@ -16,6 +16,13 @@ class CustomBottomSheet extends StatefulWidget {
   final Widget? content;
   final Color? backgroundColor;
   final double heightFactor;
+  static void show(BuildContext context, {required Widget widget}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => widget,
+    );
+  }
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();

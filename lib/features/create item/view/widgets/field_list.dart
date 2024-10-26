@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/app_paddings.dart';
-import '../../../../core/utils/widgets/buttons/responsive_button.dart';
 import '../../providers/providers.dart';
-import 'fields/choose field type/choose_field_type_sheet.dart';
 
 class FieldList extends ConsumerStatefulWidget {
   const FieldList({super.key});
@@ -35,22 +33,7 @@ class _FieldListState extends ConsumerState<FieldList> {
                 ),
               ),
             ),
-        // const DateFieldEntry(),
-        ResponsiveElevatedButton(
-          onPressed: () async => showBottomSheet(),
-          isPrimary: false,
-          child: const Text(addField),
-        ),
       ],
     );
   }
-
-  void showBottomSheet() async {
-    await showModalBottomSheet(
-      context: context,
-      builder: (context) => const ChooseFieldTypeSheet(),
-    );
-  }
-
-  static const String addField = 'Add Field';
 }
