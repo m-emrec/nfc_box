@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../../../../core/constants/app_paddings.dart';
 
