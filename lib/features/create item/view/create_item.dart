@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
@@ -11,7 +12,7 @@ import '../model/field_model.dart';
 import '../providers/providers.dart';
 import 'widgets/field_list.dart';
 import 'widgets/fields/choose field type/choose_field_type_sheet.dart';
-import 'widgets/image_container.dart';
+import 'widgets/choose image container/image_container.dart';
 
 class CreateItem extends ConsumerWidget {
   const CreateItem({super.key});
@@ -27,7 +28,9 @@ class CreateItem extends ConsumerWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            logger.i(_CreateItemUtils.imageController.text);
+          },
           child: const Icon(Icons.check),
         ),
         body: Padding(
@@ -37,7 +40,9 @@ class CreateItem extends ConsumerWidget {
               child: Column(
                 children: [
                   /// Image container to choose a image
-                  const ImageContainer(),
+                  ChooseImageContainer(
+                    controller: _CreateItemUtils.imageController,
+                  ),
                   Gap(AppPaddings.lPadding),
 
                   /// This is the text field for the item name
@@ -71,7 +76,7 @@ final class _CreateItemUtils {
   static const String addField = 'Add Field';
   static const String addItem = 'Add Item';
   static const String itemName = 'Item Name';
-
+  static TextEditingController imageController = TextEditingController();
   static void clearFieldList(WidgetRef ref) {
     ref.read(fieldListProvider).clear();
   }

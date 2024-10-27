@@ -8,6 +8,7 @@
 <string>506281682588-vli4q5570b2tqjhv44987dimembobanv.apps.googleusercontent.com</string>
 	
 	<key>CFBundleURLTypes</key>
+	
 <array>
 	<dict>
 		<key>CFBundleTypeRole</key>
@@ -20,6 +21,11 @@
 		</array>
 	</dict>
 </array>
+	<key>NSCameraUsageDescription</key>
+	<string>Need camera access to capture images</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need photo library access to select images</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -47,6 +53,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
+	
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
