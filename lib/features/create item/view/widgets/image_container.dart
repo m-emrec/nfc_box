@@ -11,28 +11,38 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: AspectRatio(
-        aspectRatio: 24 / 16,
-        child: Container(
-          width: double.maxFinite,
+    return ClipRRect(
+      borderRadius: AppBorderRadius.mediumBorderRadius,
+      child: Material(
+        color: Colors.transparent,
+        child: Ink(
           decoration: BoxDecoration(
             color: AppColors.neutralGray100[50],
-            borderRadius: AppBorderRadius.mediumBorderRadius,
-            boxShadow: _shadows,
+            boxShadow: _ImageContainerUtils._shadows,
           ),
           child: InkWell(
-            splashColor: Colors.red,
+            splashColor: AppColors.neutralGray100[70],
             onTap: () {},
-            child: Image.asset(
-              AppAssets.chooseImagePath,
+            child: AspectRatio(
+              aspectRatio: 24 / 16,
+              child: Container(
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  borderRadius: AppBorderRadius.mediumBorderRadius,
+                ),
+                child: Image.asset(
+                  AppAssets.chooseImagePath,
+                ),
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
 
+class _ImageContainerUtils {
   static const List<BoxShadow> _shadows = [
     BoxShadow(
       color: Color(0x198C7373),
