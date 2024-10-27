@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
-import 'package:nfc_box/features/create%20item/model/field_model.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
 import '../../../core/utils/widgets/custom_bottom_sheet.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
+import '../../../core/utils/widgets/custom_toast.dart';
+import '../model/field_model.dart';
 import '../providers/providers.dart';
 import 'widgets/field_list.dart';
 import 'widgets/fields/choose field type/choose_field_type_sheet.dart';
@@ -21,12 +20,12 @@ class CreateItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) =>
-          ref.read(fieldListProvider).clear(),
+          _CreateItemUtils.clearFieldList(ref),
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text(_CreateItemUtils.addItem),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: const Icon(Icons.check),
@@ -72,6 +71,11 @@ final class _CreateItemUtils {
   static const String addField = 'Add Field';
   static const String addItem = 'Add Item';
   static const String itemName = 'Item Name';
+
+  static void clearFieldList(WidgetRef ref) {
+    ref.read(fieldListProvider).clear();
+  }
+
   static void onTabPressed(BuildContext context, WidgetRef ref) async {
     /// check if the fieldList is not empty
     /// if the fieldList is not empty then check if the last field is empty
