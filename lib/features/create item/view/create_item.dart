@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/core/utils/widgets/custom_toast.dart';
+import 'package:nfc_box/features/create%20item/model/field_model.dart';
 import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_paddings.dart';
@@ -21,15 +23,12 @@ class CreateItem extends ConsumerWidget {
       onPopInvokedWithResult: (didPop, result) =>
           ref.read(fieldListProvider).clear(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text(_CreateItemUtils.addItem),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            final a = ref.watch(fieldListProvider);
-            logger.i(a[0].fieldController.text);
-          },
+          onPressed: () {},
           child: const Icon(Icons.check),
         ),
         body: Padding(
@@ -54,7 +53,7 @@ class CreateItem extends ConsumerWidget {
                   ///button to add a field
                   ResponsiveElevatedButton(
                     onPressed: () async =>
-                        _CreateItemUtils.showBottomSheet(context),
+                        _CreateItemUtils.onTabPressed(context, ref),
                     isPrimary: false,
                     child: const Text(_CreateItemUtils.addField),
                   ),
@@ -73,8 +72,26 @@ final class _CreateItemUtils {
   static const String addField = 'Add Field';
   static const String addItem = 'Add Item';
   static const String itemName = 'Item Name';
-  static void showBottomSheet(
-    context,
+  static void onTabPressed(BuildContext context, WidgetRef ref) async {
+    /// check if the fieldList is not empty
+    /// if the fieldList is not empty then check if the last field is empty
+    /// if the last field is empty then show a error toast
+    if (ref.watch(fieldListProvider).isNotEmpty) {
+      final FieldModel lastField = ref.watch(fieldListProvider).last;
+      if (lastField.fieldNameController.text.isEmpty ||
+          lastField.fieldController.text.isEmpty) {
+        Toast.errToast(desc: 'Field name and field value cannot be empty');
+        return;
+      }
+    }
+
+    ///  else show the bottom sheet
+    await showBottomSheet(context);
+  }
+
+  /// Show [ChooseFieldTypeSheet] bottom sheet
+  static Future<void> showBottomSheet(
+    BuildContext context,
   ) async {
     await CustomBottomSheet.show(
       context,

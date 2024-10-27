@@ -215,9 +215,8 @@ class _ManageLoadingState {
         barrierColor: Colors.transparent,
         barrierDismissible: false,
         builder: (context) {
-          return PopScope(
+          return const PopScope(
             canPop: false,
-            onPopInvokedWithResult: (didPop, result) => logger.i("Pop Invoked"),
             child: SizedBox(),
           );
         },
