@@ -34,12 +34,23 @@ class _ImageContainerUtils {
     }
   }
 
+  /// Pick image from Camera
+  Future<void> pickImageFromCamera() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+
+    /// if image is not null then set the image
+    if (image != null) {
+      // Use the selected image
+      setImage(File(image.path));
+    }
+  }
+
   /// show the bottom sheet to choose the image
   void onImageContainerPressed(BuildContext context) {
     CustomBottomSheet.show(context,
         widget: _ChooseImageMenuSheet(
           pickImageFromGallery: pickImageFromGallery,
-          pickImageFromCamera: () {},
+          pickImageFromCamera: pickImageFromCamera,
         ));
   }
 

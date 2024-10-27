@@ -24,7 +24,10 @@ class _ChooseImageMenuSheet extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.camera_alt),
             title: const Text('Take a picture'),
-            onTap: () {},
+            onTap: () {
+              context.pop();
+              pickImageFromCamera();
+            },
           ),
         ],
       ),
