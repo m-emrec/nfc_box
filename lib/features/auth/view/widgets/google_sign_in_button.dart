@@ -22,8 +22,8 @@ class GoogleSignInButton extends ConsumerWidget {
             AppAssets.googleAni,
             repeat: false,
           ),
-          onPressed: () =>
-              ref.read(authServiceViewModelProvider).googleSignIn(),
+          onPressed: () async =>
+              await ref.read(authServiceViewModelProvider).googleSignIn(),
         ),
       ],
     );

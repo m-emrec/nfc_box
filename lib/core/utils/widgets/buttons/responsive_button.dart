@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../constants/colors.dart';
 
@@ -201,7 +202,6 @@ class _ManageLoadingState {
   /// A [Function] func to execute
   ///
   /// and another [Function]setState to set the state of the button
-  ///
   static void setLoadingState({
     required BuildContext context,
     Function? func,
@@ -215,7 +215,11 @@ class _ManageLoadingState {
         barrierColor: Colors.transparent,
         barrierDismissible: false,
         builder: (context) {
-          return const SizedBox();
+          return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, result) => logger.i("Pop Invoked"),
+            child: SizedBox(),
+          );
         },
       );
       await func();
