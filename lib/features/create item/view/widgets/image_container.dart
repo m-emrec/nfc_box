@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/border_radiuses.dart';
@@ -22,7 +23,7 @@ class ImageContainer extends StatelessWidget {
           ),
           child: InkWell(
             splashColor: AppColors.neutralGray100[70],
-            onTap: () {},
+            onTap: () => _ImageContainerUtils.onImageContainerPressed(context),
             child: AspectRatio(
               aspectRatio: 24 / 16,
               child: Container(
@@ -43,6 +44,43 @@ class ImageContainer extends StatelessWidget {
 }
 
 class _ImageContainerUtils {
+  static void onImageContainerPressed(BuildContext context) {
+    CustomBottomSheet.show(context,
+        widget: CustomBottomSheet(
+          heightFactor: 0.2,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo),
+                title: const Text('Choose from gallery'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Take a picture'),
+                onTap: () {},
+              ),
+              // Column(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     ListTile(
+              //       leading: const Icon(Icons.photo),
+              //       title: const Text('Choose from gallery'),
+              //       onTap: () {},
+              //     ),
+              //     ListTile(
+              //       leading: const Icon(Icons.camera_alt),
+              //       title: const Text('Take a picture'),
+              //       onTap: () {},
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
+        ));
+  }
+
   static const List<BoxShadow> _shadows = [
     BoxShadow(
       color: Color(0x198C7373),

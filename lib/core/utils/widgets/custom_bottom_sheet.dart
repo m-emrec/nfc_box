@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../constants/colors.dart';
 import '../../extensions/context_extension.dart';
@@ -40,65 +39,83 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
-      dragHandleColor: _properties.handleColor,
-      backgroundColor: widget.backgroundColor ?? _properties.backgroundColor,
+      dragHandleColor: _utils.handleColor,
+      backgroundColor: widget.backgroundColor ?? _utils.backgroundColor,
       onClosing: () {
         context.pop();
       },
-      shadowColor: _properties.shadowColor,
+      shadowColor: _utils.shadowColor,
       elevation: 5,
       showDragHandle: true,
       enableDrag: true,
-      animationController: _properties._animationController,
-      constraints: _properties.constraints(context),
+      animationController: _utils._animationController,
+      // constraints: _utils.constraints(context),
       builder: (context) {
-        return Column(
-          children: [
-            widget.title == null
-                ? const SizedBox()
-                : Text(
-                    widget.title ?? "",
-                    style: context.textTheme.titleMedium,
-                  ),
-            Flexible(
-              child: widget.content ?? const SizedBox(),
+        return LayoutBuilder(
+          builder: (context, constraints) => SizedBox(
+            height:
+                _utils._isKeyboardVisible ? _utils._keyboardSize * 1.5 : null,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                widget.title == null
+                    ? const SizedBox()
+                    : Text(
+                        widget.title ?? "",
+                        style: context.textTheme.titleMedium,
+                      ),
+                Flexible(
+                  child: widget.content ?? const SizedBox(),
+                ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );
   }
 
-  late _CustomBottomSheetProperties _properties;
+  late _CustomBottomSheetUtils _utils;
   @override
   void initState() {
-    _properties = _CustomBottomSheetProperties(
+    _utils = _CustomBottomSheetUtils(
         context: context, heightFactor: widget.heightFactor);
-    _properties._animationController = AnimationController(
-      vsync: this,
-      duration: Durations.medium2,
-    );
-    _properties._animationController.forward(from: 0.1);
-    _properties._animationController.addListener(() => setState(() {}));
+    _utils.initState(
+        vsync: this,
+        setState: () => setState(
+              () {},
+            ));
     super.initState();
   }
 
   @override
   void dispose() {
-    _properties.dispose();
+    _utils.dispose();
     super.dispose();
   }
 }
 
-final class _CustomBottomSheetProperties {
+final class _CustomBottomSheetUtils {
   final BuildContext context;
   final double heightFactor;
   late AnimationController _animationController;
 
-  _CustomBottomSheetProperties({
+  _CustomBottomSheetUtils({
     required this.context,
     required this.heightFactor,
   });
+
+  void initState({
+    required TickerProvider vsync,
+    required Function setState,
+  }) {
+    _animationController = AnimationController(
+      vsync: vsync,
+      duration: Durations.medium2,
+    );
+    _animationController.forward(from: 0.1);
+    _animationController.addListener(() => setState());
+  }
 
   void dispose() {
     _animationController.removeListener(() {});
@@ -111,7 +128,7 @@ final class _CustomBottomSheetProperties {
 
   ///I get keyboard size , this way I can change the maxHeight of the BottomSheet
   double get _keyboardSize => context.mediaQuery.viewInsets.bottom;
-
+  bool get _isKeyboardVisible => _keyboardSize > 0;
   double get _maxHeight =>
       context.screenSize.height * heightFactor * _animationController.value +
       _keyboardSize;

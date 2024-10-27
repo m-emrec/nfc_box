@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_paddings.dart';
@@ -22,12 +23,14 @@ class ForgotPasswordSheet extends StatelessWidget {
       content: Padding(
         padding: AppPaddings.authHPadding,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             EmailField(
               controller: _controller,
               textInputAction: TextInputAction.done,
             ),
+            MaxGap(AppPaddings.sPadding),
             Consumer(
               builder: (context, ref, child) => ResponsiveElevatedButton(
                 onPressed: () => onTap(context, ref),

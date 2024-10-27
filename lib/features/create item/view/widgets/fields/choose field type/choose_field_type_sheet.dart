@@ -22,6 +22,7 @@ class ChooseFieldTypeSheet extends ConsumerWidget {
     return CustomBottomSheet(
       heightFactor: 0.25,
       content: ListView(
+        shrinkWrap: true,
         children: List.generate(
           _ChooseFieldTypeSheetUtils._fieldNames.length,
           (index) => ListTile(
