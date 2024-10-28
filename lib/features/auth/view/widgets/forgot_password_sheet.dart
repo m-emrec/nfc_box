@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_paddings.dart';
-import '../../../../core/utils/widgets/buttons/responsive_button.dart';
-import '../../../../core/utils/widgets/custom_bottom_sheet.dart';
+import '../../../../core/utils/widgets/buttons/buttons_import.dart';
+import '../../../../core/utils/widgets/custom bottom sheet/custom_bottom_sheet.dart';
 import '../../model/credentials.dart';
 import '../../providers/provider.dart';
 import 'email_field.dart';

@@ -7,7 +7,7 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/extensions/context_extension.dart';
-import '../../model/item.dart';
+import '../../../../core/utils/models/item.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({
@@ -68,7 +68,7 @@ class ItemCard extends StatelessWidget {
 
   Text _date(BuildContext context) {
     return Text(
-      DateFormat.yMMM().format(item.createdDate),
+      DateFormat.yMMM().format(item.createdDate ?? DateTime.now()),
       style: context.textTheme.bodySmall?.copyWith(
         color: AppColors.neutralGray500[50],
       ),
@@ -106,7 +106,7 @@ class ItemCard extends StatelessWidget {
         endPauseDuration: _textAnimationDuration,
         startPauseDuration: _textAnimationDuration,
         child: Text(
-          item.title,
+          item.itemName ?? "",
           style: context.textTheme.bodyLarge,
         ),
       ),

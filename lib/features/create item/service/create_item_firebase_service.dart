@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../core/utils/models/item.dart';
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/constants/enums/item_doc_keys.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
-import '../model/create_item_model.dart';
 
 import '../../../core/utils/models/field_model.dart';
 
@@ -29,11 +29,12 @@ final class CreateItemFirebaseService extends FirebaseUtils {
         }
       }
       // create a map of the item data
-      final Map<String, dynamic> data = CreateItemModel(
+      final Map<String, dynamic> data = Item(
         itemName: itemName,
         imageUrl: image,
         fields: fields,
         createdDate: DateTime.now(),
+        id: "",
       ).toMap();
 
       /// Get the user document reference

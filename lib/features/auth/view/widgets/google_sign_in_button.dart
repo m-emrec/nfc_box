@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/extensions/context_extension.dart';
-import '../../../../core/utils/widgets/buttons/responsive_button.dart';
+import '../../../../core/utils/widgets/buttons/buttons_import.dart';
 import '../../providers/provider.dart';
 
 class GoogleSignInButton extends ConsumerWidget {

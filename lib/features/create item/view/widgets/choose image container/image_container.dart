@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/border_radiuses.dart';
 import '../../../../../core/constants/colors.dart';
-import '../../../../../core/utils/widgets/custom_bottom_sheet.dart';
+import '../../../../../core/utils/widgets/custom bottom sheet/custom_bottom_sheet.dart';
 
 part 'choose_image_menu_sheet.dart';
 part 'image_container_utils.dart';

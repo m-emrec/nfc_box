@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/core/utils/widgets/custom_bottom_sheet.dart';
+import 'package:nfc_box/core/utils/widgets/custom%20bottom%20sheet/custom_bottom_sheet.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import 'email_field.dart';

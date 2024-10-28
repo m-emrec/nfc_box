@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_box/logger.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../constants/colors.dart';
@@ -48,39 +49,4 @@ class Toast {
         closeButtonShowType: CloseButtonShowType.none,
         margin: margin,
       );
-
-  // static ToastificationItem wellDone() => toastification.show(
-  //       animationDuration: Duration.zero,
-  //       title: LottieBuilder.asset(
-  //         AppAssets.wellDoneAnimation,
-  //       ),
-  //       autoCloseDuration: const Duration(seconds: 2),
-  //       alignment: Alignment.topCenter,
-  //       animationBuilder: (context, animation, alignment, child) {
-  //         return BackdropFilter(
-  //           filter: ImageFilter.blur(
-  //             sigmaX: 3,
-  //             sigmaY: 3,
-  //           ),
-  //           child: SizedBox(
-  //             height: context.dynamicHeight(1),
-  //             width: context.dynamicWidth(1),
-  //             child: ColoredBox(
-  //               color: AppColors.homeScaffoldColor.withOpacity(0.1),
-  //               child: child,
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //       // description:
-
-  //       margin: EdgeInsets.zero,
-  //       padding: EdgeInsets.zero,
-  //       closeButtonShowType: CloseButtonShowType.none,
-  //       showIcon: false,
-  //       showProgressBar: false,
-  //       backgroundColor: Colors.transparent,
-  //       borderSide: BorderSide.none,
-  //       // applyBlurEffect: true,
-  //     );
 }

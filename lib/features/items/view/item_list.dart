@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/core/utils/widgets/buttons/responsive_button.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_paddings.dart';
 
-import '../model/item.dart';
+import '../../../core/utils/models/item.dart';
 import 'widgets/item_card.dart';
 
 class ItemList extends StatelessWidget {
@@ -42,7 +41,7 @@ class ItemList extends StatelessWidget {
             ),
             child: ItemCard(
               item: Item(
-                title: "My Gym Shoe",
+                itemName: "My Gym Shoe",
                 id: "",
                 createdDate: DateTime(2024, 10, 12),
                 imageUrl:
