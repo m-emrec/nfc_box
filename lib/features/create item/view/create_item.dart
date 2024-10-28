@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/features/create%20item/service/create_item_firebase_service.dart';
 import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_paddings.dart';
@@ -29,7 +30,11 @@ class CreateItem extends ConsumerWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            logger.i(_CreateItemUtils.imageController.text);
+            CreateItemFirebaseService().createItem(
+              itemName: _CreateItemUtils.itemName,
+              image: _CreateItemUtils.imageController.text,
+              fields: ref.watch(fieldListProvider),
+            );
           },
           child: const Icon(Icons.check),
         ),

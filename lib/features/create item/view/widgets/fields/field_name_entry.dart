@@ -6,13 +6,13 @@ import '../../../../../core/utils/widgets/custom_text_field.dart';
 
 /// This will be used as the name of the elected field
 class FieldNameEntry extends StatelessWidget {
-  final int index;
+  final int? index;
   const FieldNameEntry({
     super.key,
-    required this.index,
-    required this.controller,
+    this.index,
+    this.controller,
   });
-  final TextEditingController controller;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     var label = "Field Name";

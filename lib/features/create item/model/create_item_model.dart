@@ -1,4 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
+import 'package:nfc_box/features/create%20item/model/field_model.dart';
 
 /// This model used for creating a new item
 ///
@@ -16,7 +21,7 @@ class CreateItemModel {
   final String? imageUrl;
   final String? id;
   final DateTime? createdDate;
-  final Map? fields;
+  final List<FieldModel>? fields;
 
   CreateItemModel({
     this.title,
@@ -31,7 +36,7 @@ class CreateItemModel {
     String? imageUrl,
     String? id,
     DateTime? createdDate,
-    Map? fields,
+    List<FieldModel>? fields,
   }) {
     return CreateItemModel(
       title: title ?? this.title,
@@ -48,7 +53,7 @@ class CreateItemModel {
       'imageUrl': imageUrl,
       'id': id,
       'createdDate': createdDate?.millisecondsSinceEpoch,
-      'fields': fields,
+      'fields': fields?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -60,9 +65,13 @@ class CreateItemModel {
       createdDate: map['createdDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int)
           : null,
-      fields: Map.from(
-        (map['fields'] as Map),
-      ),
+      fields: map['fields'] != null
+          ? List<FieldModel>.from(
+              (map['fields'] as List<int>).map<FieldModel?>(
+                (x) => FieldModel.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : null,
     );
   }
 
@@ -74,5 +83,25 @@ class CreateItemModel {
   @override
   String toString() {
     return 'CreateItemModel(title: $title, imageUrl: $imageUrl, id: $id, createdDate: $createdDate, fields: $fields)';
+  }
+
+  @override
+  bool operator ==(covariant CreateItemModel other) {
+    if (identical(this, other)) return true;
+
+    return other.title == title &&
+        other.imageUrl == imageUrl &&
+        other.id == id &&
+        other.createdDate == createdDate &&
+        listEquals(other.fields, fields);
+  }
+
+  @override
+  int get hashCode {
+    return title.hashCode ^
+        imageUrl.hashCode ^
+        id.hashCode ^
+        createdDate.hashCode ^
+        fields.hashCode;
   }
 }

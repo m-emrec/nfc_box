@@ -25,6 +25,7 @@ final class _ChooseFieldTypeSheetUtils {
     _updateFieldList(
       ref,
       FieldModel.createModel(
+        fieldType: fieldName,
         fieldIndex: fieldIndex,
         fieldController: fieldController,
         field: fieldsMap[fieldName],
