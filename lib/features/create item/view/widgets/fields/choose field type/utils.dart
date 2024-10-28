@@ -2,7 +2,7 @@ part of 'choose_field_type_sheet.dart';
 
 /// A class that contains the properties of the [ChooseFieldTypeSheet] widget.
 final class _ChooseFieldTypeSheetUtils {
-  static const List<FieldNames> _fieldNames = FieldNames.values;
+  static const List<ItemFieldNames> _fieldNames = ItemFieldNames.values;
 
   /// Handles the event when a field type is selected.
   ///
@@ -11,7 +11,7 @@ final class _ChooseFieldTypeSheetUtils {
   static void onSelected(
     BuildContext context, {
     required WidgetRef ref,
-    required FieldNames fieldName,
+    required ItemFieldNames fieldName,
   }) {
     /// A controller for the field.
     final TextEditingController fieldController = TextEditingController();
@@ -51,13 +51,13 @@ final class _ChooseFieldTypeSheetUtils {
   /// Returns a map of field types and their corresponding widgets.
   static Map _fieldsMap(TextEditingController fieldController) {
     final Map fieldsMap = {
-      FieldNames.Color: ColorField(
+      ItemFieldNames.Color: ColorField(
         controller: fieldController,
       ),
-      FieldNames.Text: TextFieldEntry(
+      ItemFieldNames.Text: TextFieldEntry(
         controller: fieldController,
       ),
-      FieldNames.Date: DateFieldEntry(
+      ItemFieldNames.Date: DateFieldEntry(
         controller: fieldController,
       ),
     };

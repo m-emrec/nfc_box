@@ -14,6 +14,9 @@ class _ImageContainerUtils {
   final ImagePicker _picker = ImagePicker();
   File? image;
 
+  static const String chooseFromGallery = 'Choose from gallery';
+  static const String takeAPicture = 'Take a picture';
+
   /// set the image to the selected image
   /// set the controller text to the selected image path
   /// call the setState method to update the UI

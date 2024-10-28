@@ -2,8 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import '../../../core/constants/enums/item_doc_keys.dart';
 
-import 'package:nfc_box/features/create%20item/model/field_model.dart';
+import '../../../core/utils/models/field_model.dart';
 
 /// This model used for creating a new item
 ///
@@ -17,14 +18,14 @@ import 'package:nfc_box/features/create%20item/model/field_model.dart';
 ///
 /// fields [Map] is the list of fields of the item
 class CreateItemModel {
-  final String? title;
+  final String? itemName;
   final String? imageUrl;
   final String? id;
   final DateTime? createdDate;
   final List<FieldModel>? fields;
 
   CreateItemModel({
-    this.title,
+    this.itemName,
     this.imageUrl,
     this.id,
     this.createdDate,
@@ -32,14 +33,14 @@ class CreateItemModel {
   });
 
   CreateItemModel copyWith({
-    String? title,
+    String? itemName,
     String? imageUrl,
     String? id,
     DateTime? createdDate,
     List<FieldModel>? fields,
   }) {
     return CreateItemModel(
-      title: title ?? this.title,
+      itemName: itemName ?? this.itemName,
       imageUrl: imageUrl ?? this.imageUrl,
       id: id ?? this.id,
       createdDate: createdDate ?? this.createdDate,
@@ -49,25 +50,32 @@ class CreateItemModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'title': title,
-      'imageUrl': imageUrl,
-      'id': id,
-      'createdDate': createdDate?.millisecondsSinceEpoch,
-      'fields': fields?.map((x) => x.toMap()).toList(),
+      ItemDocKeys.itemName.name: itemName,
+      ItemDocKeys.image.name: imageUrl,
+      ItemDocKeys.id.name: id,
+      ItemDocKeys.createdDate.name: createdDate?.millisecondsSinceEpoch,
+      ItemDocKeys.fields.name: fields?.map((x) => x.toMap()).toList(),
     };
   }
 
   factory CreateItemModel.fromMap(Map<String, dynamic> map) {
     return CreateItemModel(
-      title: map['title'] != null ? map['title'] as String : null,
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
-      id: map['id'] != null ? map['id'] as String : null,
-      createdDate: map['createdDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int)
+      itemName: map[ItemDocKeys.itemName.name] != null
+          ? map[ItemDocKeys.itemName.name] as String
           : null,
-      fields: map['fields'] != null
+      imageUrl: map[ItemDocKeys.image.name] != null
+          ? map[ItemDocKeys.image.name] as String
+          : null,
+      id: map[ItemDocKeys.id.name] != null
+          ? map[ItemDocKeys.id.name] as String
+          : null,
+      createdDate: map[ItemDocKeys.createdDate.name] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              map[ItemDocKeys.createdDate.name] as int)
+          : null,
+      fields: map[ItemDocKeys.fields.name] != null
           ? List<FieldModel>.from(
-              (map['fields'] as List<int>).map<FieldModel?>(
+              (map[ItemDocKeys.fields.name] as List<int>).map<FieldModel?>(
                 (x) => FieldModel.fromMap(x as Map<String, dynamic>),
               ),
             )
@@ -82,14 +90,14 @@ class CreateItemModel {
 
   @override
   String toString() {
-    return 'CreateItemModel(title: $title, imageUrl: $imageUrl, id: $id, createdDate: $createdDate, fields: $fields)';
+    return 'CreateItemModel(title: $itemName, imageUrl: $imageUrl, id: $id, createdDate: $createdDate, fields: $fields)';
   }
 
   @override
   bool operator ==(covariant CreateItemModel other) {
     if (identical(this, other)) return true;
 
-    return other.title == title &&
+    return other.itemName == itemName &&
         other.imageUrl == imageUrl &&
         other.id == id &&
         other.createdDate == createdDate &&
@@ -98,7 +106,7 @@ class CreateItemModel {
 
   @override
   int get hashCode {
-    return title.hashCode ^
+    return itemName.hashCode ^
         imageUrl.hashCode ^
         id.hashCode ^
         createdDate.hashCode ^

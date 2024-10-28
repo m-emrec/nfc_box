@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/create_item_model.dart';
-import '../model/field_model.dart';
+import '../../../core/utils/models/field_model.dart';
 import '../service/create_item_firebase_service.dart';
 import '../view%20model/create_item_view_model.dart';
 

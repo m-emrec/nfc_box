@@ -1,0 +1,4 @@
+enum CollectionNames {
+  Users,
+  Items,
+}

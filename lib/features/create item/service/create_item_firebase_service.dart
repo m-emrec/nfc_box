@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../core/constants/enums/collection_keys.dart';
+import '../../../core/constants/enums/item_doc_keys.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 import '../model/create_item_model.dart';
 
-import '../model/field_model.dart';
+import '../../../core/utils/models/field_model.dart';
 
 final class CreateItemFirebaseService extends FirebaseUtils {
   /// This method creates a new item in the database.
@@ -18,7 +20,6 @@ final class CreateItemFirebaseService extends FirebaseUtils {
       /// Upload image to firebase storage
       /// and get the download url
       ///  to store in the database
-
       final DataState imageState = await _uploadImageToFirebase(File(image));
 
       /// If the image upload is successful,
@@ -29,7 +30,7 @@ final class CreateItemFirebaseService extends FirebaseUtils {
       }
       // create a map of the item data
       final Map<String, dynamic> data = CreateItemModel(
-        title: itemName,
+        itemName: itemName,
         imageUrl: image,
         fields: fields,
         createdDate: DateTime.now(),
@@ -40,10 +41,10 @@ final class CreateItemFirebaseService extends FirebaseUtils {
           await getUserDoc();
 
       /// Add the item data to the user document
-      await userDoc.collection(DatabaseKeys.Items.name).add(data).then(
+      await userDoc.collection(CollectionNames.Items.name).add(data).then(
         (value) {
           /// Update the item id in the database
-          value.update({'id': value.id});
+          value.update({ItemDocKeys.id.name: value.id});
         },
       );
       return DataSuccess(null);
@@ -52,6 +53,8 @@ final class CreateItemFirebaseService extends FirebaseUtils {
     }
   }
 
+  /// This method uploads the image to firebase storage
+  /// and returns the download url
   Future<DataState> _uploadImageToFirebase(File? imagePath) async {
     try {
       if (imagePath != null) {

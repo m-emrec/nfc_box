@@ -3,14 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/utils/widgets/custom_bottom_sheet.dart';
-import '../../../../enums/field_names.dart';
-import '../../../../model/field_model.dart';
+import '../../../../../../core/constants/enums/item_field_names.dart';
+import '../../../../../../core/utils/models/field_model.dart';
 import '../../../../providers/providers.dart';
-import '../color_field.dart';
-import '../date_field_entry.dart';
+import '../color field/color_field.dart';
+import '../date field entry/date_field_entry.dart';
 import '../text_field_entry.dart';
 
-part "choose_field_type_properties.dart";
+part "utils.dart";
 
 class ChooseFieldTypeSheet extends ConsumerWidget {
   const ChooseFieldTypeSheet({

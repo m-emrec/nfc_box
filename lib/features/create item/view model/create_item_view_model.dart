@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
-import '../model/field_model.dart';
+import '../../../core/utils/models/field_model.dart';
 import '../service/create_item_firebase_service.dart';
 
 class CreateItemViewModel extends ChangeNotifier {
