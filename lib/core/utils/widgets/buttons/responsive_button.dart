@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../../constants/colors.dart';
 

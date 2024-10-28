@@ -18,10 +18,8 @@ abstract class FirebaseUtils {
   /// UID of current user
   String? get uid => auth.currentUser?.uid;
 
+  /// Use this method to get the user document reference
   Future<DocumentReference<Map<String, dynamic>>> getUserDoc() async {
     return firestore.collection(CollectionNames.Users.name).doc(uid);
   }
 }
-
-///
-/// This enum contains keys which used in Database.

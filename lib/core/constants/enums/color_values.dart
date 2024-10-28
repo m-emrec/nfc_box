@@ -1,20 +1,4 @@
-// Colors.red.value,
-// Colors.green.value,
-// Colors.blue.value,
-// Colors.yellow.value,
-// Colors.orange.value,
-// Colors.purple.value,
-// Colors.pink.value,
-// Colors.brown.value,
-// Colors.cyan.value,
-// Colors.teal.value,
-// Colors.amber.value,
-// Colors.indigo.value,
-// Colors.lime.value,
-// Colors.grey.value,
-// Colors.black.value,
-// Colors.white.value,
-
+/// This enum contains the color values which used in the app to add colors to Items.
 enum ColorValues {
   red(value: 0xFFFF0000),
   green(value: 0xFF00FF00),
