@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:nfc_box/features/create%20item/service/create_item_firebase_service.dart';
-import 'package:nfc_box/logger.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_paddings.dart';
+import '../../../core/resources/data_state.dart';
 import '../../../core/utils/widgets/buttons/responsive_button.dart';
 import '../../../core/utils/widgets/custom_bottom_sheet.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 import '../model/field_model.dart';
 import '../providers/providers.dart';
+import 'widgets/choose image container/image_container.dart';
 import 'widgets/field_list.dart';
 import 'widgets/fields/choose field type/choose_field_type_sheet.dart';
-import 'widgets/choose image container/image_container.dart';
 
 class CreateItem extends ConsumerWidget {
   const CreateItem({super.key});
@@ -21,21 +21,14 @@ class CreateItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) =>
-          _CreateItemUtils.clearFieldList(ref),
+      onPopInvokedWithResult: (didPop, result) => _CreateItemUtils.clear(ref),
       child: Scaffold(
         appBar: AppBar(
           title: const Text(_CreateItemUtils.addItem),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            CreateItemFirebaseService().createItem(
-              itemName: _CreateItemUtils.itemName,
-              image: _CreateItemUtils.imageController.text,
-              fields: ref.watch(fieldListProvider),
-            );
-          },
+          onPressed: () => _CreateItemUtils.onTapSave(context, ref),
           child: const Icon(Icons.check),
         ),
         body: Padding(
@@ -53,6 +46,9 @@ class CreateItem extends ConsumerWidget {
                   /// This is the text field for the item name
                   CustomTextField(
                     label: _CreateItemUtils.itemName,
+                    validator: (value) =>
+                        value!.isEmpty ? 'Enter item name' : null,
+                    controller: _CreateItemUtils.itemNameController,
                   ),
                   Gap(AppPaddings.lPadding),
 
@@ -82,11 +78,44 @@ final class _CreateItemUtils {
   static const String addItem = 'Add Item';
   static const String itemName = 'Item Name';
   static TextEditingController imageController = TextEditingController();
-  static void clearFieldList(WidgetRef ref) {
+  static TextEditingController itemNameController = TextEditingController();
+
+  /// Clear the text fields and the fieldList
+  static void clear(WidgetRef ref) {
     ref.read(fieldListProvider).clear();
+    itemNameController.clear();
+    imageController.clear();
   }
 
-  static void onTabPressed(BuildContext context, WidgetRef ref) async {
+  static Future onTapSave(BuildContext context, WidgetRef ref) async {
+    bool isValid = validate(context, ref);
+    if (isValid) {
+      await ref
+          .read(createItemProvider.notifier)
+          .createItem(
+            itemName: itemNameController.text,
+            image: imageController.text,
+            fields: ref.watch(fieldListProvider),
+          )
+
+          /// if the dataState is DataSuccess then pop the screen
+          .then((dataState) {
+        if (dataState is DataSuccess) {
+          if (context.mounted) {
+            context.pop();
+          }
+        }
+      });
+    }
+  }
+
+  /// Validate the fields
+  /// if the fieldList is not empty then check if the last field is empty
+  /// if the last field is empty then show a error toast
+  /// check if the item name is empty
+  /// if the item name is empty then show a error toast
+  /// return true if all the fields are valid
+  static bool validate(BuildContext context, WidgetRef ref) {
     /// check if the fieldList is not empty
     /// if the fieldList is not empty then check if the last field is empty
     /// if the last field is empty then show a error toast
@@ -95,12 +124,23 @@ final class _CreateItemUtils {
       if (lastField.fieldNameController.text.isEmpty ||
           lastField.fieldController.text.isEmpty) {
         Toast.errToast(desc: 'Field name and field value cannot be empty');
-        return;
+        return false;
       }
     }
 
-    ///  else show the bottom sheet
-    await showBottomSheet(context);
+    /// check if the item name is empty
+    if (itemNameController.text.isEmpty) {
+      Toast.errToast(desc: 'Item name cannot be empty');
+      return false;
+    }
+    return true;
+  }
+
+  static void onTabPressed(BuildContext context, WidgetRef ref) async {
+    bool isValid = validate(context, ref);
+    if (isValid) {
+      await showBottomSheet(context);
+    }
   }
 
   /// Show [ChooseFieldTypeSheet] bottom sheet
