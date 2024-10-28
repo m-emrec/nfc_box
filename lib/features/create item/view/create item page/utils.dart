@@ -23,9 +23,11 @@ final class _CreateItemUtils {
       await ref
           .read(createItemProvider.notifier)
           .createItem(
-            itemName: itemNameController.text,
-            image: imageController.text,
-            fields: ref.watch(fieldListProvider),
+            item: Item(
+              itemName: itemNameController.text,
+              fields: ref.watch(fieldListProvider),
+              imageUrl: imageController.text,
+            ),
           )
 
           /// if the dataState is DataSuccess then pop the screen

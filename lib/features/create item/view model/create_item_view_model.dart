@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_box/core/utils/models/item.dart';
 
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
@@ -7,19 +8,15 @@ import '../../../core/utils/models/field_model.dart';
 import '../service/create_item_firebase_service.dart';
 
 class CreateItemViewModel extends ChangeNotifier {
-  final CreateItemFirebaseService _createItemFirebaseService;
+  final CreateItemDatabaseService _createItemFirebaseService;
 
   CreateItemViewModel(this._createItemFirebaseService);
 
   Future<DataState> createItem({
-    required String itemName,
-    required String image,
-    required List<FieldModel> fields,
+    required Item item,
   }) async {
     final DataState dataState = await _createItemFirebaseService.createItem(
-      itemName: itemName,
-      image: image,
-      fields: fields,
+      item: item,
     );
     if (dataState is DataSuccess) {
       Toast.succToast(title: 'Item created successfully');

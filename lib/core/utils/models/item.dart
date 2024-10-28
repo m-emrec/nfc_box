@@ -9,11 +9,11 @@ class Item {
   final List<FieldModel>? fields;
 
   Item({
-    required this.itemName,
+    this.itemName,
     this.imageUrl,
-    required this.id,
-    required this.createdDate,
-    required this.fields,
+    this.id,
+    this.createdDate,
+    this.fields,
   });
 
   Item copyWith({

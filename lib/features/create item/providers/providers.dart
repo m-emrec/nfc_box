@@ -10,8 +10,8 @@ final fieldListProvider = StateProvider<List<FieldModel>>((ref) {
 });
 
 final _createItemFirebaseServiceProvider =
-    Provider<CreateItemFirebaseService>((ref) {
-  return CreateItemFirebaseService();
+    Provider<CreateItemDatabaseService>((ref) {
+  return CreateItemDatabaseService();
 });
 
 final createItemProvider = ChangeNotifierProvider<CreateItemViewModel>((ref) {

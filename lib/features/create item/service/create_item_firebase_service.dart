@@ -7,51 +7,55 @@ import '../../../core/constants/enums/item_doc_keys.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 
-import '../../../core/utils/models/field_model.dart';
-
-final class CreateItemFirebaseService extends FirebaseUtils {
+final class CreateItemDatabaseService extends FirebaseUtils {
   /// This method creates a new item in the database.
   Future<DataState> createItem({
-    required String itemName,
-    required String image,
-    required List<FieldModel> fields,
+    required Item item,
   }) async {
     try {
       /// Upload image to firebase storage
       /// and get the download url
       ///  to store in the database
-      final DataState imageState = await _uploadImageToFirebase(File(image));
+      final DataState imageState =
+          await _uploadImageToFirebase(File(item.imageUrl ?? ""));
 
       /// If the image upload is successful,
       if (imageState is DataSuccess) {
+        /// and if the image url is not null,
         if (imageState.data != null) {
-          image = imageState.data as String;
+          /// then update the item with the image url
+          item = item.copyWith(
+            imageUrl: imageState.data as String,
+          );
         }
       }
-      // create a map of the item data
-      final Map<String, dynamic> data = Item(
-        itemName: itemName,
-        imageUrl: image,
-        fields: fields,
+
+      /// Update the created date of the item
+      item = item.copyWith(
         createdDate: DateTime.now(),
-        id: "",
-      ).toMap();
-
-      /// Get the user document reference
-      final DocumentReference<Map<String, dynamic>> userDoc =
-          await getUserDoc();
-
-      /// Add the item data to the user document
-      await userDoc.collection(CollectionNames.Items.name).add(data).then(
-        (value) {
-          /// Update the item id in the database
-          value.update({ItemDocKeys.id.name: value.id});
-        },
       );
+      // create a map of the item data
+      final Map<String, dynamic> data = item.toMap();
+      _uploadItemToDatabase(data);
       return DataSuccess(null);
     } catch (e) {
       return DataFailed(e.toString());
     }
+  }
+
+  /// This method uploads the item data to the database
+  /// and updates the item id in the database
+  Future<void> _uploadItemToDatabase(Map<String, dynamic> data) async {
+    /// Get the user document reference
+    final DocumentReference<Map<String, dynamic>> userDoc = await getUserDoc();
+
+    /// Add the item data to the user document
+    await userDoc.collection(CollectionNames.Items.name).add(data).then(
+      (value) {
+        /// Update the item id in the database
+        value.update({ItemDocKeys.id.name: value.id});
+      },
+    );
   }
 
   /// This method uploads the image to firebase storage
