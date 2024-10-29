@@ -1,12 +1,19 @@
 part of 'date_field_entry.dart';
 
 class _DateFieldEntryUtils {
+  _DateFieldEntryUtils({required this.controller}) {
+    selectedDate =
+        controller.text.isNotEmpty ? DateTime.parse(controller.text) : null;
+  }
+
+  final TextEditingController controller;
   DateTime? selectedDate;
   final String buttonLabel = 'Choose Date';
+
   bool get _isDateSelected => selectedDate == null;
 
   /// This method shows the date picker dialog
-  void showDatePicker(context, TextEditingController controller, setState) {
+  void showDatePicker(context, setState) {
     showDialog(
       context: context,
       builder: (context) => DatePickerDialog(

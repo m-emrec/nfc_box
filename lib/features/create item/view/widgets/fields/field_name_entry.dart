@@ -19,16 +19,20 @@ class FieldNameEntry extends ConsumerWidget {
     return CustomTextField(
       label: label,
       controller: controller,
-      suffix: CloseButton(
-        onPressed: () {
-          ref.read(fieldListProvider.notifier).update(
-            (state) {
-              state.removeWhere((element) => element.fieldID == fieldID);
+      suffix: SizedBox(
+        height: 24,
+        width: 24,
+        child: CloseButton(
+          onPressed: () {
+            ref.read(fieldListProvider.notifier).update(
+              (state) {
+                state.removeWhere((element) => element.fieldID == fieldID);
 
-              return [...state];
-            },
-          );
-        },
+                return [...state];
+              },
+            );
+          },
+        ),
       ),
     );
   }

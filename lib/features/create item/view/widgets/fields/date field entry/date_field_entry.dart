@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:nfc_box/logger.dart';
 import '../../../../../../core/constants/app_paddings.dart';
 
 part 'utils.dart';
@@ -17,14 +18,18 @@ class DateFieldEntry extends StatefulWidget {
 }
 
 class _DateFieldEntryState extends State<DateFieldEntry> {
-  final _DateFieldEntryUtils _dateFieldEntryUtils = _DateFieldEntryUtils();
+  late _DateFieldEntryUtils _dateFieldEntryUtils;
+  @override
+  void initState() {
+    _dateFieldEntryUtils = _DateFieldEntryUtils(controller: widget.controller);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () => _dateFieldEntryUtils.showDatePicker(
         context,
-        widget.controller,
         setState,
       ),
       child: Row(
