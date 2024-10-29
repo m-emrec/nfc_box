@@ -28,19 +28,19 @@ class FieldModel {
   final Widget field;
   final TextEditingController fieldNameController;
   final TextEditingController fieldController;
-  final int? fieldIndex;
+  final String? fieldID;
   final ItemFieldNames fieldType;
   FieldModel({
     required this.fieldName,
     required this.field,
     required this.fieldNameController,
     required this.fieldController,
-    this.fieldIndex,
+    this.fieldID,
     required this.fieldType,
   });
 
   factory FieldModel.createModel({
-    required int fieldIndex,
+    required String fieldID,
     required Widget field,
     required TextEditingController fieldController,
     required ItemFieldNames fieldType,
@@ -48,12 +48,12 @@ class FieldModel {
     final TextEditingController fieldNameController = TextEditingController();
 
     final Widget fieldName = FieldNameEntry(
-      index: fieldIndex,
+      fieldID: fieldID,
       controller: fieldNameController,
     );
 
     return FieldModel(
-      fieldIndex: fieldIndex,
+      fieldID: fieldID,
       fieldName: fieldName,
       field: field,
       fieldNameController: fieldNameController,
@@ -67,7 +67,7 @@ class FieldModel {
     Widget? field,
     TextEditingController? fieldNameController,
     TextEditingController? fieldController,
-    int? fieldIndex,
+    String? fieldID,
     ItemFieldNames? fieldType,
   }) {
     return FieldModel(
@@ -75,7 +75,7 @@ class FieldModel {
       field: field ?? this.field,
       fieldNameController: fieldNameController ?? this.fieldNameController,
       fieldController: fieldController ?? this.fieldController,
-      fieldIndex: fieldIndex ?? this.fieldIndex,
+      fieldID: fieldID ?? this.fieldID,
       fieldType: fieldType ?? this.fieldType,
     );
   }
@@ -85,6 +85,7 @@ class FieldModel {
       ItemDocKeys.fieldName.name: fieldNameController.text,
       ItemDocKeys.fieldValue.name: fieldController.text,
       ItemDocKeys.fieldType.name: fieldType.name,
+      ItemDocKeys.fieldID.name: fieldID,
     };
   }
 

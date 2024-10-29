@@ -8,7 +8,7 @@ import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 
 final class CreateItemDatabaseService extends FirebaseUtils {
-  /// This method creates a new item in the database.
+  /// This method creates a new item to upload to the database.
   Future<DataState> createItem({
     required Item item,
   }) async {

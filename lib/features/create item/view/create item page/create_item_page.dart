@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/core/utils/models/item.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/resources/data_state.dart';
+import '../../../../core/utils/models/field_model.dart';
+import '../../../../core/utils/models/item.dart';
 import '../../../../core/utils/widgets/buttons/buttons_import.dart';
 import '../../../../core/utils/widgets/custom bottom sheet/custom_bottom_sheet.dart';
 import '../../../../core/utils/widgets/custom_text_field.dart';
 import '../../../../core/utils/widgets/custom_toast.dart';
-import '../../../../core/utils/models/field_model.dart';
 import '../../providers/providers.dart';
-import '../widgets/choose image container/image_container.dart';
+import '../widgets/choose image container/choose_image_container.dart';
 import '../widgets/field_list.dart';
 import '../widgets/fields/choose field type/choose_field_type_sheet.dart';
 
@@ -24,6 +24,7 @@ class CreateItemPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return PopScope(
+      /// When popped clear all the fields
       onPopInvokedWithResult: (didPop, result) => _CreateItemUtils.clear(ref),
       child: Scaffold(
         appBar: AppBar(

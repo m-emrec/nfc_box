@@ -17,7 +17,7 @@ final class _ChooseFieldTypeSheetUtils {
     final TextEditingController fieldController = TextEditingController();
 
     /// The index of the field in the list of fields.
-    final int fieldIndex = ref.watch(fieldListProvider).length + 1;
+    final String fieldID = const Uuid().v1();
 
     /// A map of field types and their corresponding widgets.
     final Map fieldsMap = _fieldsMap(fieldController);
@@ -26,7 +26,7 @@ final class _ChooseFieldTypeSheetUtils {
       ref,
       FieldModel.createModel(
         fieldType: fieldName,
-        fieldIndex: fieldIndex,
+        fieldID: fieldID,
         fieldController: fieldController,
         field: fieldsMap[fieldName],
       ),

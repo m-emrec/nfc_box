@@ -42,19 +42,14 @@ final class _CreateItemUtils {
   }
 
   /// Validate the fields
-  /// if the fieldList is not empty then check if the last field is empty
-  /// if the last field is empty then show a error toast
-  /// check if the item name is empty
-  /// if the item name is empty then show a error toast
-  /// return true if all the fields are valid
   static bool validate(BuildContext context, WidgetRef ref) {
     /// check if the fieldList is not empty
-    /// if the fieldList is not empty then check if the last field is empty
-    /// if the last field is empty then show a error toast
     if (ref.watch(fieldListProvider).isNotEmpty) {
+      /// if the fieldList is not empty then check if the last field is empty
       final FieldModel lastField = ref.watch(fieldListProvider).last;
       if (lastField.fieldNameController.text.isEmpty ||
           lastField.fieldController.text.isEmpty) {
+        /// if the last field is empty then show a error toast
         Toast.errToast(desc: 'Field name and field value cannot be empty');
         return false;
       }
@@ -65,6 +60,8 @@ final class _CreateItemUtils {
       Toast.errToast(desc: 'Item name cannot be empty');
       return false;
     }
+
+    /// if everything is valid then return true
     return true;
   }
 

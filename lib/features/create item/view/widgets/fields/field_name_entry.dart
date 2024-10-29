@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../core/constants/colors.dart';
-import '../../../../../core/extensions/context_extension.dart';
 import '../../../../../core/utils/widgets/custom_text_field.dart';
+import '../../../providers/providers.dart';
 
 /// This will be used as the name of the elected field
-class FieldNameEntry extends StatelessWidget {
-  final int? index;
+class FieldNameEntry extends ConsumerWidget {
+  final String? fieldID;
   const FieldNameEntry({
     super.key,
-    this.index,
+    this.fieldID,
     this.controller,
   });
   final TextEditingController? controller;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var label = "Field Name";
     return CustomTextField(
       label: label,
       controller: controller,
-      prefixIcon: Card(
-        color: AppColors.neutralGray500[100],
-        child: SizedBox(
-          height: 16,
-          width: 16,
-          child: Center(
-            child: Text(
-              "$index.",
-              style: context.textTheme.labelLarge
-                  ?.copyWith(color: AppColors.lightText100),
-            ),
-          ),
-        ),
+      suffix: CloseButton(
+        onPressed: () {
+          ref.read(fieldListProvider.notifier).update(
+            (state) {
+              state.removeWhere((element) => element.fieldID == fieldID);
+
+              return [...state];
+            },
+          );
+        },
       ),
     );
   }

@@ -8,7 +8,6 @@ abstract class FirebaseUtils {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
-  // static GoogleSignIn googleSignIn = GoogleSignIn();
 
   User? get currentUser => auth.currentUser;
 

@@ -1,4 +1,4 @@
-part of 'image_container.dart';
+part of 'choose_image_container.dart';
 
 class _ChooseImageMenuSheet extends StatelessWidget {
   const _ChooseImageMenuSheet({

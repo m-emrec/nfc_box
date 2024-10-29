@@ -1,4 +1,4 @@
-part of 'image_container.dart';
+part of 'choose_image_container.dart';
 
 /// This class contains the logic for the image container
 /// It contains the properties and methods for the image container
@@ -17,12 +17,15 @@ class _ImageContainerUtils {
   static const String chooseFromGallery = 'Choose from gallery';
   static const String takeAPicture = 'Take a picture';
 
-  /// set the image to the selected image
-  /// set the controller text to the selected image path
-  /// call the setState method to update the UI
+  /// This method sets the image to the selected image
   void setImage(File selectedImage) {
+    /// set the image to the selected image
     image = selectedImage;
+
+    /// set the controller text to the selected image path
     controller.text = selectedImage.path;
+
+    /// call the setState method to update the UI
     setState();
   }
 
