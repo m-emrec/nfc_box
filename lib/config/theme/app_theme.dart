@@ -11,24 +11,62 @@ class AppTheme {
   ThemeData get theme => _theme;
 
   final ThemeData _theme = ThemeData(
-      brightness: Brightness.light,
-      useMaterial3: true,
+    brightness: Brightness.light,
+    useMaterial3: true,
 
-      /// colors
-      scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
-      primaryColor: AppColors.primaryBlue[50],
-      textTheme: TextStyles().textTheme,
+    /// colors
+    scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
+    primaryColor: AppColors.primaryBlue[50],
+    textTheme: TextStyles().textTheme,
 
-      /// Widget Themes
-      appBarTheme: _appBarTheme(),
-      elevatedButtonTheme: _elevatedButtonTheme(),
-      outlinedButtonTheme: _outlinedButtonTheme(),
-      textButtonTheme: _textButtonTheme(),
-      inputDecorationTheme: _inputDecoration(),
-      extensions: _extensions,
-      checkboxTheme: _checkboxTheme(),
-      progressIndicatorTheme: _progressIndicatorTheme(),
-      floatingActionButtonTheme: _floatingActionButtonTheme());
+    /// Widget Themes
+    appBarTheme: _appBarTheme(),
+    elevatedButtonTheme: _elevatedButtonTheme(),
+    outlinedButtonTheme: _outlinedButtonTheme(),
+    textButtonTheme: _textButtonTheme(),
+    inputDecorationTheme: _inputDecoration(),
+    extensions: _extensions,
+    checkboxTheme: _checkboxTheme(),
+    progressIndicatorTheme: _progressIndicatorTheme(),
+    floatingActionButtonTheme: _floatingActionButtonTheme(),
+    datePickerTheme: _datePickerTheme(),
+  );
+
+  static DatePickerThemeData _datePickerTheme() => DatePickerThemeData(
+        backgroundColor: AppColors.neutralBackgroundLight[10],
+        cancelButtonStyle: ButtonStyle(
+          foregroundColor: WidgetStatePropertyAll(
+            AppColors.accentError[50],
+          ),
+        ),
+        confirmButtonStyle: ButtonStyle(
+          foregroundColor: WidgetStatePropertyAll(
+            AppColors.accentSuccess[80],
+          ),
+        ),
+        dayBackgroundColor: WidgetStateProperty.resolveWith(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.secondaryLightTeal[20];
+            }
+            return null;
+          },
+        ),
+        dayForegroundColor:
+            WidgetStatePropertyAll(AppColors.neutralGray900[50]),
+        todayBorder: BorderSide.none,
+        todayForegroundColor: WidgetStatePropertyAll(
+          AppColors.primaryBlue[70],
+        ),
+        todayBackgroundColor: WidgetStateProperty.resolveWith(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return AppColors.secondaryLightTeal[20];
+            }
+            return null;
+          },
+        ),
+      );
 
   static FloatingActionButtonThemeData _floatingActionButtonTheme() =>
       FloatingActionButtonThemeData(

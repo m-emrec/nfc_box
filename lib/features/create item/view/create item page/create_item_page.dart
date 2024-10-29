@@ -54,7 +54,7 @@ class CreateItemPage extends ConsumerWidget {
                         value!.isEmpty ? 'Enter item name' : null,
                     controller: _CreateItemUtils.itemNameController,
                   ),
-                  Gap(AppPaddings.lPadding),
+                  Gap(AppPaddings.sPadding),
 
                   ///list of fields
                   const FieldList(),

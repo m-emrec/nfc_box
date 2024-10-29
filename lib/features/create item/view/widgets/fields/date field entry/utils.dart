@@ -16,11 +16,7 @@ class _DateFieldEntryUtils {
   void showDatePicker(context, setState) {
     showDialog(
       context: context,
-      builder: (context) => DatePickerDialog(
-        firstDate: DateTime(2010),
-        lastDate: DateTime(2050),
-        currentDate: DateTime.now(),
-      ),
+      builder: (context) => const _DatePicker(),
     ).then(
       /// if val is not null then set the selected date
       (val) => val != null ? setSelectedDate(val, controller, setState) : {},
