@@ -31,8 +31,9 @@ final class _CreateItemUtils {
           )
 
           /// if the dataState is DataSuccess then pop the screen
-          .then((dataState) {
+          .then((dataState) async {
         if (dataState is DataSuccess) {
+          await ref.read(itemListProvider.notifier).getItems();
           if (context.mounted) {
             context.pop();
           }

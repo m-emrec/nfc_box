@@ -80,6 +80,26 @@ class FieldModel {
     );
   }
 
+  factory FieldModel.fromJson(Map<String, dynamic> json) {
+    return FieldModel(
+      fieldName: FieldNameEntry(
+        controller:
+            TextEditingController(text: json[ItemDocKeys.fieldName.name]),
+      ),
+      field: TextFieldEntry(
+        controller:
+            TextEditingController(text: json[ItemDocKeys.fieldValue.name]),
+      ),
+      fieldNameController:
+          TextEditingController(text: json[ItemDocKeys.fieldName.name]),
+      fieldController:
+          TextEditingController(text: json[ItemDocKeys.fieldValue.name]),
+      fieldType: ItemFieldNames.values.firstWhere(
+        (ItemFieldNames e) => e.name == json[ItemDocKeys.fieldType.name],
+      ),
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       ItemDocKeys.fieldName.name: fieldNameController.text,

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/features/create%20item/view/create%20item%20page/create_item_page.dart';
 import 'package:nfc_box/features/home/view/home.dart';
-import 'package:nfc_box/features/items/view/item_list.dart';
+import 'package:nfc_box/features/items/view/item_list_page.dart';
 import '../../features/auth/service/auth_service.dart';
 
 import '../../features/auth/view/sign_in.dart';
@@ -47,7 +47,7 @@ class AppRouter {
           GoRoute(
             path: Routes.itemList.path,
             name: Routes.itemList.name,
-            builder: (context, state) => const ItemList(),
+            builder: (context, state) => const ItemListPage(),
           ),
           GoRoute(
             path: Routes.createItem.path,

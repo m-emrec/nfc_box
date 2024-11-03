@@ -16,6 +16,19 @@ class Item {
     this.fields,
   });
 
+  factory Item.fromJson(Map<String, dynamic> json) {
+    return Item(
+      itemName: json[ItemDocKeys.itemName.name],
+      imageUrl: json[ItemDocKeys.image.name],
+      id: json[ItemDocKeys.id.name],
+      createdDate: DateTime.fromMillisecondsSinceEpoch(
+          json[ItemDocKeys.createdDate.name]),
+      fields: json[ItemDocKeys.fields.name]
+          .map<FieldModel>((x) => FieldModel.fromJson(x))
+          .toList(),
+    );
+  }
+
   Item copyWith({
     String? itemName,
     String? imageUrl,
