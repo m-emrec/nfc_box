@@ -11,7 +11,6 @@ final class ItemListDatabaseService extends FirebaseUtils {
     // Fetch items from the database
     try {
       final List<QueryDocumentSnapshot> itemList = await _getItemDocs();
-      logger.i(itemList.length);
 
       return DataSuccess(itemList);
     } catch (e) {

@@ -15,7 +15,6 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
     await _itemListDatabaseService.removeItem(item).then((value) {
       if (value is DataSuccess) {
         state = state.where((element) => element.id != item.id).toList();
-        logger.e(state);
       }
     }).onError((error, stackTrace) {
       Toast.errToast(
@@ -37,7 +36,6 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
           }).toList()
         ];
         state = [...items];
-        logger.d(state.length);
         isLoading = false;
       }
     }).onError((error, stackTrace) {

@@ -34,9 +34,7 @@ class _ItemListState extends ConsumerState<ItemListPage> {
   Widget build(BuildContext context) {
     bool isLoading =
         ref.watch(ItemListProvider.itemListProvider.notifier).isLoading;
-    logger.i(isLoading);
     final List<Item> items = ref.watch(ItemListProvider.itemListProvider);
-    logger.w(items.length);
     return Scaffold(
       appBar: AppBar(
         title: const Text(boxes),
