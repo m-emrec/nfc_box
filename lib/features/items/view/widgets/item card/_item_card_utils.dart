@@ -1,6 +1,6 @@
 part of 'item_card.dart';
 
-final class _ItemCardUtils {
+final class _ItemCardUtils with ItemListProvider {
   final Duration _textAnimationDuration = const Duration(milliseconds: 500);
   final int _textFlowSpeed = 40;
   final Item item;

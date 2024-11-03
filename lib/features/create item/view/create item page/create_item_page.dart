@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/features/items/providers/providers.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/resources/data_state.dart';
@@ -12,6 +11,7 @@ import '../../../../core/utils/widgets/buttons/buttons_import.dart';
 import '../../../../core/utils/widgets/custom bottom sheet/custom_bottom_sheet.dart';
 import '../../../../core/utils/widgets/custom_text_field.dart';
 import '../../../../core/utils/widgets/custom_toast.dart';
+import '../../../items/providers/providers.dart';
 import '../../providers/providers.dart';
 import '../widgets/choose image container/choose_image_container.dart';
 import '../widgets/field_list.dart';
@@ -33,7 +33,7 @@ class CreateItemPage extends ConsumerWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FAB(
-          onPressed: () => _CreateItemUtils.onSave(context, ref),
+          onPressed: () => _CreateItemUtils().onSave(context, ref),
           child: const Icon(Icons.check),
         ),
         body: Padding(

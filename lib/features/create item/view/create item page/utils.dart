@@ -1,7 +1,7 @@
 part of 'create_item_page.dart';
 
 /// This class contains the properties for the CreateItem widget
-final class _CreateItemUtils {
+final class _CreateItemUtils with ItemListProvider {
   static const String addField = 'Add Field';
   static const String addItem = 'Add Item';
   static const String itemName = 'Item Name';
@@ -15,7 +15,7 @@ final class _CreateItemUtils {
     imageController.clear();
   }
 
-  static Future onSave(BuildContext context, WidgetRef ref) async {
+  Future onSave(BuildContext context, WidgetRef ref) async {
     bool isValid = validate(context, ref);
 
     /// if the fields are valid then create the item

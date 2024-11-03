@@ -20,7 +20,7 @@ class ItemListPage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _ItemListState();
 }
 
-class _ItemListState extends ConsumerState<ItemListPage> {
+class _ItemListState extends ConsumerState<ItemListPage> with ItemListProvider {
   static const String boxes = 'Boxes';
 
   @override
