@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/logger.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/routes/router.dart';
 
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/constants/colors.dart';
 import '../../../core/utils/models/item.dart';
 import '../providers/providers.dart';
+import 'widgets/item card/item_card.dart';
 import 'widgets/item_list.dart';
 
 class ItemListPage extends ConsumerStatefulWidget {
@@ -27,7 +32,10 @@ class _ItemListState extends ConsumerState<ItemListPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoading = ref.watch(itemListProvider.notifier).isLoading;
+
     final List<Item> items = ref.watch(itemListProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(boxes),
@@ -46,7 +54,36 @@ class _ItemListState extends ConsumerState<ItemListPage> {
         onPressed: () => context.pushNamed(Routes.createItem.name),
         child: const Icon(Icons.add),
       ),
-      body: ItemList(items: items),
+      body: isLoading ? _LoadingList() : ItemList(items: items),
+    );
+  }
+}
+
+class _LoadingList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 4,
+      itemBuilder: (context, index) {
+        return Skeletonizer(
+          containersColor: AppColors.neutralBackgroundLight[50],
+          enabled: true, // items.isEmpty,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: AppPaddings.sPadding / 2,
+              horizontal: AppPaddings.xsPadding,
+            ),
+            child: ItemCard(
+              item: Item(
+                itemName: 'Loading...',
+                id: 'Loading...',
+                imageUrl: '',
+                createdDate: DateTime.now(),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -10,7 +10,7 @@ import '../service/item_list_database_service.dart';
 class ItemListNotifier extends StateNotifier<List<Item>> {
   final ItemListDatabaseService _itemListDatabaseService;
   ItemListNotifier(this._itemListDatabaseService) : super([]);
-
+  bool isLoading = false;
   Future<void> removeItem(Item item) async {
     await _itemListDatabaseService.removeItem(item).then((value) {
       if (value is DataSuccess) {
@@ -26,6 +26,8 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
   }
 
   Future getItems() async {
+    isLoading = true;
+
     await _itemListDatabaseService.fetchItems().then((value) {
       if (value is DataSuccess) {
         List<Item> items = [
@@ -34,6 +36,7 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
           }).toList()
         ];
         state = [...items];
+        isLoading = false;
       }
     }).onError((error, stackTrace) {
       state = [];
