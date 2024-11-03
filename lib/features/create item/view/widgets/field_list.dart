@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/features/create%20item/providers/providers.dart';
 
 import '../../../../core/constants/app_paddings.dart';
-import '../../providers/providers.dart';
 
 class FieldList extends ConsumerStatefulWidget {
   const FieldList({super.key});
@@ -11,7 +11,7 @@ class FieldList extends ConsumerStatefulWidget {
   ConsumerState<FieldList> createState() => _FieldListState();
 }
 
-class _FieldListState extends ConsumerState<FieldList> {
+class _FieldListState extends ConsumerState<FieldList> with CreateItemProvider {
   @override
   Widget build(BuildContext context) {
     return ListView(

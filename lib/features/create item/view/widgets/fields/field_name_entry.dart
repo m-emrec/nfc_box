@@ -5,9 +5,9 @@ import '../../../../../core/utils/widgets/custom_text_field.dart';
 import '../../../providers/providers.dart';
 
 /// This will be used as the name of the elected field
-class FieldNameEntry extends ConsumerWidget {
+class FieldNameEntry extends ConsumerWidget with CreateItemProvider {
   final String? fieldID;
-  const FieldNameEntry({
+  FieldNameEntry({
     super.key,
     this.fieldID,
     this.controller,

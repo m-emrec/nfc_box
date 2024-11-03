@@ -1,14 +1,14 @@
 part of 'choose_field_type_sheet.dart';
 
 /// A class that contains the properties of the [ChooseFieldTypeSheet] widget.
-final class _ChooseFieldTypeSheetUtils {
+final class _ChooseFieldTypeSheetUtils with CreateItemProvider {
   static const List<ItemFieldNames> _fieldNames = ItemFieldNames.values;
 
   /// Handles the event when a field type is selected.
   ///
   /// This method is triggered when a user selects a field type from the available options.
   /// It performs the necessary actions based on the selected field type.
-  static void onSelected(
+  void onSelected(
     BuildContext context, {
     required WidgetRef ref,
     required ItemFieldNames fieldName,
@@ -39,7 +39,7 @@ final class _ChooseFieldTypeSheetUtils {
   ///
   /// This function takes a list of fields and a selected field type as input.
   /// It updates each field in the list to match the selected field type.
-  static void _updateFieldList(
+  void _updateFieldList(
     WidgetRef ref,
     FieldModel fieldModel,
   ) {

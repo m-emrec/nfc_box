@@ -20,6 +20,8 @@ class ChooseFieldTypeSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    _ChooseFieldTypeSheetUtils _chooseFieldTypeSheetUtils =
+        _ChooseFieldTypeSheetUtils();
     return CustomBottomSheet(
       heightFactor: 0.25,
       content: ListView(
@@ -28,7 +30,7 @@ class ChooseFieldTypeSheet extends ConsumerWidget {
           _ChooseFieldTypeSheetUtils._fieldNames.length,
           (index) => ListTile(
             title: Text(_ChooseFieldTypeSheetUtils._fieldNames[index].name),
-            onTap: () => _ChooseFieldTypeSheetUtils.onSelected(
+            onTap: () => _chooseFieldTypeSheetUtils.onSelected(
               context,
               ref: ref,
               fieldName: _ChooseFieldTypeSheetUtils._fieldNames[index],

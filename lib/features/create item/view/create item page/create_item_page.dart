@@ -24,9 +24,10 @@ class CreateItemPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _CreateItemUtils _createItemUtils = _CreateItemUtils();
     return PopScope(
       /// When popped clear all the fields
-      onPopInvokedWithResult: (didPop, result) => _CreateItemUtils.clear(ref),
+      onPopInvokedWithResult: (didPop, result) => _createItemUtils.clear(ref),
       child: Scaffold(
         appBar: AppBar(
           title: const Text(_CreateItemUtils.addItem),
@@ -63,7 +64,7 @@ class CreateItemPage extends ConsumerWidget {
                   ///button to add a field
                   ResponsiveElevatedButton(
                     onPressed: () async =>
-                        _CreateItemUtils.onAddField(context, ref),
+                        _createItemUtils.onAddField(context, ref),
                     isPrimary: false,
                     child: const Text(_CreateItemUtils.addField),
                   ),

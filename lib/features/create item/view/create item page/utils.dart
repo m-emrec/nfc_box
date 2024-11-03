@@ -1,7 +1,7 @@
 part of 'create_item_page.dart';
 
 /// This class contains the properties for the CreateItem widget
-final class _CreateItemUtils with ItemListProvider {
+final class _CreateItemUtils with ItemListProvider, CreateItemProvider {
   static const String addField = 'Add Field';
   static const String addItem = 'Add Item';
   static const String itemName = 'Item Name';
@@ -9,7 +9,7 @@ final class _CreateItemUtils with ItemListProvider {
   static TextEditingController itemNameController = TextEditingController();
 
   /// Clear the text fields and the fieldList
-  static void clear(WidgetRef ref) {
+  void clear(WidgetRef ref) {
     ref.read(fieldListProvider).clear();
     itemNameController.clear();
     imageController.clear();
@@ -43,7 +43,7 @@ final class _CreateItemUtils with ItemListProvider {
   }
 
   /// Validate the fields
-  static bool validate(BuildContext context, WidgetRef ref) {
+  bool validate(BuildContext context, WidgetRef ref) {
     /// check if the fieldList is not empty
     if (ref.watch(fieldListProvider).isNotEmpty) {
       /// if the fieldList is not empty then check if the last field is empty
@@ -66,7 +66,7 @@ final class _CreateItemUtils with ItemListProvider {
     return true;
   }
 
-  static void onAddField(BuildContext context, WidgetRef ref) async {
+  void onAddField(BuildContext context, WidgetRef ref) async {
     bool isValid = validate(context, ref);
     if (isValid) {
       await showBottomSheet(context);

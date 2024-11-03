@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
