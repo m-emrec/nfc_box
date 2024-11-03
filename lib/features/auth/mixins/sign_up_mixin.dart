@@ -11,11 +11,14 @@ mixin SignUpMixin on ConsumerState<SignUp> {
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
   bool isAccepted = false;
+  final AuthProvider provider = AuthProvider();
 
   Future<void> onTapSignUp() async {
     if (formKey.currentState?.validate() ?? false) {
       if (isAccepted) {
-        await ref.read(authServiceViewModelProvider.notifier).signUpWithEmail(
+        await ref
+            .read(provider.authServiceViewModelProvider.notifier)
+            .signUpWithEmail(
               Credentials(
                   email: emailController.text,
                   password: passwordController.text),

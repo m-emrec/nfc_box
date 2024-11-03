@@ -69,7 +69,7 @@ class _SignUpState extends ConsumerState<SignUp> with SignUpMixin {
             const Spacer(),
             const OrDivider(),
             MaxGap(AppPaddings.lPadding),
-            const GoogleSignInButton(),
+            GoogleSignInButton(),
           ],
         ),
       ),

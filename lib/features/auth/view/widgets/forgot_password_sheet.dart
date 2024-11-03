@@ -10,7 +10,7 @@ import '../../model/credentials.dart';
 import '../../providers/provider.dart';
 import 'email_field.dart';
 
-class ForgotPasswordSheet extends StatelessWidget {
+class ForgotPasswordSheet extends StatelessWidget with AuthProvider {
   ForgotPasswordSheet({super.key});
   final TextEditingController _controller = TextEditingController();
   final String forgotPassword = 'Forgot Password';

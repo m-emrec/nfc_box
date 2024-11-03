@@ -7,8 +7,8 @@ import '../../../../core/extensions/context_extension.dart';
 import '../../../../core/utils/widgets/buttons/buttons_import.dart';
 import '../../providers/provider.dart';
 
-class GoogleSignInButton extends ConsumerWidget {
-  const GoogleSignInButton({super.key});
+class GoogleSignInButton extends ConsumerWidget with AuthProvider {
+  GoogleSignInButton({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
