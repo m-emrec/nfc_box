@@ -11,6 +11,20 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
   final ItemListDatabaseService _itemListDatabaseService;
   ItemListNotifier(this._itemListDatabaseService) : super([]);
 
+  Future<void> removeItem(Item item) async {
+    await _itemListDatabaseService.removeItem(item).then((value) {
+      if (value is DataSuccess) {
+        state = state.where((element) => element.id != item.id).toList();
+      }
+    }).onError((error, stackTrace) {
+      Toast.errToast(
+        desc: AppErrorText.errorMessageConverter(
+          error.toString(),
+        ),
+      );
+    });
+  }
+
   Future getItems() async {
     await _itemListDatabaseService.fetchItems().then((value) {
       if (value is DataSuccess) {

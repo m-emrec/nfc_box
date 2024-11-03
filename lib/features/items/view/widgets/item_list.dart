@@ -20,7 +20,6 @@ class ItemList extends StatelessWidget {
       return _LoadingList();
     }
     return ListView.builder(
-      addAutomaticKeepAlives: true,
       itemCount: items.length,
       itemBuilder: (context, index) {
         final Item item = items[index];

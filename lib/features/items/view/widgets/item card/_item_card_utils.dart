@@ -6,7 +6,7 @@ final class _ItemCardUtils {
   final Item item;
 
   final BuildContext context;
-
+  final WidgetRef ref;
   late bool imageExist;
   late double width;
   late double height;
@@ -14,6 +14,7 @@ final class _ItemCardUtils {
   _ItemCardUtils({
     required this.context,
     required this.item,
+    required this.ref,
   }) {
     imageExist = item.imageUrl != null && item.imageUrl!.isNotEmpty;
     width = context.screenSize.width;
@@ -28,13 +29,18 @@ final class _ItemCardUtils {
     );
   }
 
-  CircleAvatar _removeButton() {
-    return CircleAvatar(
-      radius: 16,
-      backgroundColor: AppColors.accentError[50],
-      child: Image.asset(
-        AppAssets.removeBoxPath,
-        color: Colors.white,
+  Widget _removeButton() {
+    return GestureDetector(
+      onTap: () {
+        ref.read(itemListProvider.notifier).removeItem(item);
+      },
+      child: CircleAvatar(
+        radius: 16,
+        backgroundColor: AppColors.accentError[50],
+        child: Image.asset(
+          AppAssets.removeBoxPath,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -63,9 +69,24 @@ final class _ItemCardUtils {
           ),
         ),
         imageUrl: item.imageUrl ?? " ",
-        progressIndicatorBuilder: (context, url, progress) => Center(
-          child: CircularProgressIndicator(
-            value: progress.progress,
+        progressIndicatorBuilder: (context, url, progress) => Skeleton.leaf(
+          enabled: true,
+          child: Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const Icon(
+                  Icons.image,
+                ),
+                FractionallySizedBox(
+                  widthFactor: width,
+                  heightFactor: height * (progress.progress ?? 0),
+                  child: ColoredBox(
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         fit: BoxFit.cover,
