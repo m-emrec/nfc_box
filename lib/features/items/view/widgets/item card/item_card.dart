@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:nfc_box/features/items/service/item_list_database_service.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:ticker_text/ticker_text.dart';
 
 import '../../../../../core/constants/app_assets.dart';

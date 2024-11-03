@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/logger.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/routes/router.dart';
@@ -66,7 +65,7 @@ class _LoadingList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Skeletonizer(
           containersColor: AppColors.neutralBackgroundLight[50],
-          enabled: true, // items.isEmpty,
+          enabled: true,
           child: Padding(
             padding: EdgeInsets.symmetric(
               vertical: AppPaddings.sPadding / 2,
