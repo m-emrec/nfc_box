@@ -1,6 +1,6 @@
 part of 'item_card.dart';
 
-final class _ItemCardUtils with ItemListProvider {
+final class _ItemCardUtils {
   final Duration _textAnimationDuration = const Duration(milliseconds: 500);
   final int _textFlowSpeed = 40;
   final Item item;
@@ -32,7 +32,7 @@ final class _ItemCardUtils with ItemListProvider {
   Widget _removeButton() {
     return GestureDetector(
       onTap: () {
-        ref.read(itemListProvider.notifier).removeItem(item);
+        ref.read(ItemListProvider.itemListProvider.notifier).removeItem(item);
       },
       child: CircleAvatar(
         radius: 16,

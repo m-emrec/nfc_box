@@ -10,7 +10,7 @@ import '../../model/credentials.dart';
 import '../../providers/provider.dart';
 import 'email_field.dart';
 
-class ForgotPasswordSheet extends StatelessWidget with AuthProvider {
+class ForgotPasswordSheet extends StatelessWidget {
   ForgotPasswordSheet({super.key});
   final TextEditingController _controller = TextEditingController();
   final String forgotPassword = 'Forgot Password';
@@ -45,7 +45,7 @@ class ForgotPasswordSheet extends StatelessWidget with AuthProvider {
 
   onTap(BuildContext context, WidgetRef ref) async {
     await ref
-        .read(authServiceViewModelProvider)
+        .read(AuthProvider.authServiceViewModelProvider)
         .forgotPassword(
           Credentials(email: _controller.text, password: ""),
         )

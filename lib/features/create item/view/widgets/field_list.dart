@@ -11,7 +11,8 @@ class FieldList extends ConsumerStatefulWidget {
   ConsumerState<FieldList> createState() => _FieldListState();
 }
 
-class _FieldListState extends ConsumerState<FieldList> with CreateItemProvider {
+class _FieldListState extends ConsumerState<FieldList> {
+  // final CreateItemProvider _createItemProvider = CreateItemProvider.instance;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -19,7 +20,7 @@ class _FieldListState extends ConsumerState<FieldList> with CreateItemProvider {
       shrinkWrap: true,
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       children: [
-        ...ref.watch(fieldListProvider).map(
+        ...ref.watch(CreateItemProvider.fieldListProvider).map(
               (field) => Padding(
                 padding: EdgeInsets.only(bottom: AppPaddings.lPadding),
                 child: Column(

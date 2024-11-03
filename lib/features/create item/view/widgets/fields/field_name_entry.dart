@@ -5,9 +5,9 @@ import '../../../../../core/utils/widgets/custom_text_field.dart';
 import '../../../providers/providers.dart';
 
 /// This will be used as the name of the elected field
-class FieldNameEntry extends ConsumerWidget with CreateItemProvider {
+class FieldNameEntry extends ConsumerWidget {
   final String? fieldID;
-  FieldNameEntry({
+  const FieldNameEntry({
     super.key,
     this.fieldID,
     this.controller,
@@ -16,6 +16,7 @@ class FieldNameEntry extends ConsumerWidget with CreateItemProvider {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var label = "Field Name";
+    // final CreateItemProvider createItemProvider = CreateItemProvider.instance;
     return CustomTextField(
       label: label,
       controller: controller,
@@ -24,7 +25,7 @@ class FieldNameEntry extends ConsumerWidget with CreateItemProvider {
         width: 24,
         child: CloseButton(
           onPressed: () {
-            ref.read(fieldListProvider.notifier).update(
+            ref.read(CreateItemProvider.fieldListProvider.notifier).update(
               (state) {
                 state.removeWhere((element) => element.fieldID == fieldID);
 

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nfc_box/logger.dart';
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/resources/data_state.dart';
 
@@ -10,6 +11,8 @@ final class ItemListDatabaseService extends FirebaseUtils {
     // Fetch items from the database
     try {
       final List<QueryDocumentSnapshot> itemList = await _getItemDocs();
+      logger.i(itemList.length);
+
       return DataSuccess(itemList);
     } catch (e) {
       return DataFailed(e.toString());

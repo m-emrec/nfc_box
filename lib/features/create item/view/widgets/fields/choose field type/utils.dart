@@ -1,8 +1,9 @@
 part of 'choose_field_type_sheet.dart';
 
 /// A class that contains the properties of the [ChooseFieldTypeSheet] widget.
-final class _ChooseFieldTypeSheetUtils with CreateItemProvider {
+final class _ChooseFieldTypeSheetUtils {
   static const List<ItemFieldNames> _fieldNames = ItemFieldNames.values;
+  // final CreateItemProvider createItemProvider = CreateItemProvider.instance;
 
   /// Handles the event when a field type is selected.
   ///
@@ -43,7 +44,7 @@ final class _ChooseFieldTypeSheetUtils with CreateItemProvider {
     WidgetRef ref,
     FieldModel fieldModel,
   ) {
-    ref.read(fieldListProvider.notifier).update(
+    ref.read(CreateItemProvider.fieldListProvider.notifier).update(
           (list) => [...list, fieldModel],
         );
   }

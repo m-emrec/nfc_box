@@ -20,22 +20,23 @@ class ItemListPage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _ItemListState();
 }
 
-class _ItemListState extends ConsumerState<ItemListPage> with ItemListProvider {
+class _ItemListState extends ConsumerState<ItemListPage> {
   static const String boxes = 'Boxes';
 
   @override
   void initState() {
-    ref.read(itemListProvider.notifier).getItems();
+    ref.read(ItemListProvider.itemListProvider.notifier).getItems();
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = ref.watch(itemListProvider.notifier).isLoading;
-
-    final List<Item> items = ref.watch(itemListProvider);
-
+    bool isLoading =
+        ref.watch(ItemListProvider.itemListProvider.notifier).isLoading;
+    logger.i(isLoading);
+    final List<Item> items = ref.watch(ItemListProvider.itemListProvider);
+    logger.w(items.length);
     return Scaffold(
       appBar: AppBar(
         title: const Text(boxes),

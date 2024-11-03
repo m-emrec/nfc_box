@@ -7,7 +7,7 @@ import '../../../../core/extensions/context_extension.dart';
 import '../../../../core/utils/widgets/buttons/buttons_import.dart';
 import '../../providers/provider.dart';
 
-class GoogleSignInButton extends ConsumerWidget with AuthProvider {
+class GoogleSignInButton extends ConsumerWidget {
   GoogleSignInButton({super.key});
 
   @override
@@ -22,8 +22,9 @@ class GoogleSignInButton extends ConsumerWidget with AuthProvider {
             AppAssets.googleAni,
             repeat: false,
           ),
-          onPressed: () async =>
-              await ref.read(authServiceViewModelProvider).googleSignIn(),
+          onPressed: () async => await ref
+              .read(AuthProvider.authServiceViewModelProvider)
+              .googleSignIn(),
         ),
       ],
     );
