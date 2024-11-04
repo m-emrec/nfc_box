@@ -9,8 +9,7 @@ class ItemListProvider {
       Provider<ItemListDatabaseService>((ref) {
     return ItemListDatabaseService();
   });
-  static final itemListProvider =
-      StateNotifierProvider.autoDispose<ItemListNotifier, List<Item>>(
+  static final itemListProvider = ChangeNotifierProvider.autoDispose(
     (ref) {
       return ItemListNotifier(ref.read(_databaseServiceProvider));
     },
@@ -22,7 +21,7 @@ class ItemListProvider {
   static bool isLoading(WidgetRef ref) =>
       ref.watch(ItemListProvider.itemListProvider.notifier).isLoading;
   static List<Item> items(WidgetRef ref) =>
-      ref.watch(ItemListProvider.itemListProvider);
+      ref.watch(ItemListProvider.itemListProvider).itemList;
 
   /// Actions
   static changeSortOrder(WidgetRef ref) =>

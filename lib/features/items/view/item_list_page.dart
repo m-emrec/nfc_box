@@ -11,7 +11,7 @@ import '../mixins/item_list_page_mixin.dart';
 import '../providers/providers.dart';
 import 'widgets/item card/item_card.dart';
 import 'widgets/item_list.dart';
-import 'widgets/item_list_appbar.dart';
+import 'widgets/app bar/item_list_appbar.dart';
 
 class ItemListPage extends ConsumerStatefulWidget {
   const ItemListPage({super.key});

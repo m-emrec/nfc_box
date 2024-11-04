@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nfc_box/logger.dart';
 
@@ -7,19 +8,19 @@ import '../../../core/utils/models/item.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 import '../service/item_list_database_service.dart';
 
-class ItemListNotifier extends StateNotifier<List<Item>> {
+class ItemListNotifier extends ChangeNotifier {
   final ItemListDatabaseService _itemListDatabaseService;
-  ItemListNotifier(this._itemListDatabaseService) : super([]) {
+  ItemListNotifier(this._itemListDatabaseService) {
     descending = false;
     sortByCreatedDate();
   }
   bool isLoading = false;
   bool descending = false;
-
+  List<Item> itemList = [];
   Future<void> removeItem(Item item) async {
     await _itemListDatabaseService.removeItemFromDatabase(item).then((value) {
       if (value is DataSuccess) {
-        state = state.where((element) => element.id != item.id).toList();
+        itemList = itemList.where((element) => element.id != item.id).toList();
       }
     }).onError((error, stackTrace) {
       Toast.errToast(
@@ -28,11 +29,12 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
         ),
       );
     });
+    notifyListeners();
   }
 
   Future<void> getItems() async {
     isLoading = true;
-
+    notifyListeners();
     await _itemListDatabaseService.fetchItems().then((value) {
       if (value is DataSuccess) {
         List<Item> items = [
@@ -40,10 +42,10 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
             return Item.fromJson(e.data());
           }).toList()
         ];
-        state = [...items];
+        itemList = [...items];
       }
     }).onError((error, stackTrace) {
-      state = [];
+      itemList = [];
       Toast.errToast(
         desc: AppErrorText.errorMessageConverter(
           error.toString(),
@@ -51,17 +53,19 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
       );
     });
     isLoading = false;
+    notifyListeners();
   }
 
   void changeSortOrder() {
     descending = !descending;
     logger.d(descending);
 
-    state = [...state.reversed];
+    itemList = [...itemList.reversed];
+    notifyListeners();
   }
 
   void sortByCreatedDate() {
-    state.sort(
+    itemList.sort(
       (a, b) {
         if (a.createdDate != null && b.createdDate != null) {
           if (descending) {
@@ -75,11 +79,12 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
         return 0;
       },
     );
-    state = [...state];
+    itemList = [...itemList];
+    notifyListeners();
   }
 
   void sortByFieldCount() {
-    state.sort(
+    itemList.sort(
       (a, b) {
         if (a.fields != null && b.fields != null) {
           if (descending) {
@@ -93,11 +98,12 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
         return 0;
       },
     );
-    state = [...state];
+    itemList = [...itemList];
+    notifyListeners();
   }
 
   void sortByName() {
-    state.sort(
+    itemList.sort(
       (a, b) {
         if (a.itemName != null && b.itemName != null) {
           if (descending) {
@@ -111,6 +117,7 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
         return 0;
       },
     );
-    state = [...state];
+    itemList = [...itemList];
+    notifyListeners();
   }
 }
