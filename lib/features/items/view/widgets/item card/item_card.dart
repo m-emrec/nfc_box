@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:nfc_box/logger.dart';
 import 'package:ticker_text/ticker_text.dart';
 
 import '../../../../../core/constants/app_assets.dart';
@@ -42,10 +41,10 @@ class ItemCard extends ConsumerWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  itemCardUtils._image(
+                  itemCardUtils.image(
                       itemCardUtils.imageExist, itemCardUtils.height),
                   MaxGap(AppPaddings.xxsPadding),
-                  itemCardUtils._title(context),
+                  itemCardUtils.title(context),
                 ],
               ),
             ),
@@ -57,11 +56,10 @@ class ItemCard extends ConsumerWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Spacer(),
-                  itemCardUtils._removeButton(),
-                  const Spacer(),
-                  itemCardUtils._date(context),
+                  itemCardUtils.removeButton(),
+                  itemCardUtils.date(context),
                 ],
               ),
             ),

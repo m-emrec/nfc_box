@@ -1,19 +1,6 @@
 part of 'item_card.dart';
 
 final class _ItemCardUtils {
-  /// controls the duration of the text animation
-  final Duration _textAnimationDuration = const Duration(milliseconds: 500);
-
-  /// controls the speed of the text flow animation
-  final int _textFlowSpeed = 40;
-  final Item item;
-
-  final BuildContext context;
-  final WidgetRef ref;
-  late bool imageExist;
-  late double width;
-  late double height;
-
   _ItemCardUtils({
     required this.context,
     required this.item,
@@ -25,8 +12,21 @@ final class _ItemCardUtils {
     height = context.screenSize.height * .1;
   }
 
+  /// controls the duration of the text animation
+  final Duration textAnimationDuration = const Duration(milliseconds: 500);
+
+  /// controls the speed of the text flow animation
+  final int textFlowSpeed = 40;
+  final Item item;
+
+  final BuildContext context;
+  final WidgetRef ref;
+  late bool imageExist;
+  late double width;
+  late double height;
+
   /// Date text
-  Text _date(BuildContext context) {
+  Text date(BuildContext context) {
     return Text(
       DateFormat.yMd().format(item.createdDate ?? DateTime.now()),
       style: context.textTheme.bodySmall?.copyWith(
@@ -36,7 +36,7 @@ final class _ItemCardUtils {
   }
 
   /// Remove button
-  Widget _removeButton() {
+  Widget removeButton() {
     return GestureDetector(
       onTap: () =>
           ref.read(ItemListProvider.itemListProvider.notifier).removeItem(item),
@@ -51,7 +51,23 @@ final class _ItemCardUtils {
     );
   }
 
-  Visibility _image(bool imageExist, double height) {
+  /// Title text
+  Flexible title(BuildContext context) {
+    return Flexible(
+      fit: FlexFit.loose,
+      child: TickerText(
+        speed: textFlowSpeed,
+        endPauseDuration: textAnimationDuration,
+        startPauseDuration: textAnimationDuration,
+        child: Text(
+          item.itemName ?? "",
+          style: context.textTheme.bodyLarge,
+        ),
+      ),
+    );
+  }
+
+  Visibility image(bool imageExist, double height) {
     /// if there is an image url show this widget otherwise don't show it.
     return Visibility(
       visible: imageExist,
@@ -60,58 +76,43 @@ final class _ItemCardUtils {
         width: height,
         height: height,
         imageUrl: item.imageUrl ?? " ",
-        errorWidget: (context, url, error) {
-          String imageNotFound = 'Image not found';
-          return Tooltip(
-            message: imageNotFound,
-            triggerMode: TooltipTriggerMode.tap,
-            decoration: BoxDecoration(
-              color: AppColors.accentError[20],
-            ),
-            textStyle: context.textTheme.bodyMedium?.copyWith(
-              color: AppColors.accentError[100],
-            ),
-            child: ColoredBox(
-              color: AppColors.accentError,
-              child: Icon(
-                Icons.error_outline,
-                color: AppColors.accentError[70],
-              ),
-            ),
-          );
-        },
-        progressIndicatorBuilder: (context, url, progress) => Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Icon(
-                Icons.image,
-              ),
-              FractionallySizedBox(
-                widthFactor: width,
-                heightFactor: height * (progress.progress ?? 0),
-                child: ColoredBox(
-                  color: Colors.black.withOpacity(0.8),
-                ),
-              ),
-            ],
-          ),
-        ),
+        errorWidget: errorImage,
+        progressIndicatorBuilder: (context, url, progress) =>
+            imageProgressIndicator(),
       ),
     );
   }
 
-  /// Title text
-  Flexible _title(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.loose,
-      child: TickerText(
-        speed: _textFlowSpeed,
-        endPauseDuration: _textAnimationDuration,
-        startPauseDuration: _textAnimationDuration,
-        child: Text(
-          item.itemName ?? "",
-          style: context.textTheme.bodyLarge,
+  Center imageProgressIndicator() {
+    return const Center(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Icon(
+            Icons.image,
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Image error widget
+  Widget errorImage(context, url, error) {
+    String imageNotFound = 'Image not found';
+    return Tooltip(
+      message: imageNotFound,
+      triggerMode: TooltipTriggerMode.tap,
+      decoration: BoxDecoration(
+        color: AppColors.accentError[20],
+      ),
+      textStyle: context.textTheme.bodyMedium?.copyWith(
+        color: AppColors.accentError[100],
+      ),
+      child: ColoredBox(
+        color: AppColors.accentError,
+        child: Icon(
+          Icons.error_outline,
+          color: AppColors.accentError[70],
         ),
       ),
     );

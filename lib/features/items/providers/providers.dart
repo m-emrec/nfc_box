@@ -34,4 +34,6 @@ class ItemListProvider {
       ref.read(ItemListProvider.itemListProvider.notifier).sortByCreatedDate();
   static sortByName(WidgetRef ref) =>
       ref.read(ItemListProvider.itemListProvider.notifier).sortByName();
+  static getItems(WidgetRef ref) =>
+      ref.read(ItemListProvider.itemListProvider.notifier).getItems();
 }

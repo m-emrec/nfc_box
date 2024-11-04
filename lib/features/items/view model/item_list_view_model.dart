@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
@@ -16,7 +17,7 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
   bool descending = false;
 
   Future<void> removeItem(Item item) async {
-    await _itemListDatabaseService.removeItem(item).then((value) {
+    await _itemListDatabaseService.removeItemFromDatabase(item).then((value) {
       if (value is DataSuccess) {
         state = state.where((element) => element.id != item.id).toList();
       }
@@ -54,6 +55,8 @@ class ItemListNotifier extends StateNotifier<List<Item>> {
 
   void changeSortOrder() {
     descending = !descending;
+    logger.d(descending);
+
     state = [...state.reversed];
   }
 

@@ -6,8 +6,7 @@ import '../view/item_list_page.dart';
 mixin ItemListPageMixin on ConsumerState<ItemListPage> {
   @override
   void initState() {
-    ref.read(ItemListProvider.itemListProvider.notifier).getItems();
-
+    ItemListProvider.getItems(ref);
     super.initState();
   }
 }
