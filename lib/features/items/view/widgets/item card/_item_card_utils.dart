@@ -45,6 +45,8 @@ final class _ItemCardUtils {
         backgroundColor: AppColors.accentError[50],
         child: Image.asset(
           AppAssets.removeBoxPath,
+          height: 24,
+          width: 24,
           color: Colors.white,
         ),
       ),
