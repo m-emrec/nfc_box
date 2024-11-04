@@ -22,6 +22,7 @@ class AppTheme {
     /// Widget Themes
     appBarTheme: _appBarTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
+    popupMenuTheme: _popMenuTheme(),
     outlinedButtonTheme: _outlinedButtonTheme(),
     textButtonTheme: _textButtonTheme(),
     inputDecorationTheme: _inputDecoration(),
@@ -31,6 +32,16 @@ class AppTheme {
     floatingActionButtonTheme: _floatingActionButtonTheme(),
     datePickerTheme: _datePickerTheme(),
   );
+
+  static PopupMenuThemeData _popMenuTheme() {
+    return PopupMenuThemeData(
+      color: AppColors.neutralBackgroundLight[50],
+      shape: RoundedRectangleBorder(
+        borderRadius: AppBorderRadius.smallBorderRadius,
+      ),
+      position: PopupMenuPosition.under,
+    );
+  }
 
   static DatePickerThemeData _datePickerTheme() => DatePickerThemeData(
         backgroundColor: AppColors.neutralBackgroundLight[10],

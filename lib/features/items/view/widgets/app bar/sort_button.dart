@@ -6,16 +6,26 @@ class _SortButton extends ConsumerStatefulWidget {
 }
 
 class _SortButtonState extends ConsumerState<_SortButton> {
+  SortType initialValue = SortType.date;
   void popMenuButtonOnSelected(value) {
     switch (value) {
       case SortType.date:
         ItemListProvider.sortByCreatedDate(ref);
+        setState(() {
+          initialValue = SortType.date;
+        });
         break;
       case SortType.name:
         ItemListProvider.sortByName(ref);
+        setState(() {
+          initialValue = SortType.name;
+        });
         break;
       case SortType.fieldCount:
         ItemListProvider.sortByFieldCount(ref);
+        setState(() {
+          initialValue = SortType.fieldCount;
+        });
         break;
       default:
     }
@@ -28,29 +38,24 @@ class _SortButtonState extends ConsumerState<_SortButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      label: Text(ItemListProvider.isDescending(ref).toString()),
-      alignment: Alignment.center,
-      child: PopupMenuButton(
-        initialValue: SortType.date,
-        icon: const Icon(Icons.sort),
-        position: PopupMenuPosition.under,
-        onSelected: popMenuButtonOnSelected,
-        itemBuilder: (context) {
-          return [
-            ...List.generate(SortType.values.length, (index) {
-              return PopupMenuItem(
-                value: SortType.values[index],
-                child: Row(
-                  children: [
-                    Text(SortType.values[index].label),
-                  ],
-                ),
-              );
-            })
-          ];
-        },
-      ),
+    return PopupMenuButton(
+      initialValue: initialValue,
+      icon: const Icon(Icons.sort),
+      onSelected: popMenuButtonOnSelected,
+      itemBuilder: (context) {
+        return [
+          ...List.generate(SortType.values.length, (index) {
+            return PopupMenuItem(
+              value: SortType.values[index],
+              child: Row(
+                children: [
+                  Text(SortType.values[index].label),
+                ],
+              ),
+            );
+          })
+        ];
+      },
     );
   }
 }

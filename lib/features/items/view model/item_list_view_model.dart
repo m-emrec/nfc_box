@@ -11,8 +11,7 @@ import '../service/item_list_database_service.dart';
 class ItemListNotifier extends ChangeNotifier {
   final ItemListDatabaseService _itemListDatabaseService;
   ItemListNotifier(this._itemListDatabaseService) {
-    descending = false;
-    sortByCreatedDate();
+    // sortByCreatedDate();
   }
   bool isLoading = false;
   bool descending = false;
@@ -58,7 +57,6 @@ class ItemListNotifier extends ChangeNotifier {
 
   void changeSortOrder() {
     descending = !descending;
-    logger.d(descending);
 
     itemList = [...itemList.reversed];
     notifyListeners();
@@ -69,11 +67,11 @@ class ItemListNotifier extends ChangeNotifier {
       (a, b) {
         if (a.createdDate != null && b.createdDate != null) {
           if (descending) {
-            return b.createdDate!.compareTo(
-              a.createdDate!,
+            return a.createdDate!.compareTo(
+              b.createdDate!,
             );
           } else {
-            return a.createdDate!.compareTo(b.createdDate!);
+            return b.createdDate!.compareTo(a.createdDate!);
           }
         }
         return 0;
@@ -88,11 +86,11 @@ class ItemListNotifier extends ChangeNotifier {
       (a, b) {
         if (a.fields != null && b.fields != null) {
           if (descending) {
-            return b.fields!.length.compareTo(
-              a.fields!.length,
+            return a.fields!.length.compareTo(
+              b.fields!.length,
             );
           } else {
-            return a.fields!.length.compareTo(b.fields!.length);
+            return b.fields!.length.compareTo(a.fields!.length);
           }
         }
         return 0;
