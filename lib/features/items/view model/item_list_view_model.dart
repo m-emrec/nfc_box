@@ -35,13 +35,11 @@ class ItemListNotifier extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     await _itemListDatabaseService.fetchItems().then((value) {
+      /// If the data is successfully fetched, convert it to a list of items
       if (value is DataSuccess) {
-        List<Item> items = [
-          ...value.data.map((e) {
-            return Item.fromJson(e.data());
-          }).toList()
-        ];
-        itemList = [...items];
+        List<Item> items = _convertDataToList(value);
+
+        itemList = items;
       }
     }).onError((error, stackTrace) {
       itemList = [];
@@ -55,6 +53,14 @@ class ItemListNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// convert the data to a list of items
+  List<Item> _convertDataToList(DataSuccess value) {
+    return value.data.map<Item>((e) {
+      return Item.fromJson(e.data());
+    }).toList();
+  }
+
+  /// This function changes the sort order of the list
   void changeSortOrder() {
     descending = !descending;
 

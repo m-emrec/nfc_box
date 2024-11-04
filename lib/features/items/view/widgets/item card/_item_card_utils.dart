@@ -11,16 +11,16 @@ final class _ItemCardUtils {
     width = context.screenSize.width;
     height = context.screenSize.height * .1;
   }
+  final BuildContext context;
+  final WidgetRef ref;
+  final Item item;
 
   /// controls the duration of the text animation
   final Duration textAnimationDuration = const Duration(milliseconds: 500);
 
   /// controls the speed of the text flow animation
   final int textFlowSpeed = 40;
-  final Item item;
 
-  final BuildContext context;
-  final WidgetRef ref;
   late bool imageExist;
   late double width;
   late double height;

@@ -11,7 +11,8 @@ import '../mixins/item_list_page_mixin.dart';
 import '../providers/providers.dart';
 import 'widgets/item card/item_card.dart';
 import 'widgets/item_list.dart';
-import 'widgets/app bar/item_list_appbar.dart';
+import 'widgets/app bar/item_list_app_bar.dart';
+part 'widgets/_loading_list.dart';
 
 class ItemListPage extends ConsumerStatefulWidget {
   const ItemListPage({super.key});
@@ -33,35 +34,6 @@ class _ItemListState extends ConsumerState<ItemListPage>
         child: const Icon(Icons.add),
       ),
       body: isLoading ? _LoadingList() : ItemList(items: items),
-    );
-  }
-}
-
-class _LoadingList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        return Skeletonizer(
-          containersColor: AppColors.neutralBackgroundLight[50],
-          enabled: true,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: AppPaddings.sPadding / 2,
-              horizontal: AppPaddings.xsPadding,
-            ),
-            child: ItemCard(
-              item: Item(
-                itemName: 'Loading...',
-                id: 'Loading...',
-                imageUrl: '',
-                createdDate: DateTime.now(),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

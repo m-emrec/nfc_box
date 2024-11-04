@@ -6,6 +6,7 @@ import '../../../enums/sort_type.dart';
 import '../../../providers/providers.dart';
 
 part 'sort_button.dart';
+part 'sort_order_button.dart';
 
 class ItemListAppBar extends StatelessWidget implements PreferredSizeWidget {
   final WidgetRef ref;
@@ -18,28 +19,7 @@ class ItemListAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(boxes),
       actions: [
         /// Sort order button
-        Column(
-          children: [
-            Badge(
-              backgroundColor: Colors.transparent,
-              alignment: Alignment.bottomLeft,
-              label: Text(
-                ItemListProvider.isDescending(ref) ? 'ASC' : 'DESC',
-                style: context.textTheme.labelSmall,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  ItemListProvider.changeSortOrder(ref);
-                },
-                icon: Icon(
-                  ItemListProvider.isDescending(ref)
-                      ? Icons.arrow_upward_sharp
-                      : Icons.arrow_downward_sharp,
-                ),
-              ),
-            ),
-          ],
-        ),
+        _SortOrderButton(ref: ref),
 
         /// Sort by button
         _SortButton(),
