@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
               ),
               ResponsiveElevatedButton(
                 onPressed: () async {
-                  FirebaseAuth.instance.signOut();
+                  context.goNamed(Routes.prepareNfc.name);
                 },
                 child: Text(
                   readNFC,

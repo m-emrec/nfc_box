@@ -19,4 +19,6 @@ class AppAssets {
 
   static String googleAni = _AnimationPaths.google.path;
   static String facebookAni = _AnimationPaths.facebook.path;
+  static String howToReadNfcAni = _AnimationPaths.howToReadNfc.path;
+  static String readingNfcAni = _AnimationPaths.readingNfc.path;
 }

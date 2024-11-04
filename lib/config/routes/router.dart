@@ -1,20 +1,26 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/features/create%20item/view/create%20item%20page/create_item_page.dart';
-import 'package:nfc_box/features/home/view/home.dart';
-import 'package:nfc_box/features/items/view/item_list_page.dart';
-import '../../features/auth/service/auth_service.dart';
+import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
+import 'package:nfc_box/features/nfc/view/read_nfc_page.dart';
 
+import '../../features/auth/service/auth_service.dart';
 import '../../features/auth/view/sign_in.dart';
 import '../../features/auth/view/sign_up.dart';
+import '../../features/create%20item/view/create%20item%20page/create_item_page.dart';
+import '../../features/home/view/home.dart';
+import '../../features/items/view/item_list_page.dart';
 import 'auth_checker.dart';
 
 enum Routes {
   signIn,
   signUp,
   itemList,
-  createItem;
+  createItem,
+  prepareNfc,
+  readNfc,
+  ;
 
   String get path => "/$name";
   final String? data;
@@ -44,6 +50,17 @@ class AppRouter {
         path: '/',
         builder: (context, state) => const Home(),
         routes: [
+          GoRoute(
+              path: Routes.prepareNfc.path,
+              name: Routes.prepareNfc.name,
+              builder: (context, state) => const PrepareNfcPage(),
+              routes: [
+                GoRoute(
+                  path: Routes.readNfc.path,
+                  name: Routes.readNfc.name,
+                  builder: (context, state) => const ReadNfcPage(),
+                ),
+              ]),
           GoRoute(
             path: Routes.itemList.path,
             name: Routes.itemList.name,
