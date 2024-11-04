@@ -4,13 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../config/routes/router.dart';
-
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/utils/models/item.dart';
+import '../mixins/item_list_page_mixin.dart';
 import '../providers/providers.dart';
 import 'widgets/item card/item_card.dart';
 import 'widgets/item_list.dart';
+import 'widgets/item_list_appbar.dart';
 
 class ItemListPage extends ConsumerStatefulWidget {
   const ItemListPage({super.key});
@@ -19,35 +20,14 @@ class ItemListPage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _ItemListState();
 }
 
-class _ItemListState extends ConsumerState<ItemListPage> {
-  static const String boxes = 'Boxes';
-
-  @override
-  void initState() {
-    ref.read(ItemListProvider.itemListProvider.notifier).getItems();
-
-    super.initState();
-  }
-
+class _ItemListState extends ConsumerState<ItemListPage>
+    with ItemListPageMixin {
   @override
   Widget build(BuildContext context) {
-    bool isLoading =
-        ref.watch(ItemListProvider.itemListProvider.notifier).isLoading;
-    final List<Item> items = ref.watch(ItemListProvider.itemListProvider);
+    bool isLoading = ItemListProvider.isLoading(ref);
+    final List<Item> items = ItemListProvider.items(ref);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(boxes),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.sort),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.grid_view_rounded),
-          ),
-        ],
-      ),
+      appBar: ItemListAppBar(ref: ref),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.pushNamed(Routes.createItem.name),
         child: const Icon(Icons.add),

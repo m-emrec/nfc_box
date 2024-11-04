@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nfc_box/logger.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/constants/enums/item_doc_keys.dart';
@@ -51,9 +53,9 @@ final class CreateItemDatabaseService extends FirebaseUtils {
 
     /// Add the item data to the user document
     await userDoc.collection(CollectionNames.Items.name).add(data).then(
-      (value) {
+      (value) async {
         /// Update the item id in the database
-        value.update({ItemDocKeys.id.name: value.id});
+        await value.update({ItemDocKeys.id.name: value.id});
       },
     );
   }

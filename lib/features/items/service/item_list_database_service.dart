@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nfc_box/core/constants/enums/item_doc_keys.dart';
+import 'package:nfc_box/logger.dart';
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/resources/data_state.dart';
 
@@ -39,7 +40,6 @@ final class ItemListDatabaseService extends FirebaseUtils {
         .collection(CollectionNames.Items.name)
         .orderBy(ItemDocKeys.createdDate.name, descending: true);
 
-    // // userDoc.collection("collectionPath").doc("").delete();
     final List<QueryDocumentSnapshot> docs =
         await collection.get().then((value) => value.docs);
 

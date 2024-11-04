@@ -9,11 +9,29 @@ class ItemListProvider {
       Provider<ItemListDatabaseService>((ref) {
     return ItemListDatabaseService();
   });
-
   static final StateNotifierProvider<ItemListNotifier, List<Item>>
       itemListProvider = StateNotifierProvider<ItemListNotifier, List<Item>>(
     (ref) {
       return ItemListNotifier(ref.read(_databaseServiceProvider));
     },
   );
+
+  /// Dependencies
+  static bool isDescending(WidgetRef ref) =>
+      ref.watch(itemListProvider.notifier).descending;
+  static bool isLoading(WidgetRef ref) =>
+      ref.watch(ItemListProvider.itemListProvider.notifier).isLoading;
+  static List<Item> items(WidgetRef ref) =>
+      ref.watch(ItemListProvider.itemListProvider);
+
+  /// Actions
+  static changeSortOrder(WidgetRef ref) =>
+      ref.read(ItemListProvider.itemListProvider.notifier).changeSortOrder();
+  static sortByFieldCount(WidgetRef ref) =>
+      ref.read(ItemListProvider.itemListProvider.notifier).sortByFieldCount();
+
+  static sortByCreatedDate(WidgetRef ref) =>
+      ref.read(ItemListProvider.itemListProvider.notifier).sortByCreatedDate();
+  static sortByName(WidgetRef ref) =>
+      ref.read(ItemListProvider.itemListProvider.notifier).sortByName();
 }
