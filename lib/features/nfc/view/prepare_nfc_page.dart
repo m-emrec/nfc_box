@@ -10,6 +10,8 @@ import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/models/tag.dart';
 import '../../../core/utils/widgets/buttons/buttons_import.dart';
 
+part '_prepare_nfc_page_utils.dart';
+
 class PrepareNfcPage extends StatelessWidget {
   final bool isWrite;
   final Tag? tag;
@@ -17,12 +19,6 @@ class PrepareNfcPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var howToUseNFC = 'How To Use NFC';
-    var explanation =
-        """To start using NFC, hold your device near an NFC-enabled item or device. Make sure NFC is enabled in your device settings. When your device is close enough, it will automatically detect the NFC tag and process the information.
-
-""";
-    var ready = 'Ready';
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -42,20 +38,20 @@ class PrepareNfcPage extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              howToUseNFC,
+              _PrepareNfcPageUtils.howToUseNFC,
               style: context.textTheme.titleLarge,
               textAlign: TextAlign.left,
             ),
             Gap(AppPaddings.xxsPadding),
             Text(
-              explanation,
+              _PrepareNfcPageUtils.explanation,
               style: context.textTheme.bodyMedium,
             ),
             const Spacer(),
             ResponsiveElevatedButton(
               onPressed: () async => context.goNamed(Routes.scanNfc.name,
                   extra: {"isWrite": isWrite, "tag": tag}),
-              child: Text(ready),
+              child: const Text(_PrepareNfcPageUtils.ready),
             ),
           ],
         ),

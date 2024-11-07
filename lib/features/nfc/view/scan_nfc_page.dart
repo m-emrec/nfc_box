@@ -16,6 +16,8 @@ import '../../../core/utils/models/tag.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 import '../provider/providers.dart';
 
+part '_scan_nfc_page_utils.dart';
+
 class ScanNfcPage extends ConsumerStatefulWidget {
   final bool isWrite;
   final Tag? tag;
@@ -25,22 +27,13 @@ class ScanNfcPage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _ReadNfcPageState();
 }
 
-class _ReadNfcPageState extends ConsumerState<ScanNfcPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _ReadNfcPageState extends ConsumerState<ScanNfcPage>
+    with _ScanNfcPageUtils {
   @override
   Widget build(BuildContext context) {
     if (context.mounted) {
-      _stateListener(context);
+      stateListener(context);
     }
-
-    var status = 'Scanning...';
-    var pleaseHoldYourPhoneNearTheNFCTag =
-        'Please hold your phone near the NFC tag';
-    var cancel = 'Cancel';
     return Scaffold(
       appBar: AppBar(),
       body: SizedBox(
@@ -70,37 +63,5 @@ class _ReadNfcPageState extends ConsumerState<ScanNfcPage> {
         ),
       ),
     );
-  }
-
-  void _stateListener(BuildContext context) {
-    return ref.listen(
-        NfcProviders.nfcStateProvider({
-          "isWrite": widget.isWrite,
-          "tag": widget.tag?.toJson(),
-        }), (prev, current) {
-      if (current is DataSuccess) {
-        // logger.i(current.data);
-
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Toast.succToast(title: 'NFC read successfully');
-        });
-        context.goNamed(
-          Routes.tagDetail.name,
-          extra: Tag.fromJson(current.data),
-        );
-      } else if (current is DataFailed) {
-        logger.e(current.exception);
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Toast.errToast(title: current.exception);
-          context.goNamed(
-            Routes.prepareNfc.name,
-            extra: {
-              "isWrite": widget.isWrite,
-              "tag": widget.tag,
-            },
-          );
-        });
-      }
-    });
   }
 }
