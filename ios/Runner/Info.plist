@@ -21,6 +21,8 @@
 		</array>
 	</dict>
 </array>
+<key>NFCReaderUsageDescription</key>
+<string>Your explanation of why the app needs NFC</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Need camera access to capture images</string>
 	<key>NSPhotoLibraryUsageDescription</key>

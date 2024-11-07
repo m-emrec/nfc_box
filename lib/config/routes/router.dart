@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
-import 'package:nfc_box/features/nfc/view/read_nfc_page.dart';
+import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
+import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
 
+import '../../core/utils/models/tag.dart';
 import '../../features/auth/service/auth_service.dart';
 import '../../features/auth/view/sign_in.dart';
 import '../../features/auth/view/sign_up.dart';
@@ -19,7 +22,8 @@ enum Routes {
   itemList,
   createItem,
   prepareNfc,
-  readNfc,
+  scanNfc,
+  tagDetail,
   ;
 
   String get path => "/$name";
@@ -50,22 +54,46 @@ class AppRouter {
         path: '/',
         builder: (context, state) => const Home(),
         routes: [
+          /// Prepare NFC page
           GoRoute(
-              path: Routes.prepareNfc.path,
-              name: Routes.prepareNfc.name,
-              builder: (context, state) => const PrepareNfcPage(),
-              routes: [
-                GoRoute(
-                  path: Routes.readNfc.path,
-                  name: Routes.readNfc.name,
-                  builder: (context, state) => const ReadNfcPage(),
-                ),
-              ]),
+            path: Routes.prepareNfc.path,
+            name: Routes.prepareNfc.name,
+            builder: (context, state) {
+              final Map extra = state.extra as Map;
+
+              return PrepareNfcPage(
+                  isWrite: extra['isWrite'], tag: extra['tag']);
+            },
+          ),
+
+          /// Scan NFC page
+          GoRoute(
+              path: Routes.scanNfc.path,
+              name: Routes.scanNfc.name,
+              builder: (context, state) {
+                final Map extra = state.extra as Map;
+                return ScanNfcPage(extra['isWrite'], extra['tag']);
+              }),
+
+          /// Tag Detail page
+          GoRoute(
+              path: Routes.tagDetail.path,
+              name: Routes.tagDetail.name,
+              builder: (context, state) {
+                final Tag extra = state.extra as Tag;
+                return TagDetailView(
+                  tag: extra,
+                );
+              }),
+
+          /// Item List page
           GoRoute(
             path: Routes.itemList.path,
             name: Routes.itemList.name,
             builder: (context, state) => const ItemListPage(),
           ),
+
+          /// Create Item page
           GoRoute(
             path: Routes.createItem.path,
             name: Routes.createItem.name,

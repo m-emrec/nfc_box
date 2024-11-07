@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nfc_box/core/constants/app_paddings.dart';
-import 'package:nfc_box/core/extensions/context_extension.dart';
-import 'package:nfc_box/core/utils/widgets/buttons/buttons_import.dart';
-import 'package:nfc_box/core/utils/widgets/buttons/inline_text_button.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_paddings.dart';
+import '../../../core/extensions/context_extension.dart';
+import '../../../core/utils/models/tag.dart';
+import '../../../core/utils/widgets/buttons/buttons_import.dart';
 
 class PrepareNfcPage extends StatelessWidget {
-  const PrepareNfcPage({super.key});
+  final bool isWrite;
+  final Tag? tag;
+  const PrepareNfcPage({super.key, required this.isWrite, this.tag});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,8 @@ class PrepareNfcPage extends StatelessWidget {
             ),
             const Spacer(),
             ResponsiveElevatedButton(
-              onPressed: () async => context.goNamed(Routes.readNfc.name),
+              onPressed: () async => context.goNamed(Routes.scanNfc.name,
+                  extra: {"isWrite": isWrite, "tag": tag}),
               child: Text(ready),
             ),
           ],

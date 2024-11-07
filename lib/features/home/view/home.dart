@@ -37,7 +37,8 @@ class Home extends StatelessWidget {
               ),
               ResponsiveElevatedButton(
                 onPressed: () async {
-                  context.goNamed(Routes.prepareNfc.name);
+                  context.goNamed(Routes.prepareNfc.name,
+                      extra: {"isWrite": false});
                 },
                 child: Text(
                   readNFC,

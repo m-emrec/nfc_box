@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -61,6 +63,18 @@ class _PlayGroundState extends State<PlayGround> {
               },
               child: Text("LAbel"),
             ),
+            GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              children: [
+                Box(color: Colors.green),
+                Box(color: Colors.red),
+                Box(color: Colors.cyan),
+                Box(color: Colors.yellow),
+                Box(color: Colors.pink),
+              ],
+            ),
             Row(
               children: [
                 ResponsiveOutlinedButton(
@@ -73,5 +87,15 @@ class _PlayGroundState extends State<PlayGround> {
         ),
       ),
     );
+  }
+}
+
+class Box extends StatelessWidget {
+  final Color color;
+  const Box({super.key, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
