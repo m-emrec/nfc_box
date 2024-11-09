@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/resources/data_state.dart';
-import '../../../core/resources/error_manager.dart';
 import '../../../core/resources/firebase_utils.dart';
 import '../model/credentials.dart';
 
 import 'google_sign_in_service.dart';
 
-class AuthService extends FirebaseUtils {
+class AuthService with FirebaseUtils {
   Future<DataState> signUpWithEmail({
     required Credentials credentials,
   }) async {

@@ -12,6 +12,7 @@ final class NfcProviders {
       StateProvider.autoDispose.family<DataState?, Map>((ref, data) {
     DataState? dataState;
 
+    /// Check if the data is for writing or reading
     if (data["isWrite"]) {
       ref.read(_nfcProvider.notifier).writeNfc(data["tag"]);
       dataState = ref.watch(_nfcProvider);

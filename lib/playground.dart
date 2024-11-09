@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +22,9 @@ class _PlayGroundState extends State<PlayGround> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -29,6 +32,29 @@ class _PlayGroundState extends State<PlayGround> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            FractionallySizedBox(
+              widthFactor: 0.5, // Half the width of the parent
+              child: Container(color: Colors.green),
+            ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 600) {
+                  return Text('Wide Screen Layout');
+                } else {
+                  return Text('Small Screen Layout');
+                }
+              },
+            ),
+            Row(
+              children: [
+                Flexible(
+                  child: Container(color: Colors.red),
+                ),
+                Flexible(
+                  child: Container(color: Colors.blue),
+                ),
+              ],
+            ),
             Form(
               key: a,
               autovalidateMode: AutovalidateMode.always,

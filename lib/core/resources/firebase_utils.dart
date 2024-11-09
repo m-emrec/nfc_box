@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import '../constants/enums/collection_keys.dart';
 
-abstract class FirebaseUtils {
+mixin FirebaseUtils {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;

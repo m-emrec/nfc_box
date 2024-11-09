@@ -1,15 +1,13 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nfc_box/logger.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/constants/enums/item_doc_keys.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 
-final class CreateItemDatabaseService extends FirebaseUtils {
+final class CreateItemDatabaseService with FirebaseUtils {
   /// This method creates a new item to upload to the database.
   Future<DataState> createItem({
     required Item item,

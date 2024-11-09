@@ -6,7 +6,7 @@ import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 import '../../../core/utils/models/item.dart';
 
-final class ItemListDatabaseService extends FirebaseUtils {
+final class ItemListDatabaseService with FirebaseUtils {
   // Fetch items from the database
   Future<DataState> fetchItems() async {
     try {
