@@ -44,18 +44,18 @@ class _ReadNfcPageState extends ConsumerState<ScanNfcPage>
           children: <Widget>[
             Lottie.asset(AppAssets.readingNfcAni),
             Text(
-              status,
+              statusText,
               style: context.textTheme.titleLarge,
             ),
             Text(
-              pleaseHoldYourPhoneNearTheNFCTag,
+              pleaseHoldYourPhoneNearTheNFCTagText,
               style: context.textTheme.bodyMedium,
             ),
             MaxGap(AppPaddings.lPadding),
             TextButton(
               onPressed: () => context.pop(),
               child: Text(
-                cancel,
+                cancelText,
                 style: TextStyle(color: AppColors.accentError[70]),
               ),
             ),

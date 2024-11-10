@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nfc_box/core/utils/models/item.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -28,7 +26,9 @@ class PrepareNfcPage extends StatelessWidget {
             EdgeInsets.only(bottom: AppPaddings.sPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            /// Lottie animation
             FittedBox(
               child: Lottie.asset(
                 AppAssets.howToReadNfcAni,
@@ -38,18 +38,21 @@ class PrepareNfcPage extends StatelessWidget {
                 width: context.screenSize.width,
               ),
             ),
-            const Spacer(),
-            Text(
-              _PrepareNfcPageUtils.howToUseNFC,
-              style: context.textTheme.titleLarge,
-              textAlign: TextAlign.left,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _PrepareNfcPageUtils.howToUseNFCText,
+                  style: context.textTheme.titleLarge,
+                  textAlign: TextAlign.left,
+                ),
+                Gap(AppPaddings.xxsPadding),
+                Text(
+                  _PrepareNfcPageUtils.explanationText,
+                  style: context.textTheme.bodyMedium,
+                ),
+              ],
             ),
-            Gap(AppPaddings.xxsPadding),
-            Text(
-              _PrepareNfcPageUtils.explanation,
-              style: context.textTheme.bodyMedium,
-            ),
-            const Spacer(),
             ResponsiveElevatedButton(
               onPressed: () async {
                 _PrepareNfcPageUtils.onTapReady(

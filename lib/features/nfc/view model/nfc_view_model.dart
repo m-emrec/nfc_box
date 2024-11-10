@@ -1,13 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/core/resources/firebase_utils.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 import '../../../core/resources/data_state.dart';
+import '../../../core/resources/firebase_utils.dart';
 import '../../../core/utils/models/tag.dart';
 import '../../../logger.dart';
+part '_tag_authorization_enum.dart';
+part '_nfc_errors_enum.dart';
 
-class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
-  NfcNotifier() : super(null);
+class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
+  NfcViewModel() : super(null);
 
   /// Check if NFC is available on the device.
   Future<bool> _isAvailable() async => await NfcManager.instance.isAvailable();
@@ -20,7 +22,7 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
 
         await NfcManager.instance.stopSession();
         if (mounted) {
-          state = DataFailed('Timeout reading NFC');
+          state = DataFailed(_NfcErrors.timeOut.message);
         }
       });
 
@@ -36,32 +38,34 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
         try {
           /// The data is stored in the payload of the tag.
           /// The payload is a list of integers.
-          /// I convert the list of integers to a string.
-
           final Iterable<int> charCodes =
               tag.data["ndef"]["cachedMessage"]["records"][0]["payload"];
 
-          /// I use 3 as the starting index because the first 3 bytes are locale and " ".
+          /// Here I convert the list of integers to a string.
+          /// I use 3 as the starting index because the first 3 bytes are locale code (en) and " ".
           data = String.fromCharCodes(charCodes, 3);
           if (data != null) {
+            ///! I forced the [data] to be non-nullable because it is checked above.
+            ///!So it can't be null.
             Tag tagItem = Tag.fromJson(data!);
 
             final _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
             if (tagAuthorization == _TagAuthorization.authorized) {
               state = DataSuccess(tagItem);
             } else {
-              throw "'Unauthorized tag";
+              throw _NfcErrors.unAuthorized.message;
             }
           } else {
-            throw 'Error reading NFC: $data';
+            // If data is null, throw an unknown error.
+            throw _NfcErrors.unknown.message;
           }
-          NfcManager.instance.stopSession();
         } catch (e) {
-          state = DataFailed('Error reading NFC: $e');
+          state = DataFailed(_NfcErrors.unknown.message);
         }
+        NfcManager.instance.stopSession();
       });
     } else {
-      state = DataFailed('NFC not available.');
+      state = DataFailed(_NfcErrors.unAvailable.message);
     }
   }
 
@@ -75,7 +79,7 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
           data = tagItem.toJson();
           _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
           if (tagAuthorization == _TagAuthorization.unauthorized) {
-            throw 'Unauthorized tag';
+            throw _NfcErrors.unAuthorized.message;
           } else {
             /// if data is not null
             if (data != null) {
@@ -93,43 +97,36 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
               );
               state = DataSuccess(Tag.fromJson(data!));
             } else {
-              throw 'Error writing NFC: $data';
+              // If data is null, throw an unknown error.
+
+              throw _NfcErrors.unknown.message;
             }
           }
         } catch (e) {
           logger.e('Error writing NFC: $e');
-          state = DataFailed(e);
+          state = DataFailed(_NfcErrors.unknown.message);
         }
         await NfcManager.instance.stopSession();
       });
     }
   }
 
+  /// This function checks the authorization of the tag.
   _TagAuthorization _checkTagToken(Tag tag) {
+    // Start timeout
     _timeOut();
-    logger.i(tag);
+    //? if the tag token is null,
+    //?it means the tag is new and can be assigned to the user.
     if (tag.token == null) {
       return _TagAuthorization.none;
     }
+    //? if the tag token is equal to the user id,
+    //? it means the tag is authorized to the user.
+    //? So user can read or write this tag.
     if (tag.token == uid) {
       return _TagAuthorization.authorized;
     } else {
       return _TagAuthorization.unauthorized;
     }
   }
-}
-
-/// This enum is used to check the authorization type of the tag.
-enum _TagAuthorization {
-  /// This tag is authorized to the user.
-  /// So user can read or write this tag.
-  authorized,
-
-  /// This tag is not authorized to the user.
-  /// So user can't read or write this tag.
-  unauthorized,
-
-  /// This tag has no authorization. It is not assigned to any user.
-  /// So this tag is new and can be assigned to the user.
-  none,
 }
