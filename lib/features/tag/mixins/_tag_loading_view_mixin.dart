@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/utils/models/tag.dart';
-import 'tag_loading_view.dart';
+import '../view/tag_loading_view.dart';
 
 mixin TagLoadingViewMixin on State<TagLoadingView> {
   final Duration _delay = const Duration(seconds: 2);

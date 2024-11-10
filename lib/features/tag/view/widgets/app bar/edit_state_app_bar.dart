@@ -1,12 +1,7 @@
 part of tag_detail_view;
 
 class _EditStateAppBar extends ConsumerWidget implements PreferredSizeWidget {
-  _EditStateAppBar();
-  final TextEditingController controller = TextEditingController();
-
-  bool validate() {
-    return controller.text.isNotEmpty;
-  }
+  const _EditStateAppBar();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,19 +10,14 @@ class _EditStateAppBar extends ConsumerWidget implements PreferredSizeWidget {
         width: double.infinity,
         height: kToolbarHeight,
         child: CustomTextField(
-          controller: controller,
+          controller: _AppBarUtils.controller,
           suffix: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
               /// [IconButton] to save the edited tag name
               IconButton(
-                onPressed: () => validate()
-                    ? TagDetailProvider.editTagName(ref, controller)
-                    : Toast.errToast(
-                        title: "Name can't be empty",
-                        desc:
-                            "If you want to cancel the edit, press the close button"),
+                onPressed: () => _AppBarUtils.onTapCheck(ref),
                 icon: Icon(
                   Icons.check,
                   color: AppColors.accentSuccess[80],

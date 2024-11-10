@@ -4,20 +4,20 @@ class _TagDetailAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final Tag tag;
   const _TagDetailAppBar({required this.tag});
 
-  static const noNameText = 'No name';
-  static const heroTag = "tag";
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool editStatus = TagDetailProvider.editStatus(ref);
     final String editedTagName = ref.watch(TagDetailProvider.tagNameProvider);
 
     return editStatus
-        ? _EditStateAppBar()
+        ? const _EditStateAppBar()
         : AppBar(
             title: Hero(
-              tag: heroTag,
+              tag: _AppBarUtils.heroTag,
               child: Text(
-                editedTagName.isEmpty ? tag.name ?? noNameText : editedTagName,
+                editedTagName.isEmpty
+                    ? tag.name ?? _AppBarUtils.noNameText
+                    : editedTagName,
                 style: context.textTheme.titleLarge,
               ),
             ),
