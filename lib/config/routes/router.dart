@@ -35,7 +35,7 @@ enum Routes {
   });
 }
 
-class AppRouter {
+final class AppRouter {
   AppRouter() {
     AuthService().authStateChanges.listen((user) {
       _authChangeNotifier.notify();
@@ -81,7 +81,14 @@ class AppRouter {
               path: Routes.tagDetail.path,
               name: Routes.tagDetail.name,
               builder: (context, state) {
-                final Tag extra = state.extra as Tag;
+                Tag? extra;
+
+                try {
+                  extra = state.extra as Tag;
+                } catch (e) {
+                  extra = Tag.fromJson(state.extra as String);
+                }
+
                 return TagDetailView(
                   tag: extra,
                 );
@@ -92,7 +99,14 @@ class AppRouter {
               path: Routes.tagLoading.path,
               name: Routes.tagLoading.name,
               builder: (context, state) {
-                final Tag extra = state.extra as Tag;
+                Tag? extra;
+
+                try {
+                  extra = state.extra as Tag;
+                } catch (e) {
+                  extra = Tag.fromJson(state.extra as String);
+                }
+
                 return TagLoadingView(
                   tag: extra,
                 );

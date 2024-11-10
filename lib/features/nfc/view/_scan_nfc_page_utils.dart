@@ -29,7 +29,7 @@ mixin _ScanNfcPageUtils on ConsumerState<ScanNfcPage> {
 
     /// Navigate to the tag detail page
     context.goNamed(
-      Routes.tagDetail.name,
+      Routes.tagLoading.name,
       extra: tag,
     );
   }

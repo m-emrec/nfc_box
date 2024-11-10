@@ -58,16 +58,4 @@ class Tag {
 
   @override
   String toString() => 'Tag(name: $name, token: $token, items: $items)';
-
-  @override
-  bool operator ==(covariant Tag other) {
-    if (identical(this, other)) return true;
-
-    return other.name == name &&
-        other.token == token &&
-        listEquals(other.items, items);
-  }
-
-  @override
-  int get hashCode => name.hashCode ^ token.hashCode ^ items.hashCode;
 }

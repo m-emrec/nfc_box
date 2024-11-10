@@ -19,7 +19,6 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
   Future<void> _timeOut() => Future.microtask(() async {
         const Duration timeOutDuration = Duration(seconds: 5);
         await Future.delayed(timeOutDuration);
-
         await NfcManager.instance.stopSession();
         if (mounted) {
           state = DataFailed(_NfcErrors.timeOut.message);
