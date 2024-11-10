@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
 import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
 import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../core/utils/models/tag.dart';
 import '../../features/auth/service/auth_service.dart';
@@ -52,7 +53,7 @@ class AppRouter {
       GoRoute(
         redirect: _authChecker,
         path: '/',
-        builder: (context, state) => const Home(),
+        builder: (context, state) => Home(),
         routes: [
           /// Prepare NFC page
           GoRoute(

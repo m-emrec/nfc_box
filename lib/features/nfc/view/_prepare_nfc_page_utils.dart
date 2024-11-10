@@ -8,4 +8,20 @@ final class _PrepareNfcPageUtils {
 
 """;
   static const String ready = 'Ready';
+
+  static void onTapReady(
+      {required bool isWrite,
+      required Tag? tag,
+      required BuildContext context}) {
+    context.goNamed(Routes.scanNfc.name, extra: {
+      "isWrite": isWrite,
+
+      /// TODO: Change the item name to the actual item name
+      "tag": Tag(
+        token: FirebaseAuth.instance.currentUser?.uid,
+        name: tag?.name,
+        items: [Item(itemName: " asdasd")],
+      ),
+    });
+  }
 }

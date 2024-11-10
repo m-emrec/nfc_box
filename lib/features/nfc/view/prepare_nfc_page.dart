@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nfc_box/core/utils/models/item.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -49,8 +51,13 @@ class PrepareNfcPage extends StatelessWidget {
             ),
             const Spacer(),
             ResponsiveElevatedButton(
-              onPressed: () async => context.goNamed(Routes.scanNfc.name,
-                  extra: {"isWrite": isWrite, "tag": tag}),
+              onPressed: () async {
+                _PrepareNfcPageUtils.onTapReady(
+                  isWrite: isWrite,
+                  tag: tag,
+                  context: context,
+                );
+              },
               child: const Text(_PrepareNfcPageUtils.ready),
             ),
           ],

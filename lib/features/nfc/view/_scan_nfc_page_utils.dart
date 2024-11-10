@@ -13,7 +13,7 @@ mixin _ScanNfcPageUtils on ConsumerState<ScanNfcPage> {
     return ref.listen(
         NfcProviders.nfcStateProvider({
           "isWrite": widget.isWrite,
-          "tag": widget.tag?.toJson(),
+          "tag": widget.tag,
         }), (prev, current) {
       if (current is DataSuccess) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -23,7 +23,7 @@ mixin _ScanNfcPageUtils on ConsumerState<ScanNfcPage> {
         /// Navigate to the tag detail page
         context.goNamed(
           Routes.tagDetail.name,
-          extra: Tag.fromJson(current.data),
+          extra: current.data,
         );
       } else if (current is DataFailed) {
         logger.e(current.exception);

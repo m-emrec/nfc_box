@@ -21,7 +21,6 @@ final class NfcProviders {
       dataState = ref.watch(_nfcProvider);
     }
 
-    // logger.i(dataState?.data);
     return dataState;
   });
 }

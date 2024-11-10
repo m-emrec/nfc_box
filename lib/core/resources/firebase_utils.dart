@@ -21,4 +21,6 @@ mixin FirebaseUtils {
   Future<DocumentReference<Map<String, dynamic>>> getUserDoc() async {
     return firestore.collection(CollectionNames.Users.name).doc(uid);
   }
+
+  Future<void> signOut() async => await FirebaseAuth.instance.signOut();
 }

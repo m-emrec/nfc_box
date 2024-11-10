@@ -40,7 +40,7 @@ class Tag {
   factory Tag.fromMap(Map<String, dynamic> map) {
     return Tag(
       name: map['name'] != null ? map['name'] as String : null,
-      token: map['token'] as String,
+      token: map['token'] != null ? map['token'] as String : null,
       items: map['items'] != null
           ? List<Item>.from(
               (map['items']).map<Item?>(

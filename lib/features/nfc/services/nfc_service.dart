@@ -8,7 +8,6 @@ import '../../../logger.dart';
 
 class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
   NfcNotifier() : super(null);
-  static const Duration _timeOutDuration = Duration(seconds: 5);
 
   /// Check if NFC is available on the device.
   Future<bool> _isAvailable() async => await NfcManager.instance.isAvailable();
@@ -16,7 +15,8 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
   /// I use this function to simulate a timeout.Because the NFC manager package
   ///  does not have a timeout feature.
   Future<void> _timeOut() => Future.microtask(() async {
-        await Future.delayed(_timeOutDuration);
+        const Duration timeOutDuration = Duration(seconds: 5);
+        await Future.delayed(timeOutDuration);
 
         await NfcManager.instance.stopSession();
         if (mounted) {
@@ -25,55 +25,62 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
       });
 
   Future<void> readNfc() async {
-    //  TODO : Check Tag's token , if it is not equal to the user's uid, return error.
     String? data;
-    try {
-      //first check if NFC is available on the device.
-      if (await _isAvailable()) {
-        _timeOut();
 
-        /// Start an NFC session to read NFC tags.
-        NfcManager.instance.startSession(
-          onDiscovered: (NfcTag tag) async {
-            /// The data is stored in the payload of the tag.
-            /// The payload is a list of integers.
-            /// I convert the list of integers to a string.
-            final Iterable<int> charCodes =
-                tag.data["ndef"]["cachedMessage"]["records"][0]["payload"];
+    //first check if NFC is available on the device.
+    if (await _isAvailable()) {
+      _timeOut();
 
-            /// I use 3 as the starting index because the first 3 bytes are locale and " ".
-            data = String.fromCharCodes(charCodes, 3);
-            NfcManager.instance.stopSession();
-            state = DataSuccess(data);
-          },
-        );
-      } else {
-        logger.e('NFC not available.');
-        state = DataFailed('NFC not available.');
-      }
-    } catch (e) {
-      state = DataFailed('Error reading NFC: $e');
+      /// Start an NFC session to read NFC tags.
+      NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+        try {
+          /// The data is stored in the payload of the tag.
+          /// The payload is a list of integers.
+          /// I convert the list of integers to a string.
+
+          final Iterable<int> charCodes =
+              tag.data["ndef"]["cachedMessage"]["records"][0]["payload"];
+
+          /// I use 3 as the starting index because the first 3 bytes are locale and " ".
+          data = String.fromCharCodes(charCodes, 3);
+          if (data != null) {
+            Tag tagItem = Tag.fromJson(data!);
+
+            final _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
+            if (tagAuthorization == _TagAuthorization.authorized) {
+              state = DataSuccess(tagItem);
+            } else {
+              throw "'Unauthorized tag";
+            }
+          } else {
+            throw 'Error reading NFC: $data';
+          }
+          NfcManager.instance.stopSession();
+        } catch (e) {
+          state = DataFailed('Error reading NFC: $e');
+        }
+      });
+    } else {
+      state = DataFailed('NFC not available.');
     }
   }
 
-  Future<void> writeNfc(Tag? tagItem) async {
+  Future<void> writeNfc(Tag tagItem) async {
     String? data;
-    try {
-      //first check if NFC is available on the device.
-      //  TODO : Check Tag's token , if it is not equal to the user's uid, return error.
-      // TODO : if there is no token , add a token to the tag.
-      // TODO : if there is a token, check if the token is equal to the user's uid.
-      if (await _isAvailable()) {
-        _timeOut();
-        NfcManager.instance.startSession(
-          onDiscovered: (tag) async {
-            /// I convert the tagItem to a json string.
-            data = tagItem?.toJson();
-
+    //first check if NFC is available on the device.
+    if (await _isAvailable()) {
+      NfcManager.instance.startSession(onDiscovered: (tag) async {
+        try {
+          /// I convert the tagItem to a json string.
+          data = tagItem.toJson();
+          _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
+          if (tagAuthorization == _TagAuthorization.unauthorized) {
+            throw 'Unauthorized tag';
+          } else {
             /// if data is not null
             if (data != null) {
               /// create an [NdefMessage] with the data.
-              ///? I forced the [data] to be non-nullable because it is checked above. So it can't be null.
+              ///! I forced the [data] to be non-nullable because it is checked above. So it can't be null.
               NdefMessage message = NdefMessage([
                 NdefRecord.createText(
                   data!,
@@ -84,18 +91,45 @@ class NfcNotifier extends StateNotifier<DataState?> with FirebaseUtils {
               await Ndef.from(tag)?.write(
                 message,
               );
-              state = DataSuccess(data);
+              state = DataSuccess(Tag.fromJson(data!));
             } else {
-              state = DataFailed('Error writing NFC: $data');
+              throw 'Error writing NFC: $data';
             }
-
-            await NfcManager.instance.stopSession();
-          },
-        );
-      }
-    } catch (e) {
-      logger.e('Error writing NFC: $e');
-      state = DataFailed(e);
+          }
+        } catch (e) {
+          logger.e('Error writing NFC: $e');
+          state = DataFailed(e);
+        }
+        await NfcManager.instance.stopSession();
+      });
     }
   }
+
+  _TagAuthorization _checkTagToken(Tag tag) {
+    _timeOut();
+    logger.i(tag);
+    if (tag.token == null) {
+      return _TagAuthorization.none;
+    }
+    if (tag.token == uid) {
+      return _TagAuthorization.authorized;
+    } else {
+      return _TagAuthorization.unauthorized;
+    }
+  }
+}
+
+/// This enum is used to check the authorization type of the tag.
+enum _TagAuthorization {
+  /// This tag is authorized to the user.
+  /// So user can read or write this tag.
+  authorized,
+
+  /// This tag is not authorized to the user.
+  /// So user can't read or write this tag.
+  unauthorized,
+
+  /// This tag has no authorization. It is not assigned to any user.
+  /// So this tag is new and can be assigned to the user.
+  none,
 }
