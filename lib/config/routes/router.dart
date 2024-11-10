@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
 import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
 import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
-import 'package:nfc_box/logger.dart';
+import 'package:nfc_box/features/tag/view/tag_loading_view.dart';
 
 import '../../core/utils/models/tag.dart';
 import '../../features/auth/service/auth_service.dart';
@@ -25,6 +24,7 @@ enum Routes {
   prepareNfc,
   scanNfc,
   tagDetail,
+  tagLoading,
   ;
 
   String get path => "/$name";
@@ -83,6 +83,17 @@ class AppRouter {
               builder: (context, state) {
                 final Tag extra = state.extra as Tag;
                 return TagDetailView(
+                  tag: extra,
+                );
+              }),
+
+          /// Tag loading page
+          GoRoute(
+              path: Routes.tagLoading.path,
+              name: Routes.tagLoading.name,
+              builder: (context, state) {
+                final Tag extra = state.extra as Tag;
+                return TagLoadingView(
                   tag: extra,
                 );
               }),
