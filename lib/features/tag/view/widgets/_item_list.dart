@@ -14,6 +14,11 @@ class _ItemList extends StatelessWidget {
           return ItemCard(
             item: items[index],
             // onTap: () {},
+            removeAction: () {
+              // ref
+              //     .read(ItemListProvider.itemListProvider.notifier)
+              //     .removeItem(item);
+            },
           );
         });
   }

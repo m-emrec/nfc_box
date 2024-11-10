@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/utils/models/item.dart';
-import 'item card/item_card.dart';
+import '../../../../core/utils/widgets/item card/item_card.dart';
+import '../../providers/providers.dart';
 
-class ItemList extends StatelessWidget {
+class ItemList extends ConsumerWidget {
   const ItemList({
     super.key,
     required this.items,
@@ -13,7 +15,7 @@ class ItemList extends StatelessWidget {
   final List<Item> items;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const noItemsFound = 'No items found';
 
     if (items.isEmpty) {
@@ -32,6 +34,9 @@ class ItemList extends StatelessWidget {
           ),
           child: ItemCard(
             item: item,
+            removeAction: () => ref
+                .read(ItemListProvider.itemListProvider.notifier)
+                .removeItem(item),
           ),
         );
       },

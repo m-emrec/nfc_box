@@ -5,6 +5,7 @@ final class _ItemCardUtils {
     required this.context,
     required this.item,
     required this.ref,
+    required this.removeAction,
   }) {
     /// initialize the variables
     imageExist = item.imageUrl != null && item.imageUrl!.isNotEmpty;
@@ -14,6 +15,7 @@ final class _ItemCardUtils {
   final BuildContext context;
   final WidgetRef ref;
   final Item item;
+  final VoidCallback removeAction;
 
   /// controls the duration of the text animation
   final Duration textAnimationDuration = const Duration(milliseconds: 500);
@@ -38,8 +40,8 @@ final class _ItemCardUtils {
   /// Remove button
   Widget removeButton() {
     return GestureDetector(
-      onTap: () =>
-          ref.read(ItemListProvider.itemListProvider.notifier).removeItem(item),
+      onTap: () => removeAction(),
+      //  ref.read(provider.itemListProvider.notifier).removeItem(item),
       child: CircleAvatar(
         radius: 16,
         backgroundColor: AppColors.accentError[50],

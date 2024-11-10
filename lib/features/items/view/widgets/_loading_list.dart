@@ -23,6 +23,7 @@ class _LoadingList extends StatelessWidget {
             ),
             child: ItemCard(
               item: dummy,
+              removeAction: () {},
             ),
           ),
         );

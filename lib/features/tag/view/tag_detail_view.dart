@@ -1,17 +1,22 @@
 library tag_detail_view;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/core/utils/widgets/custom_text_field.dart';
+import 'package:nfc_box/features/tag/providers/provider.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/utils/models/tag.dart';
-import '../../items/view/widgets/item card/item_card.dart';
+import '../../../../core/utils/widgets/item card/item_card.dart';
 
-part 'widgets/_tag_detail_app_bar.dart';
+part 'widgets/app bar/_tag_detail_app_bar.dart';
 part 'widgets/_no_item_list.dart';
 part 'widgets/_item_list.dart';
+part 'widgets/app bar/edit_state_app_bar.dart';
 
 class TagDetailView extends StatelessWidget {
   final Tag tag;
