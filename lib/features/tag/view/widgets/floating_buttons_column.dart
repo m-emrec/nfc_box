@@ -25,12 +25,10 @@ class _FloatingButtonColumn extends StatelessWidget {
 
         /// Add button
         FloatingActionButton(
-          onPressed: () {
-            CustomBottomSheet.show(
-              context,
-              widget: const AddItemBottomSheet(),
-            );
-          },
+          onPressed: () => CustomBottomSheet.show(
+            context,
+            widget: const AddItemBottomSheet(),
+          ),
           child: const Icon(
             Icons.add,
           ),

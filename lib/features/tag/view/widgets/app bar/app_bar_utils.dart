@@ -1,6 +1,6 @@
 part of tag_detail_view;
 
-mixin _AppBarUtils on State<_TagDetailAppBar> {
+mixin _TagDetailAppBarMixin on State<_TagDetailAppBar> {
   final String noNameText = 'No name';
   final String heroTag = "tag";
 

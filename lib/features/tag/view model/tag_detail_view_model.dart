@@ -7,10 +7,6 @@ class TagDetailViewModel extends StateNotifier<Tag> {
     this.tag,
   ) : super(tag);
 
-  void changeTagName(String newName) {
-    state = state.copyWith(name: newName);
-  }
-
   void changeTagData(Tag newTag) {
     state = state.copyWith(
       name: newTag.name,

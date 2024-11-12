@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nfc_box/core/resources/firebase_utils.dart';
 
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/constants/enums/item_doc_keys.dart';
 import '../../../core/resources/data_state.dart';
+import '../../../core/resources/firebase_utils.dart';
 
 final class FetchItemsFromDatababaseService with FirebaseUtils {
   // Fetch items from the database

@@ -1,5 +1,6 @@
 part of tag_detail_view;
 
+/// This is the default app bar for the TagDetailView
 class _TagDetailAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Tag tag;
   const _TagDetailAppBar({required this.tag});
@@ -11,9 +12,11 @@ class _TagDetailAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class _TagDetailAppBarState extends State<_TagDetailAppBar> with _AppBarUtils {
+class _TagDetailAppBarState extends State<_TagDetailAppBar>
+    with _TagDetailAppBarMixin {
   @override
   Widget build(BuildContext context) {
+    /// if the edit status is true, show the edit state app bar
     return editStatus
         ? _EditStateAppBar(changeEditStatus)
         : AppBar(
@@ -26,8 +29,7 @@ class _TagDetailAppBarState extends State<_TagDetailAppBar> with _AppBarUtils {
             ),
             actions: [
               IconButton(
-                onPressed:
-                    changeEditStatus, // TagDetailProvider.updateEditStatus(ref),
+                onPressed: changeEditStatus,
                 icon: const Icon(Icons.edit),
               ),
               IconButton(

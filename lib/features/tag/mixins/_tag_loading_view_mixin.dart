@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/features/tag/providers/provider.dart';
 
 import '../../../config/routes/router.dart';
+import '../providers/provider.dart';
 import '../view/tag_loading_view.dart';
 
 mixin TagLoadingViewMixin on ConsumerState<TagLoadingView> {
@@ -12,6 +12,7 @@ mixin TagLoadingViewMixin on ConsumerState<TagLoadingView> {
 
   @override
   void initState() {
+    /// Give the tag to the provider
     TagDetailProviders(widget.tag);
     _navigateToTagView();
     super.initState();

@@ -1,5 +1,8 @@
 part of tag_detail_view;
 
+/// This app bar is shown when the user wants to edit the tag name
+/// It has a [CustomTextField] to edit the tag name
+/// It has two [IconButton]s to save the edited tag name and to cancel the edit
 class _EditStateAppBar extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
   final VoidCallback changeEditStatus;

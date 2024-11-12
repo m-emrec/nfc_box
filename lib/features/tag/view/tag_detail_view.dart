@@ -2,7 +2,7 @@ library tag_detail_view;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/core/utils/widgets/custom%20bottom%20sheet/custom_bottom_sheet.dart';
+
 import 'package:nfc_box/logger.dart';
 
 import '../../../../core/utils/widgets/item card/item_card.dart';
@@ -11,6 +11,7 @@ import '../../../core/constants/colors.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/utils/models/tag.dart';
+import '../../../core/utils/widgets/custom%20bottom%20sheet/custom_bottom_sheet.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 import '../providers/provider.dart';
@@ -21,8 +22,8 @@ part 'widgets/_no_item_list.dart';
 part 'widgets/app bar/_tag_detail_app_bar.dart';
 part 'widgets/app bar/app_bar_utils.dart';
 part 'widgets/app bar/edit_state_app_bar.dart';
-part 'widgets/floating_buttons_column.dart';
 part 'widgets/app bar/edit_state_app_bar_utils.dart';
+part 'widgets/floating_buttons_column.dart';
 
 class TagDetailView extends ConsumerWidget {
   const TagDetailView({

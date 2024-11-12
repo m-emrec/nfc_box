@@ -6,20 +6,21 @@ mixin _EditStateAppBarUtils on ConsumerState<_EditStateAppBar> {
   final String nameCantBeEmpty = "Name can't be empty";
   final String ifYouWantToCancelTheEditPressTheCloseButton =
       'If you want to cancel the edit, press the close button';
-  bool validate() {
-    return controller.text.isNotEmpty;
-  }
+
+  bool get _validate => controller.text.isNotEmpty;
 
   void onTapCheck(ref, VoidCallback changeEditStatus) {
-    validate()
-        ? {
-            TagDetailProviders.changeTagData(ref, Tag(name: controller.text)),
-            changeEditStatus(),
-          }
+    _validate
+        ? _saveTagName(ref, changeEditStatus)
         : Toast.errToast(
             title: nameCantBeEmpty,
             desc: ifYouWantToCancelTheEditPressTheCloseButton,
           );
+  }
+
+  void _saveTagName(ref, VoidCallback changeEditStatus) {
+    TagDetailProviders.changeTagData(ref, Tag(name: controller.text));
+    changeEditStatus();
   }
 
   @override

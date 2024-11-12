@@ -15,6 +15,7 @@ class _ItemList extends StatelessWidget {
             item: items[index],
             // onTap: () {},
             removeAction: () {
+              /// TODO: Implement remove action
               // ref
               //     .read(ItemListProvider.itemListProvider.notifier)
               //     .removeItem(item);
