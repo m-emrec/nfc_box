@@ -1,57 +1,39 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/core/utils/models/tag.dart';
+import '../view%20model/tag_detail_view_model.dart';
 
 final class TagDetailProvider {
-  TagDetailProvider._();
+  factory TagDetailProvider(Tag tag) {
+    return TagDetailProvider._(tag);
+  }
+  final Tag initialTag;
+  TagDetailProvider._(this.initialTag) {
+    _tag = initialTag;
+  }
+  static late Tag _tag;
 
-  /// Stores the edit status of the tag name
-  ///  - true: the tag name is being edited
-  static final editStatusProvider = StateProvider.autoDispose<bool>((ref) {
-    return false;
+  static final tagDetailViewModelProvider =
+      StateNotifierProvider.autoDispose<TagDetailViewModel, Tag>((ref) {
+    return TagDetailViewModel(_tag);
   });
 
   /// if the tag is edited this will be true
   /// and the save button will be enabled
-  static final isEditedProvider = StateProvider<bool>((ref) {
-    return false;
-  });
-
-  /// This provider is used to store the tag name that is being edited
-  static final tagNameProvider = StateProvider.autoDispose<String>((ref) {
-    return "";
+  static final isEditedProvider = StateProvider.autoDispose<bool>((ref) {
+    bool isEdited = _tag != ref.watch(tagDetailViewModelProvider);
+    return isEdited;
   });
 
   /// Methods
-  ///
 
-  /// This function changes the isEdited status
-  static void changeIsEditedStatus(ref) {
-    ref.read(isEditedProvider.notifier).update(
-      (bool state) {
-        state = !state;
-        return state;
-      },
-    );
-  }
+  /// This method helps to reach changeTagData method from TagDetailViewModel
+  static void changeTagData(ref, Tag newData) => ref
+      .read(TagDetailProvider.tagDetailViewModelProvider.notifier)
+      .changeTagData(
+        newData,
+      );
+
+  // /// This function changes the isEdited status
 
   static bool isEdited(ref) => ref.watch(isEditedProvider);
-
-  /// This function updates the tag name with the value from the controller
-  static void editTagName(ref, controller) {
-    changeIsEditedStatus(ref);
-    ref.read(tagNameProvider.notifier).update(
-      (String state) {
-        state = controller.text;
-        updateEditStatus(ref);
-        return state;
-      },
-    );
-  }
-
-  /// This function returns the edit status
-  static bool editStatus(ref) => ref.watch(editStatusProvider);
-
-  /// This function changes the edit status
-  static void updateEditStatus(ref) {
-    ref.read(editStatusProvider.notifier).update((state) => state = !state);
-  }
 }

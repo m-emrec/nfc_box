@@ -1,29 +1,33 @@
 part of tag_detail_view;
 
-class _TagDetailAppBar extends ConsumerWidget implements PreferredSizeWidget {
+class _TagDetailAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Tag tag;
   const _TagDetailAppBar({required this.tag});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final bool editStatus = TagDetailProvider.editStatus(ref);
-    final String editedTagName = ref.watch(TagDetailProvider.tagNameProvider);
+  State<_TagDetailAppBar> createState() => _TagDetailAppBarState();
 
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _TagDetailAppBarState extends State<_TagDetailAppBar> with _AppBarUtils {
+  @override
+  Widget build(BuildContext context) {
     return editStatus
-        ? const _EditStateAppBar()
+        ? _EditStateAppBar(changeEditStatus)
         : AppBar(
             title: Hero(
-              tag: _AppBarUtils.heroTag,
+              tag: heroTag,
               child: Text(
-                editedTagName.isEmpty
-                    ? tag.name ?? _AppBarUtils.noNameText
-                    : editedTagName,
+                widget.tag.name ?? noNameText,
                 style: context.textTheme.titleLarge,
               ),
             ),
             actions: [
               IconButton(
-                onPressed: () => TagDetailProvider.updateEditStatus(ref),
+                onPressed:
+                    changeEditStatus, // TagDetailProvider.updateEditStatus(ref),
                 icon: const Icon(Icons.edit),
               ),
               IconButton(
@@ -34,7 +38,4 @@ class _TagDetailAppBar extends ConsumerWidget implements PreferredSizeWidget {
             ],
           );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

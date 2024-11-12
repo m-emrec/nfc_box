@@ -81,17 +81,7 @@ final class AppRouter {
               path: Routes.tagDetail.path,
               name: Routes.tagDetail.name,
               builder: (context, state) {
-                Tag? extra;
-
-                try {
-                  extra = state.extra as Tag;
-                } catch (e) {
-                  extra = Tag.fromJson(state.extra as String);
-                }
-
-                return TagDetailView(
-                  tag: extra,
-                );
+                return const TagDetailView();
               }),
 
           /// Tag loading page

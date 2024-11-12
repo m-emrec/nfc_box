@@ -2,6 +2,7 @@ library tag_detail_view;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../../core/utils/widgets/item card/item_card.dart';
 import '../../../core/constants/app_paddings.dart';
@@ -19,16 +20,16 @@ part 'widgets/app bar/_tag_detail_app_bar.dart';
 part 'widgets/app bar/app_bar_utils.dart';
 part 'widgets/app bar/edit_state_app_bar.dart';
 part 'widgets/floating_buttons_column.dart';
+part 'widgets/app bar/edit_state_app_bar_utils.dart';
 
 class TagDetailView extends ConsumerWidget {
-  final Tag tag;
   const TagDetailView({
     super.key,
-    required this.tag,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Tag tag = ref.watch(TagDetailProvider.tagDetailViewModelProvider);
     return Scaffold(
       floatingActionButton: _FloatingButtonColumn(
         ref: ref,
