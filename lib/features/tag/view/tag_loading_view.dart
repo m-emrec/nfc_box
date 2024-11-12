@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:nfc_box/config/routes/router.dart';
-import 'package:nfc_box/core/constants/colors.dart';
-import 'package:nfc_box/core/extensions/context_extension.dart';
-import 'package:nfc_box/features/tag/mixins/_tag_loading_view_mixin.dart';
 
+import '../../../core/constants/colors.dart';
+import '../../../core/extensions/context_extension.dart';
 import '../../../core/utils/models/tag.dart';
+import '../mixins/_tag_loading_view_mixin.dart';
 
 class TagLoadingView extends StatefulWidget {
   final Tag tag;

@@ -18,8 +18,9 @@ part 'widgets/_no_item_list.dart';
 part 'widgets/app bar/_tag_detail_app_bar.dart';
 part 'widgets/app bar/app_bar_utils.dart';
 part 'widgets/app bar/edit_state_app_bar.dart';
+part 'widgets/floating_buttons_column.dart';
 
-class TagDetailView extends StatelessWidget {
+class TagDetailView extends ConsumerWidget {
   final Tag tag;
   const TagDetailView({
     super.key,
@@ -27,8 +28,11 @@ class TagDetailView extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      floatingActionButton: _FloatingButtonColumn(
+        ref: ref,
+      ),
       appBar: _TagDetailAppBar(tag: tag),
       body: Padding(
         padding: AppPaddings.authHPadding,
