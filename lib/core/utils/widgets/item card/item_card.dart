@@ -17,10 +17,10 @@ class ItemCard extends ConsumerWidget {
   const ItemCard({
     super.key,
     required this.item,
-    required this.removeAction,
+    this.removeAction,
   });
 
-  final VoidCallback removeAction;
+  final VoidCallback? removeAction;
   final Item item;
 
   @override

@@ -2,6 +2,7 @@ library tag_detail_view;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/core/utils/widgets/custom%20bottom%20sheet/custom_bottom_sheet.dart';
 import 'package:nfc_box/logger.dart';
 
 import '../../../../core/utils/widgets/item card/item_card.dart';
@@ -13,6 +14,7 @@ import '../../../core/utils/models/tag.dart';
 import '../../../core/utils/widgets/custom_text_field.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
 import '../providers/provider.dart';
+import 'widgets/bottom sheet/add_item_bottom_sheet.dart';
 
 part 'widgets/_item_list.dart';
 part 'widgets/_no_item_list.dart';
@@ -29,7 +31,7 @@ class TagDetailView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Tag tag = ref.watch(TagDetailProvider.tagDetailViewModelProvider);
+    final Tag tag = ref.watch(TagDetailProviders.tagDetailViewModelProvider);
     return Scaffold(
       floatingActionButton: _FloatingButtonColumn(
         ref: ref,

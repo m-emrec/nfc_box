@@ -13,7 +13,7 @@ class _FloatingButtonColumn extends StatelessWidget {
       children: [
         /// Save button
         Visibility(
-          visible: TagDetailProvider.isEdited(ref),
+          visible: TagDetailProviders.isEdited(ref),
           child: FloatingActionButton.small(
             onPressed: () {},
             backgroundColor: AppColors.secondaryTeal,
@@ -25,7 +25,12 @@ class _FloatingButtonColumn extends StatelessWidget {
 
         /// Add button
         FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            CustomBottomSheet.show(
+              context,
+              widget: const AddItemBottomSheet(),
+            );
+          },
           child: const Icon(
             Icons.add,
           ),

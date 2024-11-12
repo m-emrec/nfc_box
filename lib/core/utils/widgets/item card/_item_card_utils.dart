@@ -5,7 +5,7 @@ final class _ItemCardUtils {
     required this.context,
     required this.item,
     required this.ref,
-    required this.removeAction,
+    this.removeAction,
   }) {
     /// initialize the variables
     imageExist = item.imageUrl != null && item.imageUrl!.isNotEmpty;
@@ -15,7 +15,7 @@ final class _ItemCardUtils {
   final BuildContext context;
   final WidgetRef ref;
   final Item item;
-  final VoidCallback removeAction;
+  final VoidCallback? removeAction;
 
   /// controls the duration of the text animation
   final Duration textAnimationDuration = const Duration(milliseconds: 500);
@@ -39,17 +39,20 @@ final class _ItemCardUtils {
 
   /// Remove button
   Widget removeButton() {
-    return GestureDetector(
-      onTap: () => removeAction(),
-      //  ref.read(provider.itemListProvider.notifier).removeItem(item),
-      child: CircleAvatar(
-        radius: 16,
-        backgroundColor: AppColors.accentError[50],
-        child: Image.asset(
-          AppAssets.removeBoxPath,
-          height: 24,
-          width: 24,
-          color: Colors.white,
+    return Visibility(
+      visible: removeAction != null,
+      child: GestureDetector(
+        onTap: () => removeAction!(),
+        //  ref.read(provider.itemListProvider.notifier).removeItem(item),
+        child: CircleAvatar(
+          radius: 16,
+          backgroundColor: AppColors.accentError[50],
+          child: Image.asset(
+            AppAssets.removeBoxPath,
+            height: 24,
+            width: 24,
+            color: Colors.white,
+          ),
         ),
       ),
     );

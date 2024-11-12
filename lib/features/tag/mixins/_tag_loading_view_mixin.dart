@@ -12,7 +12,7 @@ mixin TagLoadingViewMixin on ConsumerState<TagLoadingView> {
 
   @override
   void initState() {
-    TagDetailProvider(widget.tag);
+    TagDetailProviders(widget.tag);
     _navigateToTagView();
     super.initState();
   }

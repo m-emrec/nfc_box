@@ -13,7 +13,7 @@ mixin _EditStateAppBarUtils on ConsumerState<_EditStateAppBar> {
   void onTapCheck(ref, VoidCallback changeEditStatus) {
     validate()
         ? {
-            TagDetailProvider.changeTagData(ref, Tag(name: controller.text)),
+            TagDetailProviders.changeTagData(ref, Tag(name: controller.text)),
             changeEditStatus(),
           }
         : Toast.errToast(

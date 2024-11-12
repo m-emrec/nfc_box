@@ -1,16 +1,31 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/core/resources/data_state.dart';
 import 'package:nfc_box/core/utils/models/tag.dart';
+import 'package:nfc_box/features/tag/services/fetch_items_from_database_service.dart';
+import '../../../core/utils/models/item.dart';
 import '../view%20model/tag_detail_view_model.dart';
 
-final class TagDetailProvider {
-  factory TagDetailProvider(Tag tag) {
-    return TagDetailProvider._(tag);
+final class TagDetailProviders {
+  factory TagDetailProviders(Tag tag) {
+    return TagDetailProviders._(tag);
   }
   final Tag initialTag;
-  TagDetailProvider._(this.initialTag) {
+  TagDetailProviders._(this.initialTag) {
     _tag = initialTag;
   }
   static late Tag _tag;
+
+  static final itemListProvider =
+      FutureProvider.autoDispose<DataState>((ref) async {
+    final DataState dataState =
+        await FetchItemsFromDatababaseService().fetchItems();
+    if (dataState is DataSuccess) {
+      final List<Item> itemList =
+          dataState.data.map<Item>((e) => Item.fromJson(e.data())).toList();
+      return DataSuccess<List<Item>>(itemList);
+    }
+    return DataFailed(dataState.exception);
+  });
 
   static final tagDetailViewModelProvider =
       StateNotifierProvider.autoDispose<TagDetailViewModel, Tag>((ref) {
@@ -25,10 +40,11 @@ final class TagDetailProvider {
   });
 
   /// Methods
+  ///
 
   /// This method helps to reach changeTagData method from TagDetailViewModel
   static void changeTagData(ref, Tag newData) => ref
-      .read(TagDetailProvider.tagDetailViewModelProvider.notifier)
+      .read(TagDetailProviders.tagDetailViewModelProvider.notifier)
       .changeTagData(
         newData,
       );
