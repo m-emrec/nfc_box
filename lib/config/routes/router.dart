@@ -1,12 +1,17 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/core/constants/enums/item_field_names.dart';
+import 'package:nfc_box/features/item%20detail/view/item_detail_view.dart';
 import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
 import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
 import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
 import 'package:nfc_box/features/tag/view/tag_loading_view.dart';
 
+import '../../core/utils/models/field_model.dart';
+import '../../core/utils/models/item.dart';
 import '../../core/utils/models/tag.dart';
 import '../../features/auth/service/auth_service.dart';
 import '../../features/auth/view/sign_in.dart';
@@ -20,6 +25,7 @@ enum Routes {
   signIn,
   signUp,
   itemList,
+  itemDetail,
   createItem,
   prepareNfc,
   scanNfc,
@@ -121,6 +127,52 @@ final class AppRouter {
             path: Routes.createItem.path,
             name: Routes.createItem.name,
             builder: (context, state) => const CreateItemPage(),
+          ),
+
+          GoRoute(
+            path: Routes.itemDetail.path,
+            name: Routes.itemDetail.name,
+            builder: (context, state) {
+              // final Item item = Item(
+              //   createdDate: DateTime.fromMillisecondsSinceEpoch(1731657401818),
+              //   fields: [
+              //     FieldModel(
+              //       fieldName: const SizedBox(),
+              //       field: SizedBox(),
+              //       fieldNameController: TextEditingController(text: "color"),
+              //       fieldController: TextEditingController(text: "4286611584"),
+              //       fieldType: ItemFieldNames.Color,
+              //     ),
+              //     FieldModel(
+              //       fieldName: const SizedBox(),
+              //       field: SizedBox(),
+              //       fieldNameController:
+              //           TextEditingController(text: "purchased date"),
+              //       fieldController:
+              //           TextEditingController(text: "2022-10-01 00:00:00.000"),
+              //       fieldType: ItemFieldNames.Date,
+              //     ),
+              //     FieldModel(
+              //       fieldName: const SizedBox(),
+              //       field: SizedBox(),
+              //       fieldNameController: TextEditingController(text: "price"),
+              //       fieldController: TextEditingController(text: "40000 £"),
+              //       fieldType: ItemFieldNames.Text,
+              //     ),
+              //   ],
+              //   id: "ZpmDanGrOvjwZrO1IYVm",
+              //   imageUrl:
+              //       "https://firebasestorage.googleapis.com/v0/b/nfcbox-560e8.appspot.com/o/bdMLGMRjVnPpgLWOUsFPIvegpih1%2Fimages%2FFile%3A%20'%2Fdata%2Fuser%2F0%2Fcom.example.nfc_box%2Fcache%2F92e876df-ae08-426e-877d-7ce8f346b2595550339384394345282.jpg'?alt=media&token=c531e166-4da6-4135-a815-5fabc7f1342d",
+              //   itemName: "Macbook air",
+              // );
+
+              ///TODO: Change this
+              final Item item = state.extra as Item;
+
+              return ItemDetailView(
+                item: item,
+              );
+            },
           ),
         ],
       ),

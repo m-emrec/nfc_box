@@ -13,7 +13,7 @@ class _TagDetailItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onItemTap(item),
+      onLongPress: () => onItemTap(item),
       child: Badge(
         isLabelVisible: selectedItems.contains(item),
         offset: const Offset(0, 0),
