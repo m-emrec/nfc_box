@@ -14,6 +14,7 @@ class _FloatingActionButtons extends StatelessWidget {
       children: [
         /// Save button
         Visibility(
+          // Show the save button only if the tag is edited.
           visible: TagDetailProviders.isEdited(ref),
           child: FloatingActionButton.small(
             onPressed: () => context.goNamed(Routes.prepareNfc.name, extra: {

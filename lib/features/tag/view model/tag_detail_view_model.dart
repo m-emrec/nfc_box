@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/core/resources/data_state.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/utils/models/tag.dart';
 

@@ -1,4 +1,4 @@
-part of 'nfc_view_model.dart';
+part of '../view model/nfc_view_model.dart';
 
 /// This enum is used to check the authorization type of the tag.
 enum _TagAuthorization {
@@ -12,5 +12,5 @@ enum _TagAuthorization {
 
   /// This tag has no authorization. It is not assigned to any user.
   /// So this tag is new and can be assigned to the user.
-  none,
+  newTag,
 }

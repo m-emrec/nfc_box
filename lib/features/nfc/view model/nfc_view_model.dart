@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nfc_box/features/nfc/model/nfc_model.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -7,27 +6,25 @@ import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 import '../../../core/utils/models/tag.dart';
 import '../../../logger.dart';
+import '../model/nfc_model.dart';
 import '../services/tag_firebase_service.dart';
-part '_tag_authorization_enum.dart';
-part '_nfc_errors_enum.dart';
 
+part '../enums/_nfc_errors_enum.dart';
+part '../enums/_tag_authorization_enum.dart';
+
+/// This class is the view model for the NFC feature.
+/// It is responsible for reading and writing NFC tags.
+/// It uses the [NfcManager] package to interact with the NFC tags.
+/// It also uses the [TagFirebaseService] to interact with the Firebase database.
+/// It extends the [StateNotifier] class from the Riverpod package.
+///
+/// The [NfcViewModel] class has two main functions:
+///
+/// 1. [readNfc] - This function reads the data from the NFC tag.
+/// 2. [writeNfc] - This function writes the data to the NFC tag.
 class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
   final TagFirebaseService _tagFirebaseService;
   NfcViewModel(this._tagFirebaseService) : super(null);
-
-  /// Check if NFC is available on the device.
-  Future<bool> _isAvailable() async => await NfcManager.instance.isAvailable();
-
-  /// ? I use this function to simulate a timeout.Because the NFC manager package
-  /// ? does not have a timeout feature.
-  Future<void> _timeOut() => Future.microtask(() async {
-        const Duration timeOutDuration = Duration(seconds: 5);
-        await Future.delayed(timeOutDuration);
-        await NfcManager.instance.stopSession();
-        if (mounted) {
-          state = DataFailed(_NfcErrors.timeOut.message);
-        }
-      });
 
   Future<void> readNfc() async {
     String? data;
@@ -49,18 +46,24 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
           data = String.fromCharCodes(charCodes, 3);
 
           if (data != null) {
-            ///! I forced the [data] to be non-nullable because it is checked above.
-            ///!So it can't be null.
-
             final DataState dataState =
                 await _tagFirebaseService.getNfcDataFromUrl(
-              NfcModel.fromJson(data!).id,
+              NfcModel.fromJson(
+                      data!) //! I forced the [data] to be non-nullable because it is checked above.
+                  .id,
             );
+
+            /// If there is an error, throw an unknown error.
             if (dataState is DataFailed) {
               throw _NfcErrors.unknown.message;
             }
+
+            /// Create tag item
             Tag tagItem = Tag.fromJson(dataState.data);
             final _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
+
+            /// Check if the tag is authorized.
+            /// If the tag is authorized, set the state to DataSuccess.
             if (tagAuthorization == _TagAuthorization.authorized) {
               state = DataSuccess(tagItem);
             } else {
@@ -85,35 +88,34 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
     String? data;
     // first check if NFC is available on the device.
     if (await _isAvailable()) {
+      _timeOut();
       NfcManager.instance.startSession(onDiscovered: (tag) async {
         try {
-          /// I convert the tagItem to a json string.
-
           _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
           if (tagAuthorization == _TagAuthorization.unauthorized) {
             throw _NfcErrors.unAuthorized.message;
           } else {
-            /// if data is not null
-
+            // If the tag is new, assign a new id to it.
             if (tagItem.id == null) {
               tagItem = tagItem.copyWith(id: const Uuid().v4());
             }
 
             data = tagItem.toJson();
+            // if data is not null,
             if (data != null) {
               data = data!.trim();
 
               final path = await _tagFirebaseService.uploadTagData(tagItem);
-              logger.i(path.data);
 
-              ///! I forced the [data] to be non-nullable because it is checked above. So it can't be null.
               /// create an [NdefMessage] with the data.
               NdefMessage message = NdefMessage([
                 NdefRecord.createText(
                   NfcModel(
-                    id: tagItem.id!,
-                    token: tagItem.token!,
-                    url: path.data!,
+                    id: tagItem
+                        .id!, // I forced the id to be non-nullable because it is checked above when assigning a new id to the tag.
+                    token: tagItem
+                        .token!, // I forced the token to be non-nullable because it is checked above when checking the tag authorization.
+                    url: path.data,
                   ).toJson(),
                 )
               ]);
@@ -122,13 +124,10 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
               await Ndef.from(tag)?.write(
                 message,
               );
-              // logger.i("message 2");
 
               state = DataSuccess(Tag.fromJson(data!));
-              // logger.i("message 3");
             } else {
               // If data is null, throw an unknown error.
-
               throw _NfcErrors.unknown.message;
             }
           }
@@ -141,14 +140,26 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
     }
   }
 
+  /// Check if NFC is available on the device.
+  Future<bool> _isAvailable() async => await NfcManager.instance.isAvailable();
+
+  /// ? I use this function to simulate a timeout.Because the NFC manager package
+  /// ? does not have a timeout feature.
+  Future<void> _timeOut() => Future.microtask(() async {
+        const Duration timeOutDuration = Duration(seconds: 5);
+        await Future.delayed(timeOutDuration);
+        await NfcManager.instance.stopSession();
+        if (mounted) {
+          state = DataFailed(_NfcErrors.timeOut.message);
+        }
+      });
+
   /// This function checks the authorization of the tag.
   _TagAuthorization _checkTagToken(Tag tag) {
-    // Start timeout
-    _timeOut();
     //? if the tag token is null,
     //?it means the tag is new and can be assigned to the user.
     if (tag.token == null) {
-      return _TagAuthorization.none;
+      return _TagAuthorization.newTag;
     }
     //? if the tag token is equal to the user id,
     //? it means the tag is authorized to the user.

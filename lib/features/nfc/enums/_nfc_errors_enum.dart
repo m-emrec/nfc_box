@@ -1,4 +1,4 @@
-part of 'nfc_view_model.dart';
+part of '../view model/nfc_view_model.dart';
 
 /// This enum contains the error messages of the NFC service.
 enum _NfcErrors {

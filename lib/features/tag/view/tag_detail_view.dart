@@ -5,8 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/config/routes/router.dart';
 
-import 'package:nfc_box/logger.dart';
-
 import '../../../../core/utils/widgets/item card/item_card.dart';
 import '../../../core/constants/app_paddings.dart';
 import '../../../core/constants/colors.dart';
@@ -25,7 +23,7 @@ part 'widgets/app bar/_tag_detail_app_bar.dart';
 part 'widgets/app bar/app_bar_utils.dart';
 part 'widgets/app bar/edit_state_app_bar.dart';
 part 'widgets/app bar/edit_state_app_bar_utils.dart';
-part 'widgets/floating_buttons_column.dart';
+part 'widgets/floating_action_buttons.dart';
 
 class TagDetailView extends ConsumerWidget {
   const TagDetailView({
