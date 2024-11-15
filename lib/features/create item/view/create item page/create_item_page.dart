@@ -34,7 +34,7 @@ class CreateItemPage extends ConsumerWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButton: FAB(
-          onPressed: () => _CreateItemUtils().onSave(context, ref),
+          onPressed: () => _createItemUtils.onSave(context, ref),
           child: const Icon(Icons.check),
         ),
         body: Padding(

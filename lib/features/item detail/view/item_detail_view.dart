@@ -10,6 +10,7 @@ import 'package:nfc_box/core/constants/enums/item_field_names.dart';
 import 'package:nfc_box/core/extensions/context_extension.dart';
 import 'package:nfc_box/core/utils/models/field_model.dart';
 import 'package:nfc_box/core/utils/models/item.dart';
+import 'package:nfc_box/logger.dart';
 
 part 'widgets/fields/item_color_field.dart';
 part 'widgets/fields/item_date_field.dart';
