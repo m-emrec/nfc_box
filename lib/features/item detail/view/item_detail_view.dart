@@ -10,7 +10,8 @@ import 'package:nfc_box/core/constants/enums/item_field_names.dart';
 import 'package:nfc_box/core/extensions/context_extension.dart';
 import 'package:nfc_box/core/utils/models/field_model.dart';
 import 'package:nfc_box/core/utils/models/item.dart';
-import 'package:nfc_box/logger.dart';
+
+import '../../../config/routes/router.dart';
 
 part 'widgets/fields/item_color_field.dart';
 part 'widgets/fields/item_date_field.dart';
@@ -28,7 +29,16 @@ class ItemDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.pushNamed(Routes.createItem.name, extra: item);
+            },
+            icon: const Icon(Icons.edit),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

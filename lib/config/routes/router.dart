@@ -126,7 +126,15 @@ final class AppRouter {
           GoRoute(
             path: Routes.createItem.path,
             name: Routes.createItem.name,
-            builder: (context, state) => const CreateItemPage(),
+            builder: (context, state) {
+              if (state.extra != null) {
+                final Item item = state.extra as Item;
+                return CreateItemPage(
+                  item: item,
+                );
+              }
+              return const CreateItemPage();
+            },
           ),
 
           GoRoute(

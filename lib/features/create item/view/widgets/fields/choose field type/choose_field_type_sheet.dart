@@ -11,7 +11,7 @@ import '../color field/color_field.dart';
 import '../date field entry/date_field_entry.dart';
 import '../text_field_entry.dart';
 
-part "utils.dart";
+part "choose_field_type_sheet_utils.dart";
 
 class ChooseFieldTypeSheet extends ConsumerWidget {
   const ChooseFieldTypeSheet({

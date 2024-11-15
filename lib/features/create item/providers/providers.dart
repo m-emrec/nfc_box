@@ -12,6 +12,10 @@ class CreateItemProvider {
 
   /// This provider used to store [FieldModel]
   static final fieldListProvider = StateProvider<List<FieldModel>>((ref) {
+    ref.onDispose(() {
+      ref.controller.dispose();
+    });
+
     return [];
   });
 
