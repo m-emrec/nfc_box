@@ -1,8 +1,9 @@
 part of tag_detail_view;
 
-class _FloatingButtonColumn extends StatelessWidget {
+/// This widget contains the save and add buttons
+class _FloatingActionButtons extends StatelessWidget {
   final WidgetRef ref;
-  const _FloatingButtonColumn({
+  const _FloatingActionButtons({
     required this.ref,
   });
 
@@ -15,7 +16,10 @@ class _FloatingButtonColumn extends StatelessWidget {
         Visibility(
           visible: TagDetailProviders.isEdited(ref),
           child: FloatingActionButton.small(
-            onPressed: () {},
+            onPressed: () => context.goNamed(Routes.prepareNfc.name, extra: {
+              'tag': ref.watch(TagDetailProviders.tagDetailViewModelProvider),
+              "isWrite": true,
+            }),
             backgroundColor: AppColors.secondaryTeal,
             child: const Icon(
               Icons.save_outlined,

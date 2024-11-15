@@ -1,11 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/core/utils/models/tag.dart';
+import 'package:nfc_box/features/nfc/services/tag_firebase_service.dart';
 import '../../../core/resources/data_state.dart';
+import '../../../core/utils/models/item.dart';
 import '../view model/nfc_view_model.dart';
 
 final class NfcProviders {
+  static final _tagFirebaseServiceProvider =
+      Provider<TagFirebaseService>((ref) {
+    return TagFirebaseService();
+  });
+
   static final _nfcProvider =
       StateNotifierProvider.autoDispose<NfcViewModel, DataState?>((ref) {
-    return NfcViewModel();
+    return NfcViewModel(
+      ref.read(_tagFirebaseServiceProvider),
+    );
   });
 
   static final nfcStateProvider =

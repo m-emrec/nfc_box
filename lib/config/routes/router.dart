@@ -61,9 +61,16 @@ final class AppRouter {
             name: Routes.prepareNfc.name,
             builder: (context, state) {
               final Map extra = state.extra as Map;
+              Tag? tag;
+              try {
+                if (extra["tag"] != null) {
+                  tag = extra["tag"] as Tag;
+                }
+              } catch (e) {
+                tag = Tag.fromJson(extra["tag"] as String);
+              }
 
-              return PrepareNfcPage(
-                  isWrite: extra['isWrite'], tag: extra['tag']);
+              return PrepareNfcPage(isWrite: extra['isWrite'], tag: tag);
             },
           ),
 

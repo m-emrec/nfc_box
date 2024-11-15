@@ -2,6 +2,8 @@ library tag_detail_view;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nfc_box/config/routes/router.dart';
 
 import 'package:nfc_box/logger.dart';
 
@@ -17,7 +19,7 @@ import '../../../core/utils/widgets/custom_toast.dart';
 import '../providers/provider.dart';
 import 'widgets/bottom sheet/add_item_bottom_sheet.dart';
 
-part 'widgets/_item_list.dart';
+part 'widgets/item_list.dart';
 part 'widgets/_no_item_list.dart';
 part 'widgets/app bar/_tag_detail_app_bar.dart';
 part 'widgets/app bar/app_bar_utils.dart';
@@ -34,7 +36,7 @@ class TagDetailView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Tag tag = ref.watch(TagDetailProviders.tagDetailViewModelProvider);
     return Scaffold(
-      floatingActionButton: _FloatingButtonColumn(
+      floatingActionButton: _FloatingActionButtons(
         ref: ref,
       ),
       appBar: _TagDetailAppBar(tag: tag),

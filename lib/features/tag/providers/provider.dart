@@ -61,6 +61,7 @@ final class TagDetailProviders {
   });
 
   //--------- Methods
+
   /// This method helps to reach changeTagData method from TagDetailViewModel
   static void changeTagData(ref, Tag newData) => ref
       .read(TagDetailProviders.tagDetailViewModelProvider.notifier)
@@ -68,5 +69,14 @@ final class TagDetailProviders {
         newData,
       );
 
+  /// This method helps to reach removeItem method from TagDetailViewModel
+  static void removeItemFromTag(ref, Item item) =>
+      ref.read(tagDetailViewModelProvider.notifier).removeItem(item);
+
+  /// This method helps to reach addItemToTag method from TagDetailViewModel
+  static void addItemToTag(ref, List<Item> items) =>
+      ref.read(tagDetailViewModelProvider.notifier).addItemToTag(items);
+
+  /// This method helps to reach isEdited method
   static bool isEdited(ref) => ref.watch(isEditedProvider);
 }

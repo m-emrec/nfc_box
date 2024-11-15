@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:nfc_box/logger.dart';
 
 import '../../../../../core/constants/app_paddings.dart';
+import '../../../../../core/constants/colors.dart';
 import '../../../../../core/resources/data_state.dart';
 import '../../../../../core/utils/models/item.dart';
 import '../../../../../core/utils/widgets/custom%20bottom%20sheet/custom_bottom_sheet.dart';
@@ -11,6 +13,9 @@ import '../../../../../core/utils/widgets/item%20card/item_card.dart';
 import '../../../providers/provider.dart';
 
 part 'loaded_list_of_items.dart';
+part 'tag_detail_item_card.dart';
+part 'add_item_text_button.dart';
+part '../../../mixins/_loaded_list_of_items_mixin.dart';
 
 class AddItemBottomSheet extends ConsumerWidget {
   const AddItemBottomSheet({super.key});

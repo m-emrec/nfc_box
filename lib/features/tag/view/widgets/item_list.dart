@@ -1,24 +1,20 @@
-part of tag_detail_view;
+part of "../tag_detail_view.dart";
 
-class _ItemList extends StatelessWidget {
+class _ItemList extends ConsumerWidget {
   final List<Item> items;
   const _ItemList({
     required this.items,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
           return ItemCard(
             item: items[index],
-            // onTap: () {},
             removeAction: () {
-              /// TODO: Implement remove action
-              // ref
-              //     .read(ItemListProvider.itemListProvider.notifier)
-              //     .removeItem(item);
+              TagDetailProviders.removeItemFromTag(ref, items[index]);
             },
           );
         });

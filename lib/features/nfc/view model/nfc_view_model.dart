@@ -1,21 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/features/nfc/model/nfc_model.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/firebase_utils.dart';
 import '../../../core/utils/models/tag.dart';
 import '../../../logger.dart';
+import '../services/tag_firebase_service.dart';
 part '_tag_authorization_enum.dart';
 part '_nfc_errors_enum.dart';
 
 class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
-  NfcViewModel() : super(null);
+  final TagFirebaseService _tagFirebaseService;
+  NfcViewModel(this._tagFirebaseService) : super(null);
 
   /// Check if NFC is available on the device.
   Future<bool> _isAvailable() async => await NfcManager.instance.isAvailable();
 
-  /// I use this function to simulate a timeout.Because the NFC manager package
-  ///  does not have a timeout feature.
+  /// ? I use this function to simulate a timeout.Because the NFC manager package
+  /// ? does not have a timeout feature.
   Future<void> _timeOut() => Future.microtask(() async {
         const Duration timeOutDuration = Duration(seconds: 5);
         await Future.delayed(timeOutDuration);
@@ -43,11 +47,19 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
           /// Here I convert the list of integers to a string.
           /// I use 3 as the starting index because the first 3 bytes are locale code (en) and " ".
           data = String.fromCharCodes(charCodes, 3);
+
           if (data != null) {
             ///! I forced the [data] to be non-nullable because it is checked above.
             ///!So it can't be null.
-            Tag tagItem = Tag.fromJson(data!);
 
+            final DataState dataState =
+                await _tagFirebaseService.getNfcDataFromUrl(
+              NfcModel.fromJson(data!).id,
+            );
+            if (dataState is DataFailed) {
+              throw _NfcErrors.unknown.message;
+            }
+            Tag tagItem = Tag.fromJson(dataState.data);
             final _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
             if (tagAuthorization == _TagAuthorization.authorized) {
               state = DataSuccess(tagItem);
@@ -59,6 +71,7 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
             throw _NfcErrors.unknown.message;
           }
         } catch (e) {
+          logger.e('Error reading NFC: $e');
           state = DataFailed(_NfcErrors.unknown.message);
         }
         NfcManager.instance.stopSession();
@@ -70,23 +83,38 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
 
   Future<void> writeNfc(Tag tagItem) async {
     String? data;
-    //first check if NFC is available on the device.
+    // first check if NFC is available on the device.
     if (await _isAvailable()) {
       NfcManager.instance.startSession(onDiscovered: (tag) async {
         try {
           /// I convert the tagItem to a json string.
-          data = tagItem.toJson();
+
           _TagAuthorization tagAuthorization = _checkTagToken(tagItem);
           if (tagAuthorization == _TagAuthorization.unauthorized) {
             throw _NfcErrors.unAuthorized.message;
           } else {
             /// if data is not null
+
+            if (tagItem.id == null) {
+              tagItem = tagItem.copyWith(id: const Uuid().v4());
+            }
+
+            data = tagItem.toJson();
             if (data != null) {
-              /// create an [NdefMessage] with the data.
+              data = data!.trim();
+
+              final path = await _tagFirebaseService.uploadTagData(tagItem);
+              logger.i(path.data);
+
               ///! I forced the [data] to be non-nullable because it is checked above. So it can't be null.
+              /// create an [NdefMessage] with the data.
               NdefMessage message = NdefMessage([
                 NdefRecord.createText(
-                  data!,
+                  NfcModel(
+                    id: tagItem.id!,
+                    token: tagItem.token!,
+                    url: path.data!,
+                  ).toJson(),
                 )
               ]);
 
@@ -94,7 +122,10 @@ class NfcViewModel extends StateNotifier<DataState?> with FirebaseUtils {
               await Ndef.from(tag)?.write(
                 message,
               );
+              // logger.i("message 2");
+
               state = DataSuccess(Tag.fromJson(data!));
+              // logger.i("message 3");
             } else {
               // If data is null, throw an unknown error.
 

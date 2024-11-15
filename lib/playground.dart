@@ -22,6 +22,14 @@ class _PlayGroundState extends State<PlayGround> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    
+    MediaQuery.of(context).textScaler;
+
+    FocusNode myFocusNode = FocusNode();
+    TextField(focusNode: myFocusNode);
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -54,6 +62,11 @@ class _PlayGroundState extends State<PlayGround> {
                   child: Container(color: Colors.blue),
                 ),
               ],
+            ),
+            IconButton(
+              icon: Icon(Icons.info),
+              tooltip: 'More information',
+              onPressed: () {},
             ),
             Form(
               key: a,

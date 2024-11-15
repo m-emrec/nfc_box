@@ -72,7 +72,7 @@ class Item {
           : null,
       fields: map[ItemDocKeys.fields.name] != null
           ? List<FieldModel>.from(
-              (map[ItemDocKeys.fields.name] as List<int>).map<FieldModel?>(
+              (map[ItemDocKeys.fields.name] as List).map<FieldModel?>(
                 (x) => FieldModel.fromMap(x as Map<String, dynamic>),
               ),
             )
