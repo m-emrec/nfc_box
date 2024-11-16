@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,30 +15,23 @@ part 'image_container_utils.dart';
 
 class ChooseImageContainer extends StatefulWidget {
   final TextEditingController controller;
+  final bool isEdit;
   const ChooseImageContainer({
     super.key,
     required this.controller,
+    required this.isEdit,
   });
 
   @override
   State<ChooseImageContainer> createState() => _ChooseImageContainerState();
 }
 
-class _ChooseImageContainerState extends State<ChooseImageContainer> {
-  late final _ImageContainerUtils _imageContainerUtils;
-  @override
-  void initState() {
-    _imageContainerUtils = _ImageContainerUtils(
-      setState: () => setState(() {}),
-      controller: widget.controller,
-    );
-    super.initState();
-  }
-
+class _ChooseImageContainerState extends State<ChooseImageContainer>
+    with _ImageContainerUtils {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _imageContainerUtils.onImageContainerPressed(context),
+      onTap: () => onImageContainerPressed(context),
       child: AspectRatio(
         aspectRatio: 24 / 16,
         child: Container(
@@ -46,13 +40,9 @@ class _ChooseImageContainerState extends State<ChooseImageContainer> {
           decoration: BoxDecoration(
             borderRadius: AppBorderRadius.mediumBorderRadius,
             color: AppColors.neutralGray100[50],
-            boxShadow: _imageContainerUtils._shadows,
+            boxShadow: _shadows,
           ),
-          child: _imageContainerUtils.image != null
-              ? Image.file(_imageContainerUtils.image!, fit: BoxFit.cover)
-              : Image.asset(
-                  AppAssets.chooseImagePath,
-                ),
+          child: buildImageWidget(),
         ),
       ),
     );

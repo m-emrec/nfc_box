@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/logger.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../core/constants/app_paddings.dart';
-import '../../../../core/constants/enums/item_field_names.dart';
 import '../../../../core/resources/data_state.dart';
 import '../../../../core/utils/models/field_model.dart';
 import '../../../../core/utils/models/item.dart';
@@ -19,9 +16,6 @@ import '../../providers/providers.dart';
 import '../widgets/choose image container/choose_image_container.dart';
 import '../widgets/field_list.dart';
 import '../widgets/fields/choose field type/choose_field_type_sheet.dart';
-import '../widgets/fields/color field/color_field.dart';
-import '../widgets/fields/date field entry/date_field_entry.dart';
-import '../widgets/fields/text_field_entry.dart';
 
 part 'create_item_utils.dart';
 
@@ -43,7 +37,7 @@ class _CreateItemPageState extends ConsumerState<CreateItemPage>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FAB(
-        onPressed: () => onSave(context, ref),
+        onPressed: () async => onSave(context, ref),
         child: const Icon(Icons.check),
       ),
       body: Padding(
@@ -55,14 +49,16 @@ class _CreateItemPageState extends ConsumerState<CreateItemPage>
                 /// Image container to choose a image
                 ChooseImageContainer(
                   controller: imageController,
+                  isEdit: isEdit,
                 ),
                 Gap(AppPaddings.lPadding),
 
                 /// This is the text field for the item name
                 CustomTextField(
                   label: itemName,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Enter item name' : null,
+                  validator: (value) {
+                    return value!.isEmpty ? enterItemName : null;
+                  },
                   controller: itemNameController,
                 ),
                 Gap(AppPaddings.sPadding),

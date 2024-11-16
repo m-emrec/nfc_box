@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:nfc_box/config/routes/router.dart';
-import 'package:nfc_box/core/utils/widgets/buttons/buttons_import.dart';
 import 'package:ticker_text/ticker_text.dart';
 
 import '../../../../../core/constants/app_assets.dart';

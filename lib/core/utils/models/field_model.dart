@@ -44,20 +44,21 @@ class FieldModel {
     required String fieldID,
     required Widget field,
     required TextEditingController fieldController,
+    TextEditingController? fieldNameController,
     required ItemFieldNames fieldType,
   }) {
-    final TextEditingController fieldNameController = TextEditingController();
-
+    final TextEditingController _fieldNameController =
+        fieldNameController ?? TextEditingController();
     final Widget fieldName = FieldNameEntry(
       fieldID: fieldID,
-      controller: fieldNameController,
+      controller: _fieldNameController,
     );
 
     return FieldModel(
       fieldID: fieldID,
       fieldName: fieldName,
       field: field,
-      fieldNameController: fieldNameController,
+      fieldNameController: _fieldNameController,
       fieldController: fieldController,
       fieldType: fieldType,
     );
@@ -143,5 +144,9 @@ class FieldModel {
             e.name == map[ItemDocKeys.fieldType.name] as String,
       ),
     );
+  }
+  @override
+  String toString() {
+    return 'FieldModel(fieldName: $fieldName, field: $field, fieldNameController: $fieldNameController, fieldController: $fieldController, fieldID: $fieldID, fieldType: $fieldType)';
   }
 }

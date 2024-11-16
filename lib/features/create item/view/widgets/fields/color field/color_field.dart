@@ -3,7 +3,7 @@ import 'package:nfc_box/core/constants/enums/color_values.dart';
 
 import '../../../../../../core/constants/app_paddings.dart';
 
-part 'utils.dart';
+part 'color_field_utils.dart';
 
 class ColorField extends StatefulWidget {
   final TextEditingController controller;
@@ -37,21 +37,10 @@ class _ColorFieldState extends State<ColorField> {
                 ),
                 controller: widget.controller,
               ),
-              child: _colorItem(index),
+              child: _colorFieldUtils._colorItem(index),
             ),
           );
         },
-      ),
-    );
-  }
-
-  Badge _colorItem(int index) {
-    return Badge(
-      isLabelVisible: _colorFieldUtils.isLabelVisible(index),
-      child: CircleAvatar(
-        backgroundColor: Color(
-          _colorFieldUtils._colorList[index],
-        ),
       ),
     );
   }

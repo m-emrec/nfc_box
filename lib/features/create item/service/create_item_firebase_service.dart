@@ -43,6 +43,43 @@ final class CreateItemDatabaseService with FirebaseUtils {
     }
   }
 
+  /// This method updates an existing item in the database.
+  Future<DataState> updateItem({
+    required Item item,
+  }) async {
+    try {
+      /// Upload image to firebase storage
+      /// and get the download url
+      ///  to store in the database
+      final DataState imageState =
+          await _uploadImageToFirebase(File(item.imageUrl ?? ""));
+
+      /// If the image upload is successful,
+      if (imageState is DataSuccess) {
+        /// and if the image url is not null,
+        if (imageState.data != null) {
+          /// then update the item with the image url
+          item = item.copyWith(
+            imageUrl: imageState.data as String,
+          );
+        }
+      }
+      // create a map of the item data
+      final Map<String, dynamic> data = item.toMap();
+
+      final DocumentReference<Map<String, dynamic>> userDoc =
+          await getUserDoc();
+      await userDoc
+          .collection(CollectionNames.Items.name)
+          .doc(item.id)
+          .update(data);
+
+      return DataSuccess(null);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
+
   /// This method uploads the item data to the database
   /// and updates the item id in the database
   Future<void> _uploadItemToDatabase(Map<String, dynamic> data) async {

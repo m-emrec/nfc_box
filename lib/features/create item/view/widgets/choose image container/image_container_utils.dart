@@ -8,14 +8,46 @@ part of 'choose_image_container.dart';
 /// - setState [Function]
 ///
 /// - controller [TextEditingController]
-class _ImageContainerUtils {
-  final Function setState;
-  final TextEditingController controller;
+mixin _ImageContainerUtils on State<ChooseImageContainer> {
+  late final TextEditingController controller;
   final ImagePicker _picker = ImagePicker();
   File? image;
-
   static const String chooseFromGallery = 'Choose from gallery';
   static const String takeAPicture = 'Take a picture';
+  @override
+  void initState() {
+    controller = widget.controller;
+    super.initState();
+  }
+  // Methods
+
+  /// Builds a widget to display an image based on the current state.
+  ///
+  /// This method returns different widgets depending on the conditions:
+  /// - If `isEdit` is true, `controller.text` is not empty, and `image` is null,
+  ///   it returns a `CachedNetworkImage` with the URL from `controller.text`.
+  /// - If `image` is not null, it returns an `Image.file` with the selected image.
+  /// - Otherwise, it returns an `Image.asset` with a placeholder image.
+  ///
+  /// Returns:
+  /// - A `CachedNetworkImage` if editing and the URL is available.
+  /// - An `Image.file` if an image is selected.
+  /// - An `Image.asset` as a placeholder if no image is selected.
+  Widget buildImageWidget() {
+    if (widget.isEdit && widget.controller.text.isNotEmpty && image == null) {
+      return CachedNetworkImage(
+        imageUrl: widget.controller.text,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else if (image != null) {
+      return Image.file(image!, fit: BoxFit.cover);
+    } else {
+      return Image.asset(AppAssets.chooseImagePath);
+    }
+  }
 
   /// This method sets the image to the selected image
   void setImage(File selectedImage) {
@@ -26,7 +58,7 @@ class _ImageContainerUtils {
     controller.text = selectedImage.path;
 
     /// call the setState method to update the UI
-    setState();
+    setState(() {});
   }
 
   /// Pick image from gallery
@@ -92,9 +124,4 @@ class _ImageContainerUtils {
       spreadRadius: 0,
     )
   ];
-
-  _ImageContainerUtils({
-    required this.setState,
-    required this.controller,
-  });
 }

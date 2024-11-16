@@ -112,9 +112,9 @@ final class _ItemCardUtils {
       decoration: BoxDecoration(
         color: AppColors.accentError[20],
       ),
-      textStyle: context.textTheme.bodyMedium?.copyWith(
-        color: AppColors.accentError[100],
-      ),
+      // textStyle: context.textTheme.bodyMedium?.copyWith(
+      //   color: AppColors.accentError[100],
+      // ),
       child: ColoredBox(
         color: AppColors.accentError,
         child: Icon(
