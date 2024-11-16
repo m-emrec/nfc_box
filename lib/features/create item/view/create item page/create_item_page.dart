@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/config/routes/router.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/resources/data_state.dart';
@@ -37,7 +38,7 @@ class _CreateItemPageState extends ConsumerState<CreateItemPage>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FAB(
-        onPressed: () async => onSave(context, ref),
+        onPressed: () async => await onSave(context, ref),
         child: const Icon(Icons.check),
       ),
       body: Padding(

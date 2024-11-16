@@ -123,23 +123,25 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
   /// Returns:
   /// A `Future<void>` indicating the completion of the update operation.
   Future<void> _callUpdateItem(Item item) async {
-    await CreateItemProvider.updateItem(
+    final Item updatedItem = Item(
+      id: item.id,
+      itemName: itemNameController.text,
+      fields: ref.watch(CreateItemProvider.fieldListProvider),
+      imageUrl: imageController.text,
+      createdDate: item.createdDate,
+    );
+    final DataState dataState = await CreateItemProvider.updateItem(
       ref,
-      Item(
-        id: item.id,
-        itemName: itemNameController.text,
-        fields: ref.watch(CreateItemProvider.fieldListProvider),
-        imageUrl: imageController.text,
-        createdDate: item.createdDate,
-      ),
-    ).then((dataState) async {
-      if (dataState is DataSuccess) {
-        if (context.mounted) {
-          context.pop();
-        }
+      updatedItem,
+    );
+    if (dataState is DataSuccess) {
+      if (context.mounted) {
+        // context.pop("item");
+        // ignore: use_build_context_synchronously
+        context.pop<Item>(updatedItem);
+        // context.goNamed(Routes.itemDetail.name, extra: updatedItem);
       }
-    });
-    return;
+    }
   }
 
   /// Validate the fields

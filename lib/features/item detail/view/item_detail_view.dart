@@ -10,6 +10,7 @@ import 'package:nfc_box/core/constants/enums/item_field_names.dart';
 import 'package:nfc_box/core/extensions/context_extension.dart';
 import 'package:nfc_box/core/utils/models/field_model.dart';
 import 'package:nfc_box/core/utils/models/item.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../../config/routes/router.dart';
 
@@ -32,8 +33,16 @@ class ItemDetailView extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              context.pushNamed(Routes.createItem.name, extra: item);
+            onPressed: () async {
+              Item? _item = await context
+                  .pushNamed<Item>(Routes.editItem.name, extra: item)
+                  .then(
+                    (value) => value as Item?,
+                  );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                logger.w('Page returned $_item');
+              });
+              logger.d('ItemDetailView: _item: $_item');
             },
             icon: const Icon(Icons.edit),
           ),

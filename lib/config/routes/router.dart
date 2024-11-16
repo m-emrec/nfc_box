@@ -9,6 +9,7 @@ import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
 import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
 import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
 import 'package:nfc_box/features/tag/view/tag_loading_view.dart';
+import 'package:nfc_box/logger.dart';
 
 import '../../core/utils/models/field_model.dart';
 import '../../core/utils/models/item.dart';
@@ -27,6 +28,7 @@ enum Routes {
   itemList,
   itemDetail,
   createItem,
+  editItem,
   prepareNfc,
   scanNfc,
   tagDetail,
@@ -127,60 +129,41 @@ final class AppRouter {
             path: Routes.createItem.path,
             name: Routes.createItem.name,
             builder: (context, state) {
-              if (state.extra != null) {
-                final Item item = state.extra as Item;
-                return CreateItemPage(
-                  item: item,
-                );
-              }
+              logger.d('CreateItemPage');
               return const CreateItemPage();
             },
           ),
-
+          // Item Detail page
           GoRoute(
             path: Routes.itemDetail.path,
             name: Routes.itemDetail.name,
             builder: (context, state) {
-              // final Item item = Item(
-              //   createdDate: DateTime.fromMillisecondsSinceEpoch(1731657401818),
-              //   fields: [
-              //     FieldModel(
-              //       fieldName: const SizedBox(),
-              //       field: SizedBox(),
-              //       fieldNameController: TextEditingController(text: "color"),
-              //       fieldController: TextEditingController(text: "4286611584"),
-              //       fieldType: ItemFieldNames.Color,
-              //     ),
-              //     FieldModel(
-              //       fieldName: const SizedBox(),
-              //       field: SizedBox(),
-              //       fieldNameController:
-              //           TextEditingController(text: "purchased date"),
-              //       fieldController:
-              //           TextEditingController(text: "2022-10-01 00:00:00.000"),
-              //       fieldType: ItemFieldNames.Date,
-              //     ),
-              //     FieldModel(
-              //       fieldName: const SizedBox(),
-              //       field: SizedBox(),
-              //       fieldNameController: TextEditingController(text: "price"),
-              //       fieldController: TextEditingController(text: "40000 £"),
-              //       fieldType: ItemFieldNames.Text,
-              //     ),
-              //   ],
-              //   id: "ZpmDanGrOvjwZrO1IYVm",
-              //   imageUrl:
-              //       "https://firebasestorage.googleapis.com/v0/b/nfcbox-560e8.appspot.com/o/bdMLGMRjVnPpgLWOUsFPIvegpih1%2Fimages%2FFile%3A%20'%2Fdata%2Fuser%2F0%2Fcom.example.nfc_box%2Fcache%2F92e876df-ae08-426e-877d-7ce8f346b2595550339384394345282.jpg'?alt=media&token=c531e166-4da6-4135-a815-5fabc7f1342d",
-              //   itemName: "Macbook air",
-              // );
-
-              ///TODO: Change this
+              ///TODO:  MAybe i should add another route here to update item
+              /// It will return a CreateItemPage with the item to be updated
               final Item item = state.extra as Item;
-
+              logger.d('ItemDetailView: item: ${item.itemName}');
               return ItemDetailView(
                 item: item,
               );
             },
+            routes: [
+              GoRoute(
+                path: Routes.editItem.path,
+                name: Routes.editItem.name,
+                builder: (context, state) {
+                  final Item item = state.extra as Item;
+                  logger.d("EditItem");
+                  return CreateItemPage(
+                    item: item,
+                  );
+                },
+                onExit: (context, state) async {
+                  final Item? item = state.extra as Item?;
+                  logger.d('On exit CreateItem _item: ${item?.itemName}');
+                  return true;
+                },
+              ),
+            ],
           ),
         ],
       ),
