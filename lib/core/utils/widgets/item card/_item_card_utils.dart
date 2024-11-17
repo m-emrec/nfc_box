@@ -31,9 +31,7 @@ final class _ItemCardUtils {
   Text date(BuildContext context) {
     return Text(
       DateFormat.yMd().format(item.createdDate ?? DateTime.now()),
-      style: context.textTheme.bodySmall?.copyWith(
-        color: AppColors.neutralGray500[50],
-      ),
+      style: context.theme.extension<ItemCardTheme>()?.dateTextStyle,
     );
   }
 
@@ -43,15 +41,16 @@ final class _ItemCardUtils {
       visible: removeAction != null,
       child: GestureDetector(
         onTap: () => removeAction!(),
-        //  ref.read(provider.itemListProvider.notifier).removeItem(item),
         child: CircleAvatar(
           radius: 16,
-          backgroundColor: AppColors.accentError[50],
+          backgroundColor:
+              context.theme.extension<ItemCardTheme>()?.removeButtonColor,
           child: Image.asset(
             AppAssets.removeBoxPath,
             height: 24,
             width: 24,
-            color: Colors.white,
+            color:
+                context.theme.extension<ItemCardTheme>()?.removeButtonIconColor,
           ),
         ),
       ),
@@ -68,7 +67,7 @@ final class _ItemCardUtils {
         startPauseDuration: textAnimationDuration,
         child: Text(
           item.itemName ?? "",
-          style: context.textTheme.bodyLarge,
+          style: context.theme.extension<ItemCardTheme>()?.titleTextStyle,
         ),
       ),
     );
@@ -110,16 +109,16 @@ final class _ItemCardUtils {
       message: imageNotFound,
       triggerMode: TooltipTriggerMode.tap,
       decoration: BoxDecoration(
-        color: AppColors.accentError[20],
+        color: context.theme
+            .extension<ItemCardTheme>()
+            ?.errorToolTipBackgroundColor,
       ),
-      // textStyle: context.textTheme.bodyMedium?.copyWith(
-      //   color: AppColors.accentError[100],
-      // ),
       child: ColoredBox(
-        color: AppColors.accentError,
+        color:
+            context.theme.extension<ItemCardTheme>()?.errorImageBackgroundColor,
         child: Icon(
           Icons.error_outline,
-          color: AppColors.accentError[70],
+          color: context.theme.extension<ItemCardTheme>()?.errorImageIconColor,
         ),
       ),
     );

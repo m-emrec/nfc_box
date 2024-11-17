@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nfc_box/config/theme/theme_extensions/custom_bottom_sheet_them.dart';
+import 'package:nfc_box/config/theme/theme_extensions/item_card_theme.dart';
 
 import '../../core/constants/app_paddings.dart';
 import '../../core/constants/border_radiuses.dart';
@@ -9,12 +11,10 @@ import 'theme_extensions/inline_text_button_theme.dart';
 
 class AppTheme {
   ThemeData get theme => _theme;
-
   final ThemeData _theme = ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
-
-    /// colors
+    //* colors
     scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
     primaryColor: AppColors.primaryBlue[50],
     textTheme: TextStyles().textTheme,
@@ -113,6 +113,25 @@ class AppTheme {
           .textTheme
           .labelLarge
           ?.copyWith(color: AppColors.accentOrange),
+    ),
+    CustomBottomSheetTheme(
+      shadowColor: AppColors.neutralBackgroundLight[100],
+      handleColor: AppColors.neutralBackgroundLight[100],
+      backgroundColor: AppColors.neutralBackgroundLight[50],
+    ),
+    ItemCardTheme(
+      backgroundColor: AppColors.neutralBackgroundLight[50],
+      shadowColor: AppColors.neutralBackgroundLight[20],
+      removeButtonColor: AppColors.accentError[50],
+      removeButtonIconColor: Colors.white,
+      errorImageBackgroundColor: AppColors.accentError,
+      errorImageIconColor: AppColors.accentError[70],
+      errorToolTipBackgroundColor: AppColors.accentError[20],
+      elevation: 5,
+      dateTextStyle: TextStyles().textTheme.bodySmall?.copyWith(
+            color: AppColors.neutralGray500[50],
+          ),
+      titleTextStyle: TextStyles().textTheme.bodyLarge,
     ),
   ];
 

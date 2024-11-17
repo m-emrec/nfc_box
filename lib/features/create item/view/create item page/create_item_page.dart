@@ -57,9 +57,7 @@ class _CreateItemPageState extends ConsumerState<CreateItemPage>
                 /// This is the text field for the item name
                 CustomTextField(
                   label: itemName,
-                  validator: (value) {
-                    return value!.isEmpty ? enterItemName : null;
-                  },
+                  validator: itemNameValidator,
                   controller: itemNameController,
                 ),
                 Gap(AppPaddings.sPadding),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/config/theme/theme_extensions/custom_bottom_sheet_them.dart';
 
 import '../../../constants/colors.dart';
 import '../../../extensions/context_extension.dart';
-part 'utils.dart';
+part 'custom_bottom_sheet_utils.dart';
 
 class CustomBottomSheet extends StatefulWidget {
   const CustomBottomSheet({
@@ -40,12 +41,15 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
-      dragHandleColor: _utils.handleColor,
-      backgroundColor: widget.backgroundColor ?? _utils.backgroundColor,
+      dragHandleColor:
+          context.theme.extension<CustomBottomSheetTheme>()?.handleColor,
+      backgroundColor: widget.backgroundColor ??
+          context.theme.extension<CustomBottomSheetTheme>()?.backgroundColor,
       onClosing: () {
         context.pop();
       },
-      shadowColor: _utils.shadowColor,
+      shadowColor:
+          context.theme.extension<CustomBottomSheetTheme>()?.shadowColor,
       elevation: 5,
       showDragHandle: true,
       enableDrag: true,

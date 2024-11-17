@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/features/item%20detail/view/item_detail_view.dart';
-import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
-import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
-import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
-import 'package:nfc_box/features/tag/view/tag_loading_view.dart';
-import 'package:nfc_box/logger.dart';
+import '../../features/item%20detail/view/item_detail_view.dart';
+import '../../features/nfc/view/prepare_nfc_page.dart';
+import '../../features/nfc/view/scan_nfc_page.dart';
+import '../../features/tag/view/tag_detail_view.dart';
+import '../../features/tag/view/tag_loading_view.dart';
 
 import '../../core/utils/models/item.dart';
 import '../../core/utils/models/tag.dart';
@@ -19,6 +18,7 @@ import '../../features/home/view/home.dart';
 import '../../features/items/view/item_list_page.dart';
 import 'auth_checker.dart';
 
+/// This enum contains the name of the routes in the app
 enum Routes {
   signIn,
   signUp,
@@ -32,15 +32,12 @@ enum Routes {
   tagLoading,
   ;
 
+  /// returns the path of the route
   String get path => "/$name";
-  final String? data;
-
-  const Routes({
-    this.data,
-  });
 }
 
 final class AppRouter {
+  // When firs time the AppRouter is called, it will listen to the auth changes
   AppRouter() {
     AuthService().authStateChanges.listen((user) {
       _authChangeNotifier.notify();
@@ -52,9 +49,8 @@ final class AppRouter {
   static final GoRouter _router = GoRouter(
     refreshListenable: _authChangeNotifier,
     initialLocation: "/",
-    // redirect: _authChecker,
     routes: [
-      /// Home Page
+      //* Home Page
       GoRoute(
         redirect: _authChecker,
         path: '/',
@@ -74,27 +70,26 @@ final class AppRouter {
               } catch (e) {
                 tag = Tag.fromJson(extra["tag"] as String);
               }
-
               return PrepareNfcPage(isWrite: extra['isWrite'], tag: tag);
             },
           ),
-
           //* Scan NFC page
           GoRoute(
-              path: Routes.scanNfc.path,
-              name: Routes.scanNfc.name,
-              builder: (context, state) {
-                final Map extra = state.extra as Map;
-                return ScanNfcPage(extra['isWrite'], extra['tag']);
-              }),
-
+            path: Routes.scanNfc.path,
+            name: Routes.scanNfc.name,
+            builder: (context, state) {
+              final Map extra = state.extra as Map;
+              return ScanNfcPage(extra['isWrite'], extra['tag']);
+            },
+          ),
           //* Tag Detail page
           GoRoute(
-              path: Routes.tagDetail.path,
-              name: Routes.tagDetail.name,
-              builder: (context, state) {
-                return const TagDetailView();
-              }),
+            path: Routes.tagDetail.path,
+            name: Routes.tagDetail.name,
+            builder: (context, state) {
+              return const TagDetailView();
+            },
+          ),
 
           //* Tag loading page
           GoRoute(
@@ -102,19 +97,17 @@ final class AppRouter {
               name: Routes.tagLoading.name,
               builder: (context, state) {
                 Tag? extra;
-
                 try {
                   extra = state.extra as Tag;
                 } catch (e) {
                   extra = Tag.fromJson(state.extra as String);
                 }
-
                 return TagLoadingView(
                   tag: extra,
                 );
               }),
 
-          /// Item List page
+          //* Item List page
           GoRoute(
             path: Routes.itemList.path,
             name: Routes.itemList.name,
@@ -126,7 +119,6 @@ final class AppRouter {
                 name: Routes.itemDetail.name,
                 builder: (context, state) {
                   final Item item = state.extra as Item;
-
                   return ItemDetailView(
                     item: item,
                   );
@@ -137,7 +129,6 @@ final class AppRouter {
                     name: Routes.editItem.name,
                     builder: (context, state) {
                       final Item item = state.extra as Item;
-
                       return CreateItemPage(
                         item: item,
                       );
@@ -151,7 +142,6 @@ final class AppRouter {
                 path: Routes.createItem.path,
                 name: Routes.createItem.name,
                 builder: (context, state) {
-                  logger.d('CreateItemPage');
                   return const CreateItemPage();
                 },
               ),
@@ -160,7 +150,7 @@ final class AppRouter {
         ],
       ),
 
-      /// [SignUp] page
+      //* [SignUp] page
       GoRoute(
         redirect: _authChecker,
         name: Routes.signUp.name,
@@ -168,7 +158,7 @@ final class AppRouter {
         builder: (context, state) => const SignUp(),
       ),
 
-      /// [SignIn] page
+      //* [SignIn] page
       GoRoute(
         redirect: _authChecker,
         name: Routes.signIn.name,
@@ -182,22 +172,17 @@ final class AppRouter {
   ///
   /// If user is trying to reach home page but he is not authenticated ,
   /// he will be redirected to [SignIn]
-  ///
-  ///
   static FutureOr<String?> _authChecker(context, GoRouterState state) {
     final isLoggedIn = FirebaseAuth.instance.currentUser != null;
     final bool loggingIn = state.matchedLocation == Routes.signIn.path;
     final bool signingUp = state.matchedLocation == Routes.signUp.path;
     final currentPath = state.fullPath;
-
     // If the user is not logged in and current path is not [Routes.signUp] redirect to the login page
     if (!isLoggedIn && currentPath != Routes.signUp.path) {
       return Routes.signIn.path;
     }
-
     // If the user is logged in and tries to access login, redirect to home
     if (loggingIn || signingUp && isLoggedIn) return '/';
-
     // No redirection needed
     return null;
   }

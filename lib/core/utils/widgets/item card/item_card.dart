@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:nfc_box/config/routes/router.dart';
+import 'package:nfc_box/config/theme/theme_extensions/item_card_theme.dart';
 import 'package:ticker_text/ticker_text.dart';
 
 import '../../../../../core/constants/app_assets.dart';
@@ -35,9 +36,11 @@ class ItemCard extends ConsumerWidget {
         extra: item,
       ),
       child: Card(
-        color: AppColors.neutralBackgroundLight[50],
-        elevation: 5,
-        shadowColor: AppColors.neutralBackgroundLight[20],
+        color: context.theme
+            .extension<ItemCardTheme>()
+            ?.backgroundColor, // AppColors.neutralBackgroundLight[50],
+        elevation: context.theme.extension<ItemCardTheme>()?.elevation,
+        shadowColor: context.theme.extension<ItemCardTheme>()?.shadowColor,
         clipBehavior: Clip.antiAlias,
         child: SizedBox(
           height: itemCardUtils.height,

@@ -15,7 +15,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
   final TextEditingController imageController = TextEditingController();
   final TextEditingController itemNameController = TextEditingController();
 
-  /// Lifecycle methods
+  //* Lifecycle methods
   @override
   void initState() {
     if (isEdit) {
@@ -39,6 +39,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
 
   ///
   /// Methods
+  String? itemNameValidator(value) => value!.isEmpty ? enterItemName : null;
 
   /// Initializes the edit state for the item being edited.
   ///
@@ -73,7 +74,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
   ///
   /// Returns:
   /// A `Future` that completes when the save operation is done.
-  Future onSave(BuildContext context, WidgetRef ref) async {
+  Future<void> onSave(BuildContext context, WidgetRef ref) async {
     bool isValid = validate(context, ref);
     // if the fields are valid then create or update the item
     if (isValid) {
@@ -105,6 +106,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
       if (dataState is DataSuccess) {
         await ref.read(ItemListProvider.itemListProvider.notifier).getItems();
         if (context.mounted) {
+          // ignore: use_build_context_synchronously
           context.pop();
         }
       }

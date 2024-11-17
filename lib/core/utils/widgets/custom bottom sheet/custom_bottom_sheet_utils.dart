@@ -27,10 +27,6 @@ final class _CustomBottomSheetUtils {
     _animationController.dispose();
   }
 
-  final Color? shadowColor = AppColors.neutralBackgroundLight[100];
-  final Color? handleColor = AppColors.neutralBackgroundLight[100];
-  final Color? backgroundColor = AppColors.neutralBackgroundLight[50];
-
   ///I get keyboard size , this way I can change the maxHeight of the BottomSheet
   double get _keyboardSize => context.mediaQuery.viewInsets.bottom;
   bool get _isKeyboardVisible => _keyboardSize > 0;
