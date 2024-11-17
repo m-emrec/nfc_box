@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/core/constants/enums/item_field_names.dart';
 import 'package:nfc_box/features/item%20detail/view/item_detail_view.dart';
 import 'package:nfc_box/features/nfc/view/prepare_nfc_page.dart';
 import 'package:nfc_box/features/nfc/view/scan_nfc_page.dart';
@@ -11,7 +9,6 @@ import 'package:nfc_box/features/tag/view/tag_detail_view.dart';
 import 'package:nfc_box/features/tag/view/tag_loading_view.dart';
 import 'package:nfc_box/logger.dart';
 
-import '../../core/utils/models/field_model.dart';
 import '../../core/utils/models/item.dart';
 import '../../core/utils/models/tag.dart';
 import '../../features/auth/service/auth_service.dart';
@@ -49,7 +46,7 @@ final class AppRouter {
       _authChangeNotifier.notify();
     });
   }
-  GoRouter get router => _router;
+  static GoRouter get router => _router;
   static final AuthChangeNotifier _authChangeNotifier = AuthChangeNotifier();
 
   static final GoRouter _router = GoRouter(
@@ -63,7 +60,7 @@ final class AppRouter {
         path: '/',
         builder: (context, state) => Home(),
         routes: [
-          /// Prepare NFC page
+          //* Prepare NFC page
           GoRoute(
             path: Routes.prepareNfc.path,
             name: Routes.prepareNfc.name,
@@ -82,7 +79,7 @@ final class AppRouter {
             },
           ),
 
-          /// Scan NFC page
+          //* Scan NFC page
           GoRoute(
               path: Routes.scanNfc.path,
               name: Routes.scanNfc.name,
@@ -91,7 +88,7 @@ final class AppRouter {
                 return ScanNfcPage(extra['isWrite'], extra['tag']);
               }),
 
-          /// Tag Detail page
+          //* Tag Detail page
           GoRoute(
               path: Routes.tagDetail.path,
               name: Routes.tagDetail.name,
@@ -99,7 +96,7 @@ final class AppRouter {
                 return const TagDetailView();
               }),
 
-          /// Tag loading page
+          //* Tag loading page
           GoRoute(
               path: Routes.tagLoading.path,
               name: Routes.tagLoading.name,
@@ -122,45 +119,40 @@ final class AppRouter {
             path: Routes.itemList.path,
             name: Routes.itemList.name,
             builder: (context, state) => const ItemListPage(),
-          ),
-
-          /// Create Item page
-          GoRoute(
-            path: Routes.createItem.path,
-            name: Routes.createItem.name,
-            builder: (context, state) {
-              logger.d('CreateItemPage');
-              return const CreateItemPage();
-            },
-          ),
-          // Item Detail page
-          GoRoute(
-            path: Routes.itemDetail.path,
-            name: Routes.itemDetail.name,
-            builder: (context, state) {
-              ///TODO:  MAybe i should add another route here to update item
-              /// It will return a CreateItemPage with the item to be updated
-              final Item item = state.extra as Item;
-              logger.d('ItemDetailView: item: ${item.itemName}');
-              return ItemDetailView(
-                item: item,
-              );
-            },
             routes: [
+              //* Item Detail page
               GoRoute(
-                path: Routes.editItem.path,
-                name: Routes.editItem.name,
+                path: Routes.itemDetail.path,
+                name: Routes.itemDetail.name,
                 builder: (context, state) {
                   final Item item = state.extra as Item;
-                  logger.d("EditItem");
-                  return CreateItemPage(
+
+                  return ItemDetailView(
                     item: item,
                   );
                 },
-                onExit: (context, state) async {
-                  final Item? item = state.extra as Item?;
-                  logger.d('On exit CreateItem _item: ${item?.itemName}');
-                  return true;
+                routes: [
+                  GoRoute(
+                    path: Routes.editItem.path,
+                    name: Routes.editItem.name,
+                    builder: (context, state) {
+                      final Item item = state.extra as Item;
+
+                      return CreateItemPage(
+                        item: item,
+                      );
+                    },
+                  ),
+                ],
+              ),
+
+              //* Create Item page
+              GoRoute(
+                path: Routes.createItem.path,
+                name: Routes.createItem.name,
+                builder: (context, state) {
+                  logger.d('CreateItemPage');
+                  return const CreateItemPage();
                 },
               ),
             ],

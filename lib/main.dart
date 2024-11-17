@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return ToastificationWrapper(
       child: MaterialApp.router(
-        routerConfig: AppRouter().router,
+        routerConfig: AppRouter.router,
         title: 'NFCBox',
         theme: AppTheme().theme,
       ),

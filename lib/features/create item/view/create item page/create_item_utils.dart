@@ -138,7 +138,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
       if (context.mounted) {
         // context.pop("item");
         // ignore: use_build_context_synchronously
-        context.pop<Item>(updatedItem);
+        context.goNamed(Routes.itemDetail.name, extra: updatedItem);
         // context.goNamed(Routes.itemDetail.name, extra: updatedItem);
       }
     }
