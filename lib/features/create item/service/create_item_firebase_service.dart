@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:nfc_box/logger.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/constants/enums/collection_keys.dart';

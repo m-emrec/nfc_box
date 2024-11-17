@@ -21,4 +21,5 @@ class AppAssets {
   static String facebookAni = _AnimationPaths.facebook.path;
   static String howToReadNfcAni = _AnimationPaths.howToReadNfc.path;
   static String readingNfcAni = _AnimationPaths.readingNfc.path;
+  static String splashAni = _AnimationPaths.splash.path;
 }

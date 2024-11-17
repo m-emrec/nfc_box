@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/main.dart';
 import '../../features/item%20detail/view/item_detail_view.dart';
 import '../../features/nfc/view/prepare_nfc_page.dart';
 import '../../features/nfc/view/scan_nfc_page.dart';
@@ -30,6 +31,7 @@ enum Routes {
   scanNfc,
   tagDetail,
   tagLoading,
+  splash,
   ;
 
   /// returns the path of the route
@@ -48,8 +50,15 @@ final class AppRouter {
 
   static final GoRouter _router = GoRouter(
     refreshListenable: _authChangeNotifier,
-    initialLocation: "/",
+    initialLocation: Routes.splash.path,
     routes: [
+      //* Splash Page
+      GoRoute(
+        path: Routes.splash.path,
+        name: Routes.splash.name,
+        builder: (context, state) => const SplashScreen(),
+      ),
+
       //* Home Page
       GoRoute(
         redirect: _authChecker,

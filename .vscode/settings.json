@@ -3,6 +3,7 @@
         "Alives",
         "Datababase",
         "lerp",
-        "microtask"
+        "microtask",
+        "unawaited"
     ]
 }

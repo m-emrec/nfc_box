@@ -19,6 +19,7 @@ enum _AnimationPaths {
   google("${_rootAniPath}ani_google.json"),
   howToReadNfc("${_rootAniPath}ani_how_to_read_nfc.json"),
   readingNfc("${_rootAniPath}ani_reading_nfc.json"),
+  splash("${_rootAniPath}ani_splash.json"),
   ;
 
   static const String _rootAniPath = "lib/core/assets/animations/";
