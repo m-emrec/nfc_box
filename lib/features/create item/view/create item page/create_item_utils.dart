@@ -140,7 +140,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
       await ref.read(ItemListProvider.itemListProvider.notifier).getItems();
       if (context.mounted) {
         // ignore: use_build_context_synchronously
-        context.goNamed(Routes.itemDetail.name, extra: updatedItem);
+        context.goNamed(Routes.itemDetail.name, extra: dataState.data);
       }
     }
   }

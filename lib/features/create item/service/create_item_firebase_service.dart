@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:nfc_box/logger.dart';
 import '../../../core/utils/models/item.dart';
 import '../../../core/constants/enums/collection_keys.dart';
 import '../../../core/constants/enums/item_doc_keys.dart';
@@ -36,7 +38,7 @@ final class CreateItemDatabaseService with FirebaseUtils {
       );
       // create a map of the item data
       final Map<String, dynamic> data = item.toMap();
-      _uploadItemToDatabase(data);
+      await _uploadItemToDatabase(data);
       return DataSuccess(null);
     } catch (e) {
       return DataFailed(e.toString());
@@ -74,8 +76,10 @@ final class CreateItemDatabaseService with FirebaseUtils {
           .doc(item.id)
           .update(data);
 
-      return DataSuccess(null);
+      return DataSuccess(item);
     } catch (e) {
+      logger.d(item.id);
+      logger.e(e.toString());
       return DataFailed(e.toString());
     }
   }

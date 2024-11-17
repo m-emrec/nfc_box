@@ -39,7 +39,7 @@ class CreateItemViewModel extends ChangeNotifier {
     );
     if (dataState is DataSuccess) {
       Toast.succToast(title: 'Item updated successfully');
-      return DataSuccess(null);
+      return DataSuccess(dataState.data);
     } else {
       Toast.errToast(
         title: 'Failed to update item',
