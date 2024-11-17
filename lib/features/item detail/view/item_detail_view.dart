@@ -22,11 +22,20 @@ part 'widgets/field_list.dart';
 part 'widgets/created_date_text.dart';
 part 'widgets/item_name.dart';
 
-class ItemDetailView extends StatelessWidget {
+class ItemDetailView extends StatefulWidget {
   final Item item;
   const ItemDetailView({super.key, required this.item});
 
-  bool get hasImage => item.imageUrl != null && item.imageUrl!.isNotEmpty;
+  @override
+  State<ItemDetailView> createState() => _ItemDetailViewState();
+}
+
+class _ItemDetailViewState extends State<ItemDetailView> {
+  bool get hasImage =>
+      widget.item.imageUrl != null && widget.item.imageUrl!.isNotEmpty;
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +44,7 @@ class ItemDetailView extends StatelessWidget {
           IconButton(
             onPressed: () async {
               Item? _item = await context
-                  .pushNamed<Item>(Routes.editItem.name, extra: item)
+                  .pushNamed<Item>(Routes.editItem.name, extra: widget.item)
                   .then(
                     (value) => value as Item?,
                   );
@@ -59,17 +68,17 @@ class ItemDetailView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _ItemImage(hasImage: hasImage, item: item),
+                  _ItemImage(hasImage: hasImage, item: widget.item),
                   Gap(AppPaddings.xsPadding),
-                  _ItemName(item: item),
+                  _ItemName(item: widget.item),
                   Gap(AppPaddings.xxsPadding),
                   // date
-                  _CreatedDateText(item: item),
+                  _CreatedDateText(item: widget.item),
 
                   Gap(AppPaddings.mPadding),
 
-                  item.fields != null
-                      ? _FieldList(item: item)
+                  widget.item.fields != null
+                      ? _FieldList(item: widget.item)
                       : const SizedBox(),
                 ],
               ),
