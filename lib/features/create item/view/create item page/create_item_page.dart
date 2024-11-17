@@ -34,7 +34,7 @@ class _CreateItemPageState extends ConsumerState<CreateItemPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(addItem),
+        title: Text(pageTitle),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FAB(

@@ -7,8 +7,8 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
   /// Constants
   final String addField = 'Add Field';
   final String enterItemName = 'Enter item name';
-  final String addItem = 'Add Item';
   final String itemName = 'Item Name';
+  late String pageTitle;
 
   /// Returns true if the widget is in edit mode (i.e., an existing item is being edited)
   bool get isEdit => widget.item != null;
@@ -21,6 +21,7 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
     if (isEdit) {
       WidgetsBinding.instance.addPostFrameCallback(_initializeEditState);
     }
+    pageTitle = isEdit ? 'Edit Item' : 'Create Item';
     super.initState();
   }
 

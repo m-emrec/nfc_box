@@ -9,7 +9,7 @@ class ItemListProvider {
       Provider<ItemListDatabaseService>((ref) {
     return ItemListDatabaseService();
   });
-  static final itemListProvider = ChangeNotifierProvider.autoDispose(
+  static final itemListProvider = ChangeNotifierProvider(
     (ref) {
       return ItemListNotifier(ref.read(_databaseServiceProvider));
     },
