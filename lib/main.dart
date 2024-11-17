@@ -42,14 +42,16 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    unawaited(Future.delayed(
-      const Duration(seconds: 3),
-      () {
-        if (context.mounted) {
-          context.go("/");
-        }
-      },
-    ));
+    unawaited(
+      Future.delayed(
+        const Duration(seconds: 3),
+        () {
+          if (context.mounted) {
+            context.go("/");
+          }
+        },
+      ),
+    );
     return Scaffold(
       body: Center(
         child: Lottie.asset(AppAssets.splashAni, repeat: false),
