@@ -34,8 +34,6 @@ class _ItemDetailViewState extends State<ItemDetailView> {
   bool get hasImage =>
       widget.item.imageUrl != null && widget.item.imageUrl!.isNotEmpty;
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,15 +41,8 @@ class _ItemDetailViewState extends State<ItemDetailView> {
         actions: [
           IconButton(
             onPressed: () async {
-              Item? _item = await context
-                  .pushNamed<Item>(Routes.editItem.name, extra: widget.item)
-                  .then(
-                    (value) => value as Item?,
-                  );
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                logger.w('Page returned $_item');
-              });
-              logger.d('ItemDetailView: _item: $_item');
+              await context.pushNamed<Item>(Routes.editItem.name,
+                  extra: widget.item);
             },
             icon: const Icon(Icons.edit),
           ),
