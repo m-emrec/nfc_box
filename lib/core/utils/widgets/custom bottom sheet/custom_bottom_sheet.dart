@@ -37,7 +37,13 @@ class CustomBottomSheet extends StatefulWidget {
 }
 
 class _CustomBottomSheetState extends State<CustomBottomSheet>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, _CustomBottomSheetUtils {
+  @override
+  void initState() {
+    initializeAnimationController(this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -45,21 +51,17 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
           context.theme.extension<CustomBottomSheetTheme>()?.handleColor,
       backgroundColor: widget.backgroundColor ??
           context.theme.extension<CustomBottomSheetTheme>()?.backgroundColor,
-      onClosing: () {
-        context.pop();
-      },
+      onClosing: () => context.pop(),
       shadowColor:
           context.theme.extension<CustomBottomSheetTheme>()?.shadowColor,
       elevation: 5,
       showDragHandle: true,
       enableDrag: true,
-      animationController: _utils._animationController,
-      // constraints: _utils.constraints(context),
+      animationController: animationController,
       builder: (context) {
         return LayoutBuilder(
           builder: (context, constraints) => SizedBox(
-            height:
-                _utils._isKeyboardVisible ? _utils._keyboardSize * 1.5 : null,
+            height: isKeyboardVisible ? keyboardSize * 1.5 : null,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -78,24 +80,5 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
         );
       },
     );
-  }
-
-  late _CustomBottomSheetUtils _utils;
-  @override
-  void initState() {
-    _utils = _CustomBottomSheetUtils(
-        context: context, heightFactor: widget.heightFactor);
-    _utils.initState(
-        vsync: this,
-        setState: () => setState(
-              () {},
-            ));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _utils.dispose();
-    super.dispose();
   }
 }
