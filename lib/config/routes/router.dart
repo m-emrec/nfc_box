@@ -45,7 +45,7 @@ final class AppRouter {
       _authChangeNotifier.notify();
     });
   }
-  static GoRouter get router => _router;
+  GoRouter get router => _router;
   static final AuthChangeNotifier _authChangeNotifier = AuthChangeNotifier();
 
   static final GoRouter _router = GoRouter(
@@ -54,6 +54,7 @@ final class AppRouter {
     routes: [
       //* Splash Page
       GoRoute(
+        // redirect: _authChecker,
         path: Routes.splash.path,
         name: Routes.splash.name,
         builder: (context, state) => const SplashScreen(),
