@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nfc_box/features/auth/view%20model/auth_view_model.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -10,7 +9,6 @@ import '../../../core/constants/app_paddings.dart';
 import '../../../core/utils/widgets/buttons/buttons_import.dart';
 import '../../../core/utils/widgets/buttons/inline_text_button.dart';
 import '../mixins/sign_in_mixin.dart';
-import '../providers/provider.dart';
 import 'widgets/auth_form.dart';
 import 'widgets/google_sign_in_button.dart';
 import 'widgets/or_divider.dart';
@@ -22,9 +20,7 @@ class SignIn extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SignInState();
 }
 
-class _SignInState extends ConsumerState<SignIn>
-    with SignInMixin
-    implements AuthProvider {
+class _SignInState extends ConsumerState<SignIn> with SignInMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +63,6 @@ class _SignInState extends ConsumerState<SignIn>
       ),
     );
   }
-
-  @override
-  // TODO: implement authServiceViewModelProvider
-  ChangeNotifierProvider<AuthViewModel> get authServiceViewModelProvider =>
-      throw UnimplementedError();
 }
 
 class _DontHaveAnAccount extends StatelessWidget {

@@ -14,12 +14,3 @@ class AuthProvider {
     return AuthViewModel(authService: ref.read(_authServiceProvider));
   });
 }
-
-// final _authServiceProvider = Provider<AuthService>((ref) {
-//   return AuthService();
-// });
-
-// final authServiceViewModelProvider =
-//     ChangeNotifierProvider<AuthViewModel>((ref) {
-//   return AuthViewModel(authService: ref.read(_authServiceProvider));
-// });
