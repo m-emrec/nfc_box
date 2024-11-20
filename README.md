@@ -14,9 +14,9 @@ NFC Box makes organization smarter, faster, and more efficient. Start tagging yo
 
 ## 📸 Screenshots  
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/8a7711c1-962f-4585-9e6e-ad805d2afefa" alt="Screenshot 1" width="200"/>
-  <img src="https://github.com/user-attachments/assets/32b9b609-c7a3-4f27-b8e3-b38eea26712e" alt="Screenshot 2" width="200"/>
-   <img src="https://github.com/user-attachments/assets/5b1021fd-7c10-4686-910b-1982d50b5506" alt="Screenshot 2" width="200"/>
+<img src="https://github.com/user-attachments/assets/8a7711c1-962f-4585-9e6e-ad805d2afefa" alt="create item" width="200"/>
+<img src="https://github.com/user-attachments/assets/32b9b609-c7a3-4f27-b8e3-b38eea26712e" alt="items" width="200"/>
+<img src="https://github.com/user-attachments/assets/5b1021fd-7c10-4686-910b-1982d50b5506" alt="item detail" width="200"/>
  <img src="https://github.com/user-attachments/assets/61e24793-6dc7-44f2-9944-b4b614ba4448" alt="nfc read" width="200"/>
  <img src="https://github.com/user-attachments/assets/74170772-6de1-410a-95a5-46ef0fdc37b6" alt="sign in" width="200"/>
  <img src="https://github.com/user-attachments/assets/8fe6f080-e4d9-4ff0-89f5-f69d43b427bf" alt="sign up" width="200"/>
