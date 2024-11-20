@@ -113,7 +113,7 @@ lib/
 ### Steps  
 1. Clone the repository:  
    ```bash  
-   git clone https://github.com/your-username/nfc-box.git  
+   git clone https://github.com/m-emrec/nfc_box.git  
    cd nfc_box  
    ```  
 2. Install dependencies:  
