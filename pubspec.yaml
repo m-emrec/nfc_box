@@ -1,112 +1,71 @@
 name: nfc_box
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
 version: 1.0.0+1
-
 environment:
   sdk: ^3.5.0
-
-
 dependencies:
   flutter:
     sdk: flutter
   ### Firebase
+   # For Firebase initialization. -> https://pub.dev/packages/firebase_core
   firebase_core: ^3.1.1
+  # For storing storing nfc tag details. -> https://pub.dev/packages/firebase_database
   firebase_database: ^11.1.6
+  # For storing item data in Firestore. -> https://pub.dev/packages/cloud_firestore
   cloud_firestore: ^5.3.0
+  # For Authentication. -> https://pub.dev/packages/firebase_auth
   firebase_auth: ^5.3.1
+  # For storing images. -> https://pub.dev/packages/firebase_storage
   firebase_storage: 
-  
-  ## State management
+  ## State management -> https://pub.dev/packages/flutter_riverpod
   flutter_riverpod: ^2.5.1
-  ## for easy debugging
+  # for easy debugging -> https://pub.dev/packages/logger
   logger: ^2.3.0
-
-
   # navigation
+  # for navigation -> https://pub.dev/packages/go_router
   go_router: ^14.3.0
-
-
 #  UI related packages
+  #  https://pub.dev/packages/gap
   gap: ^3.0.1
-  # I use this to use hex code for colors
+  # I use this to use hex code for colors -> https://pub.dev/packages/hexcolor
   hexcolor: ^3.0.1
-
+  # for markdown support -> https://pub.dev/packages/flutter_markdown 
   flutter_markdown: ^0.7.3+2
+  # for toast messages -> https://pub.dev/packages/toastification
   toastification: ^2.3.0
+  # for skeleton loading -> https://pub.dev/packages/skeletonizer
   skeletonizer: ^1.4.2
+  # https://pub.dev/packages/google_fonts
   google_fonts: ^6.2.1
+  # for lottie animations -> https://pub.dev/packages/lottie
   lottie: ^3.1.2
-
   cupertino_icons: ^1.0.8
+  # for DateTime formatting -> https://pub.dev/packages/intl
   intl:
+  # for email validation -> https://pub.dev/packages/email_validator
   email_validator: ^3.0.0
+  # for google sign in -> https://pub.dev/packages/google_sign_in
   google_sign_in: ^6.2.1
-
-  # for animated text flow
+  # for animated text flow -> https://pub.dev/packages/ticker_text
   ticker_text: ^2.1.0
-  # for camera usage
+  # for camera usage  -> https://pub.dev/packages/image_picker
   image_picker: ^1.1.2
-  # for creating id 
+  # for creating id -> https://pub.dev/packages/uuid
   uuid: ^4.5.1
+  # for image caching -> https://pub.dev/packages/cached_network_image
   cached_network_image: ^3.4.1
+  # to use nfc  -> https://pub.dev/packages/nfc_manager
   nfc_manager: ^3.5.0
-
-
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^4.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - lib/core/assets/icons/
     - lib/core/assets/images/
     - lib/core/assets/animations/
-    
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
