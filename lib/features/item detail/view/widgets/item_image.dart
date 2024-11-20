@@ -42,6 +42,7 @@ class _ItemImageState extends State<_ItemImage>
                   ),
                 ),
               ),
+              // Tap to see full image text
               AnimatedOpacity(
                 duration: controller.duration!,
                 opacity: controller.value,
