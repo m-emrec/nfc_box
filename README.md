@@ -33,6 +33,7 @@ NFC Box makes organization smarter, faster, and more efficient. Start tagging yo
 - **Frontend:** Flutter  
 - **State Management:** Riverpod
 - **Backend:** Firebase
+- **Architecture:** MVVM
 
 ## 📦 Packages Used  
 Here’s a list of Flutter packages used in this project:  
