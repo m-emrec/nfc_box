@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/core/constants/border_radiuses.dart';
+import 'package:nfc_box/core/extensions/context_extension.dart';
 
 import 'package:nfc_box/logger.dart';
 
@@ -16,6 +18,8 @@ part 'loaded_list_of_items.dart';
 part 'tag_detail_item_card.dart';
 part 'add_item_text_button.dart';
 part '../../../mixins/_loaded_list_of_items_mixin.dart';
+part '../../../mixins/long_press_to_select_utils.dart';
+part 'long_press_to_select.dart';
 
 class AddItemBottomSheet extends ConsumerWidget {
   const AddItemBottomSheet({super.key});

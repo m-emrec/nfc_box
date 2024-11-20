@@ -17,6 +17,7 @@ class _LoadedListOfItemsState extends State<_LoadedListOfItems>
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         _AddItemTextButton(selectedItems: selectedItems),
+        const _LongPressToSelect(),
         ListView.builder(
           shrinkWrap: true,
           itemCount: widget.items.length,
