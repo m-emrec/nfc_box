@@ -10,7 +10,6 @@ import 'package:nfc_box/core/constants/enums/item_field_names.dart';
 import 'package:nfc_box/core/extensions/context_extension.dart';
 import 'package:nfc_box/core/utils/models/field_model.dart';
 import 'package:nfc_box/core/utils/models/item.dart';
-import 'package:nfc_box/logger.dart';
 
 import '../../../config/routes/router.dart';
 
@@ -33,17 +32,15 @@ class ItemDetailView extends StatefulWidget {
 class _ItemDetailViewState extends State<ItemDetailView> {
   bool get hasImage =>
       widget.item.imageUrl != null && widget.item.imageUrl!.isNotEmpty;
-
+  final String noFields = 'No fields';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () async {
-              await context.pushNamed<Item>(Routes.editItem.name,
-                  extra: widget.item);
-            },
+            onPressed: () async => await context
+                .pushNamed<Item>(Routes.editItem.name, extra: widget.item),
             icon: const Icon(Icons.edit),
           ),
         ],
@@ -70,7 +67,12 @@ class _ItemDetailViewState extends State<ItemDetailView> {
 
                   widget.item.fields != null
                       ? _FieldList(item: widget.item)
-                      : const SizedBox(),
+                      : Center(
+                          child: Text(
+                            noFields,
+                            style: context.textTheme.bodyMedium,
+                          ),
+                        ),
                 ],
               ),
             ),
