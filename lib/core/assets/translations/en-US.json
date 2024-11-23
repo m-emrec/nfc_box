@@ -93,5 +93,9 @@
         "sendEmail": "Send Email",
         "validEmailError": "Please write a valid email address",
         "sendResetLink": "Password reset email sent.\nPlease check your email address"
+    },
+    "home": {
+        "readNFC": "Read NFC",
+        "seeItems": "See Items"
     }
 }

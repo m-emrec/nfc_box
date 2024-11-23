@@ -92,5 +92,8 @@ abstract class  LocaleKeys {
   static const forgotPassword_validEmailError = 'forgotPassword.validEmailError';
   static const forgotPassword_sendResetLink = 'forgotPassword.sendResetLink';
   static const forgotPassword = 'forgotPassword';
+  static const home_readNFC = 'home.readNFC';
+  static const home_seeItems = 'home.seeItems';
+  static const home = 'home';
 
 }

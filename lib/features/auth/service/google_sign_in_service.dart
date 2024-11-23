@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nfc_box/logger.dart';
 
 class GoogleSignInService {
   Future signIn() async {
@@ -16,6 +17,7 @@ class GoogleSignInService {
       }
       return null;
     } catch (e) {
+      logger.e(e);
       return e.toString();
     }
   }
