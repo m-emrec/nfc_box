@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 import '../../../core/resources/data_state.dart';
 import '../../../core/resources/error_manager.dart';
 import '../../../core/utils/widgets/custom_toast.dart';
@@ -15,24 +17,24 @@ class AuthViewModel extends ChangeNotifier {
   Future<void> signInWithEmail(Credentials credentials) async {
     await _handleDataState(
         () => _authService.signInWithEmail(credentials: credentials),
-        msg: "Successfully Signed In");
+        msg: tr(LocaleKeys.signin_successfullySignedIn));
   }
 
   Future<void> signUpWithEmail(Credentials credentials) async {
     await _handleDataState(
         () => _authService.signUpWithEmail(credentials: credentials),
-        msg: "Welcome to Nfc Box");
+        msg: tr(LocaleKeys.signup_welcomeNfcBox));
   }
 
   Future<void> googleSignIn() async {
     await _handleDataState(() => _authService.signInWithGoogle(),
-        msg: "Successfully Signed In");
+        msg: tr(LocaleKeys.signin_successfullySignedIn));
   }
 
   Future<void> forgotPassword(Credentials credentials) async {
     await _handleDataState(
         () => _authService.forgotPassword(credentials: credentials),
-        msg: "Password reset email sent.\nPlease check your email address");
+        msg: tr(LocaleKeys.forgotPassword_sendResetLink));
   }
 
   Future<void> _handleDataState(Function func, {String? msg}) async {

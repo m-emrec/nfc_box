@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../model/credentials.dart';
 import '../providers/provider.dart';
@@ -9,7 +11,7 @@ mixin SignInMixin on ConsumerState<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
-  final String signIn = 'Sign In';
+  final String signIn = tr(LocaleKeys.signin_signin);
   Future<void> onTapSignIn() async {
     if (formKey.currentState?.validate() ?? false) {
       await ref

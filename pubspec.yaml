@@ -57,6 +57,9 @@ dependencies:
   cached_network_image: ^3.4.1
   # to use nfc  -> https://pub.dev/packages/nfc_manager
   nfc_manager: ^3.5.0
+  # for localizations -> https://pub.dev/packages/easy_localization
+  easy_localization: ^3.0.7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,3 +72,4 @@ flutter:
     - lib/core/assets/icons/
     - lib/core/assets/images/
     - lib/core/assets/animations/
+    - lib/core/assets/translations/

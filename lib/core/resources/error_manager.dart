@@ -1,124 +1,96 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
-/// Uygulamada kullanıcının karşılacabileceği hataları, kullanıcınının
-/// anlayabileceği şekilde ona göstermek için `AppErrorText` class'ını kullanıyoruz.
+/// We use the `AppErrorText` class to display errors that the user may encounter in the application
+/// in a way that the user can understand.
 abstract class AppErrorText {
   AppErrorText();
 
-  /// **Yapı**
+  /// **Structure**
   ///```
   ///{
-  /// hata kodu : Kullanınının anlayabileceği hata mesajı.
+  /// error code : User-friendly error message.
   /// }
   /// ```
   static final Map _errorText = {
     //Firebase Auth
-    "The email address is already in use by another account.":
-        "The email address is already in use by another account.Try to login.",
+    "The email address is already in use by another account.": tr(LocaleKeys
+        .errors_The_email_address_is_already_in_use_by_another_account),
     "The email address is badly formatted.":
-        "Please provide a valid email address. Ex:}\nxxx@xx.com",
-    "INVALID_LOGIN_CREDENTIALS": "Please check your email or password.",
-    "invalid-api-key": "The provided API key is invalid.",
-    "user-disabled": "The user account has been disabled by an administrator.",
-    "user-not-found":
-        "There is no user record corresponding to this identifier.",
-    "wrong-password": "The password is invalid for the given email.",
-    "email-already-in-use":
-        "The email address is already in use by another account.",
-    "invalid-email": "The email address is not valid.",
-    "operation-not-allowed":
-        "This operation is not allowed. Contact your administrator.",
-    "weak-password": "The password must be at least 6 characters long.",
-    "provider-already-linked": "This provider is already linked to the user.",
+        tr(LocaleKeys.errors_The_email_address_is_badly_formatted),
+    "INVALID_LOGIN_CREDENTIALS":
+        tr(LocaleKeys.errors_INVALID_LOGIN_CREDENTIALS),
+    "invalid-api-key": tr(LocaleKeys.errors_invalid_api_key),
+    "user-disabled": tr(LocaleKeys.errors_user_disabled),
+    "user-not-found": tr(LocaleKeys.errors_user_not_found),
+    "wrong-password": tr(LocaleKeys.errors_wrong_password),
+    "email-already-in-use": tr(LocaleKeys.errors_email_already_in_use),
+    "invalid-email": tr(LocaleKeys.errors_invalid_email),
+    "operation-not-allowed": tr(LocaleKeys.errors_operation_not_allowed),
+    "weak-password": tr(LocaleKeys.errors_weak_password),
+    "provider-already-linked": tr(LocaleKeys.errors_provider_already_linked),
     "credential-already-in-use":
-        "This credential is already associated with a different user account.",
-    "requires-recent-login":
-        "This operation is sensitive and requires recent authentication. Log in again before retrying.",
-    "user-mismatch":
-        "The supplied credentials do not correspond to the previously signed in user.",
-    "provider-not-found":
-        "No supported provider was found to authenticate the user.",
-    "invalid-verification-code": "The verification code is invalid.",
-    "invalid-verification-id": "The verification ID is invalid.",
-    "captcha-check-failed":
-        "The reCAPTCHA response token provided is either invalid, expired, or already used.",
-    "app-not-authorized":
-        "The app is not authorized to use Firebase Authentication with the provided API key.",
-    "expired-action-code": "The action code has expired.",
-    "invalid-action-code":
-        "The action code is invalid. This can happen if the code is malformed or has already been used.",
-    "invalid-continue-uri":
-        "The continue URL provided in the request is invalid.",
-    "missing-continue-uri": "A continue URL must be provided in the request.",
-    "internal-error": "An internal error has occurred. Please try again later.",
-    "invalid-tenant-id": "The Auth instance's tenant ID is invalid.",
-    "tenant-id-mismatch":
-        "The provided tenant ID does not match the Auth instance's tenant ID.",
+        tr(LocaleKeys.errors_credential_already_in_use),
+    "requires-recent-login": tr(LocaleKeys.errors_requires_recent_login),
+    "user-mismatch": tr(LocaleKeys.errors_user_mismatch),
+    "provider-not-found": tr(LocaleKeys.errors_provider_not_found),
+    "invalid-verification-code":
+        tr(LocaleKeys.errors_invalid_verification_code),
+    "invalid-verification-id": tr(LocaleKeys.errors_invalid_verification_id),
+    "captcha-check-failed": tr(LocaleKeys.errors_captcha_check_failed),
+    "app-not-authorized": tr(LocaleKeys.errors_app_not_authorized),
+    "expired-action-code": tr(LocaleKeys.errors_expired_action_code),
+    "invalid-action-code": tr(LocaleKeys.errors_invalid_action_code),
+    "invalid-continue-uri": tr(LocaleKeys.errors_invalid_continue_uri),
+    "missing-continue-uri": tr(LocaleKeys.errors_missing_continue_uri),
+    "internal-error": tr(LocaleKeys.errors_internal_error),
+    "invalid-tenant-id": tr(LocaleKeys.errors_invalid_tenant_id),
+    "tenant-id-mismatch": tr(LocaleKeys.errors_tenant_id_mismatch),
     "unsupported-tenant-operation":
-        "This operation is not supported in a multi-tenant context.",
-    "quota-exceeded":
-        "The operation could not be completed due to resource limits. Contact Firebase support for assistance.",
-    "tenant-not-found": "No tenant for the given identifier was found.",
-    "code-expired":
-        "The SMS code has expired. Please resend the verification code to try again.",
-    "user-token-expired":
-        "The user's token has expired, and they must sign in again.",
-    "provider-data-not-found":
-        "No user record is found for the given provider ID.",
-    "invalid-uid": "The provided UID is not valid.",
-    // Firebase Firestore
-    "permission-denied":
-        "The operation was denied due to insufficient permissions.",
-    "unauthenticated": "The operation requires authentication.",
-    "not-found": "The requested document or resource was not found.",
-    "already-exists":
-        "The document or resource already exists and cannot be overwritten.",
-    "resource-exhausted":
-        "Quota exceeded or rate limited. Contact Firebase support for assistance.",
-    "invalid-argument": "The provided argument is not valid.",
-    "deadline-exceeded": "The operation timed out and was not completed.",
-    "aborted":
-        "The operation was aborted, typically due to a concurrency issue.",
-    "out-of-range": "The provided value is outside the allowed range.",
-    "unimplemented": "The operation is not implemented or not supported yet.",
-    "internal": "An internal error has occurred. Please try again later.",
-    "unavailable":
-        "The service is currently unavailable. Please try again later.",
-    "data-loss": "Unrecoverable data loss or corruption.",
-    "cancelled": "The operation was cancelled.",
-    "unknown": "An unknown error occurred.",
-    // Google Sign in
+        tr(LocaleKeys.errors_unsupported_tenant_operation),
+    "quota-exceeded": tr(LocaleKeys.errors_quota_exceeded),
+    "tenant-not-found": tr(LocaleKeys.errors_tenant_not_found),
+    "code-expired": tr(LocaleKeys.errors_code_expired),
+    "user-token-expired": tr(LocaleKeys.errors_user_token_expired),
+    "provider-data-not-found": tr(LocaleKeys.errors_provider_data_not_found),
+    "invalid-uid": tr(LocaleKeys.errors_invalid_uid),
+    "permission-denied": tr(LocaleKeys.errors_permission_denied),
+    "unauthenticated": tr(LocaleKeys.errors_unauthenticated),
+    "not-found": tr(LocaleKeys.errors_not_found),
+    "already-exists": tr(LocaleKeys.errors_already_exists),
+    "resource-exhausted": tr(LocaleKeys.errors_resource_exhausted),
+    "invalid-argument": tr(LocaleKeys.errors_invalid_argument),
+    "deadline-exceeded": tr(LocaleKeys.errors_deadline_exceeded),
+    "aborted": tr(LocaleKeys.errors_aborted),
+    "out-of-range": tr(LocaleKeys.errors_out_of_range),
+    "unimplemented": tr(LocaleKeys.errors_unimplemented),
+    "internal": tr(LocaleKeys.errors_internal),
+    "unavailable": tr(LocaleKeys.errors_unavailable),
+    "data-loss": tr(LocaleKeys.errors_data_loss),
+    "cancelled": tr(LocaleKeys.errors_cancelled),
+    "unknown": tr(LocaleKeys.errors_unknown),
     "account-exists-with-different-credential":
-        "An account already exists with the same email address but different sign-in credentials. Try signing in with a different method or link the existing account to this authentication provider.",
-    "invalid-credential":
-        "The supplied credential is invalid or has expired. Please sign in again.",
-    "popup-closed-by-user":
-        "The Google Sign-In popup was closed by the user before completing the sign-in process.",
-    "popup-blocked":
-        "The browser blocked the Google Sign-In popup. Ensure that popups are not blocked in your browser settings.",
-    "invalid-client-id":
-        "The provided Google API client ID is invalid or does not match the configured OAuth 2.0 client IDs.",
-    "network-request-failed":
-        "A network error occurred during the Google Sign-In process. Check your internet connection and try again.",
-    "no-such-provider":
-        "No authentication provider found for the given ID. Make sure Google Sign-In is enabled in your Firebase project.",
-    "token-expired":
-        "The Google Sign-In token has expired. Please sign in again.",
-    "user-cancelled": "The user cancelled the Google Sign-In process.",
-    "web-storage-unsupported":
-        "Web storage is not supported in the current browser. Ensure that localStorage and sessionStorage are supported.",
-    "invalid-user-token":
-        "The user's token is invalid, and they must sign in again.",
-    "custom-token-mismatch":
-        "The custom token corresponds to a different audience.",
+        tr(LocaleKeys.errors_account_exists_with_different_credential),
+    "invalid-credential": tr(LocaleKeys.errors_invalid_credential),
+    "popup-closed-by-user": tr(LocaleKeys.errors_popup_closed_by_user),
+    "popup-blocked": tr(LocaleKeys.errors_popup_blocked),
+    "invalid-client-id": tr(LocaleKeys.errors_invalid_client_id),
+    "network-request-failed": tr(LocaleKeys.errors_network_request_failed),
+    "no-such-provider": tr(LocaleKeys.errors_no_such_provider),
+    "token-expired": tr(LocaleKeys.errors_token_expired),
+    "user-cancelled": tr(LocaleKeys.errors_user_cancelled),
+    "web-storage-unsupported": tr(LocaleKeys.errors_web_storage_unsupported),
+    "invalid-user-token": tr(LocaleKeys.errors_invalid_user_token),
+    "custom-token-mismatch": tr(LocaleKeys.errors_custom_token_mismatch),
     "dynamic-link-not-activated":
-        "The provided dynamic link domain is not activated for Firebase Dynamic Links. Activate it in the Firebase console.",
+        tr(LocaleKeys.errors_dynamic_link_not_activated),
     "dynamic-link-not-match-config":
-        "The provided dynamic link domain does not match the configured domain in the Firebase console."
+        tr(LocaleKeys.errors_dynamic_link_not_match_config),
   };
 
-  /// Bu fonksiyon parametre olarak bir error-code alır.
-  /// Ve bu error-code'u kullanıcıya anlayabileceği şekilde gösterir.
+  /// This function takes an error code as a parameter.
+  /// And it shows this error code to the user in a way they can understand.
   ///
   /// **Kullanım Şekli :**
   /// ```
@@ -131,28 +103,28 @@ abstract class AppErrorText {
   static String errorMessageConverter(String? errorCode) {
     late String message;
 
-    /// Eğer errorCode String değilse önce bunu String'e çevirmeye çalış.
-    /// Olmazsa "Unknown error! Please try again." döndür.
+    /// If errorCode is not a String, try to convert it to a String.
+    /// If it fails, return "Unknown error! Please try again."
     if (errorCode.runtimeType != String) {
       try {
         errorCode = errorCode.toString();
       } catch (e) {
-        message = "Unknown error! Please try again.";
+        message = tr(LocaleKeys.errors_unknown);
         return message;
       }
     }
 
     /// For debug purposes
-    /// Burası debug yapmayı kolaylaştırmak için.
-    /// Uygulama release aşamasına geldiğinde burası silinecek.
+    /// This part is to make debugging easier.
+    /// It will be removed when the application is released.
     if (_errorText[errorCode] == null) {
       debugPrint("---UNHANDLED ERROR CODE--- \n${errorCode!}");
     }
 
-    /// [_errorText] içerisinde verilen errorCode'u ara.
-    /// Eğer _errorText içeirsinde böyle bir hata kodu yok ise
-    /// "Unknown error! Please try again." döndür.
-    message = _errorText[errorCode] ?? "Unknown error! Please try again.";
+    /// Search for the given errorCode in [_errorText].
+    /// If there is no such error code in _errorText,
+    /// return "Unknown error! Please try again."
+    message = _errorText[errorCode] ?? tr(LocaleKeys.errors_unknown);
     return message;
   }
 }

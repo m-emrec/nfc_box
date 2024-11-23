@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/config/theme/theme_extensions/custom_bottom_sheet_them.dart';
 
-import '../../../constants/colors.dart';
 import '../../../extensions/context_extension.dart';
 part 'custom_bottom_sheet_utils.dart';
 

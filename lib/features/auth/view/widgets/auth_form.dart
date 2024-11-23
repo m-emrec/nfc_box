@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:nfc_box/core/utils/widgets/custom%20bottom%20sheet/custom_bottom_sheet.dart';
 
+import '../../../../config/localization/lang/locale_keys.g.dart';
 import '../../../../core/constants/app_paddings.dart';
 import 'email_field.dart';
 import 'forgot_password_sheet.dart';
@@ -26,7 +28,7 @@ class AuthForm extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final bool showForgotPassword;
-  final String forgotPassword = 'Forgot Password';
+  String get forgotPassword => tr(LocaleKeys.signin_forgot_password);
 
   @override
   Widget build(BuildContext context) {

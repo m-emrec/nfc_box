@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/utils/mixins/text_field_validator_mixin.dart';
@@ -33,7 +35,7 @@ class _PasswordFieldState extends State<PasswordField>
   }
 
   String? validator(value) => value!.length < 6
-      ? "Your password must be longer than 6 characters"
+      ? tr(LocaleKeys.signin_password_validation_error)
       : null;
 
   @override
@@ -42,7 +44,7 @@ class _PasswordFieldState extends State<PasswordField>
     super.dispose();
   }
 
-  final String label = 'Password';
+  final String label = tr(LocaleKeys.signin_password);
   @override
   Widget build(BuildContext context) {
     return CustomTextField(

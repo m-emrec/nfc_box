@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,13 +12,19 @@ import 'config/theme/app_theme.dart';
 
 import 'config/routes/router.dart';
 import 'core/constants/app_assets.dart';
+part 'core/utils/init/core_init.dart';
+part 'core/utils/init/localization_init.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await _CoreInit().init();
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    EasyLocalization(
+      supportedLocales: _LocalizationInit.supportedLocales,
+      path: _LocalizationInit.path,
+      fallbackLocale: _LocalizationInit.fallbackLocale,
+      child: const ProviderScope(
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -31,7 +38,9 @@ class MyApp extends ConsumerWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: AppRouter().router,
-        title: 'NFCBox',
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         theme: AppTheme().theme,
       ),
     );

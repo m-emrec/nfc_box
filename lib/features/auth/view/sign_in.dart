@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/constants/app_assets.dart';
@@ -68,8 +70,9 @@ class _SignInState extends ConsumerState<SignIn> with SignInMixin {
 class _DontHaveAnAccount extends StatelessWidget {
   const _DontHaveAnAccount();
 
-  static const String _dontHaveAnAccount = "Don't have an account ?";
-  static const String _createOne = " Create One";
+  static final String _dontHaveAnAccount =
+      tr(LocaleKeys.signin_dontHaveAnAccount);
+  static final String _createOne = tr(LocaleKeys.signin_createOne);
   void onSignUpTapped(BuildContext context) {
     context.goNamed(Routes.signUp.name);
   }

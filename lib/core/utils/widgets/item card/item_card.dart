@@ -1,16 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 import 'package:nfc_box/config/routes/router.dart';
 import 'package:nfc_box/config/theme/theme_extensions/item_card_theme.dart';
 import 'package:ticker_text/ticker_text.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_paddings.dart';
-import '../../../../../core/constants/colors.dart';
 import '../../../../../core/extensions/context_extension.dart';
 import '../../../../../core/utils/models/item.dart';
 

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/localization/lang/locale_keys.g.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/utils/mixins/text_field_validator_mixin.dart';
 import '../../../../core/utils/widgets/custom_text_field.dart';
@@ -35,7 +37,7 @@ class _EmailFieldState extends State<EmailField> with TextFieldStateMixin {
 
   String? validator(value) => EmailValidator.validate(value)
       ? null
-      : "Please write a valid email address\nex: xxx@xxx.com";
+      : tr(LocaleKeys.signin_validEmailError);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _EmailFieldState extends State<EmailField> with TextFieldStateMixin {
       color: setColorState(),
       focusNode: _focusNode,
       controller: widget.controller,
-      label: "Email",
+      label: tr(LocaleKeys.signin_email),
       prefixIcon: Image.asset(
         AppAssets.emailFieldIconPath,
       ),

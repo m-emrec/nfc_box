@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/utils/widgets/buttons/buttons_import.dart';
@@ -13,8 +15,8 @@ import 'email_field.dart';
 class ForgotPasswordSheet extends StatelessWidget {
   ForgotPasswordSheet({super.key});
   final TextEditingController _controller = TextEditingController();
-  final String forgotPassword = 'Forgot Password';
-  final String sendEmail = 'Send Email';
+  final String forgotPassword = tr(LocaleKeys.forgotPassword_forgotPassword);
+  final String sendEmail = tr(LocaleKeys.forgotPassword_sendEmail);
   @override
   Widget build(BuildContext context) {
     return CustomBottomSheet(

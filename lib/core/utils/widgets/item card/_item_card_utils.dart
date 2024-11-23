@@ -104,7 +104,7 @@ final class _ItemCardUtils {
 
   /// Image error widget
   Widget errorImage(context, url, error) {
-    String imageNotFound = 'Image not found';
+    String imageNotFound = tr(LocaleKeys.errors_image_not_found);
     return Tooltip(
       message: imageNotFound,
       triggerMode: TooltipTriggerMode.tap,

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 import '../../../../core/constants/app_paddings.dart';
 
 import '../../../../core/constants/colors.dart';
@@ -12,7 +14,7 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String or = 'or';
+    final String or = tr(LocaleKeys.signin_or);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -21,7 +23,7 @@ class OrDivider extends StatelessWidget {
           Alignment.centerLeft,
         ),
         Gap(AppPaddings.xxsPadding),
-        const Text(or),
+        Text(or),
         Gap(AppPaddings.xxsPadding),
         _divider(Alignment.centerLeft, Alignment.centerRight),
       ],

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../../../core/utils/widgets/custom_toast.dart';
 import '../model/credentials.dart';
@@ -28,6 +30,7 @@ mixin SignUpMixin on ConsumerState<SignUp> {
     }
   }
 
-  final String pleaseAcceptTermsConditions = 'Please accept Terms & Conditions';
-  final String createYourAccount = 'Create Your Account';
+  final String pleaseAcceptTermsConditions =
+      tr(LocaleKeys.signup_pleaseAcceptTermsConditions);
+  final String createYourAccount = tr(LocaleKeys.signup_createYourAccount);
 }
