@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:uuid/uuid.dart';
 

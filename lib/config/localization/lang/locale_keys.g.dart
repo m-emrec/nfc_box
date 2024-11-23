@@ -95,5 +95,18 @@ abstract class  LocaleKeys {
   static const home_readNFC = 'home.readNFC';
   static const home_seeItems = 'home.seeItems';
   static const home = 'home';
+  static const nfc_errors_unAuthorized = 'nfc.errors.unAuthorized';
+  static const nfc_errors_unAvailable = 'nfc.errors.unAvailable';
+  static const nfc_errors_timeOut = 'nfc.errors.timeOut';
+  static const nfc_errors_unknown = 'nfc.errors.unknown';
+  static const nfc_errors = 'nfc.errors';
+  static const nfc_prepareNfcText = 'nfc.prepareNfcText';
+  static const nfc_howToUseNFCText = 'nfc.howToUseNFCText';
+  static const nfc_ready = 'nfc.ready';
+  static const nfc_cancelText = 'nfc.cancelText';
+  static const nfc_nfcReadSuccessfully = 'nfc.nfcReadSuccessfully';
+  static const nfc_statusText = 'nfc.statusText';
+  static const nfc_pleaseHoldYourPhoneNearTheNFCTagText = 'nfc.pleaseHoldYourPhoneNearTheNFCTagText';
+  static const nfc = 'nfc';
 
 }

@@ -44,10 +44,8 @@ class Home extends StatelessWidget with FirebaseUtils {
                 height: context.screenSize.height * .6,
               ),
               ResponsiveElevatedButton(
-                onPressed: () async {
-                  context.goNamed(Routes.prepareNfc.name,
-                      extra: {"isWrite": false});
-                },
+                onPressed: () async => context
+                    .goNamed(Routes.prepareNfc.name, extra: {"isWrite": false}),
                 child: Text(
                   readNFC,
                 ),
@@ -56,9 +54,8 @@ class Home extends StatelessWidget with FirebaseUtils {
               Row(
                 children: [
                   ResponsiveOutlinedButton(
-                    onPressed: () async {
-                      context.goNamed(Routes.itemList.name);
-                    },
+                    onPressed: () async =>
+                        context.goNamed(Routes.itemList.name),
                     child: Text(
                       seeItems,
                     ),

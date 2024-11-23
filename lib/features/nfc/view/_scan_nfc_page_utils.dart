@@ -1,11 +1,11 @@
 part of "scan_nfc_page.dart";
 
 mixin _ScanNfcPageUtils on ConsumerState<ScanNfcPage> {
-  final String statusText = 'Scanning...';
+  final String statusText = tr(LocaleKeys.nfc_statusText);
   final String pleaseHoldYourPhoneNearTheNFCTagText =
-      'Please hold your phone near the NFC tag';
-  final String cancelText = 'Cancel';
-  final String nfcReadSuccessfully = 'NFC read successfully';
+      tr(LocaleKeys.nfc_pleaseHoldYourPhoneNearTheNFCTagText);
+  final String cancelText = tr(LocaleKeys.nfc_cancelText);
+  final String nfcReadSuccessfully = tr(LocaleKeys.nfc_nfcReadSuccessfully);
 
   /// This function listens the [nfcStateProvider]'s state changes
   void stateListener(BuildContext context) {

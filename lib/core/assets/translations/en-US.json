@@ -97,5 +97,20 @@
     "home": {
         "readNFC": "Read NFC",
         "seeItems": "See Items"
+    },
+    "nfc": {
+        "errors": {
+            "unAuthorized": "Unauthorized tag",
+            "unAvailable": "NFC not available.",
+            "timeOut": "Timeout reading NFC",
+            "unknown": "Unknown error"
+        },
+        "prepareNfcText": "To start using NFC, hold your device near an NFC-enabled item or device. Make sure NFC is enabled in your device settings. When your device is close enough, it will automatically detect the NFC tag and process the information.",
+        "howToUseNFCText": "How to use NFC",
+        "ready": "Ready",
+        "cancelText": "Cancel",
+        "nfcReadSuccessfully": "NFC read successfully",
+        "statusText": "Scanning...",
+        "pleaseHoldYourPhoneNearTheNFCTagText": "Please hold your phone near the NFC tag"
     }
 }
