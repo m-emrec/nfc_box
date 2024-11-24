@@ -144,5 +144,13 @@ abstract class  LocaleKeys {
   static const itemFieldNames_date = 'itemFieldNames.date';
   static const itemFieldNames_text = 'itemFieldNames.text';
   static const itemFieldNames = 'itemFieldNames';
+  static const tag_noNameText = 'tag.noNameText';
+  static const tag_longPressToSelect = 'tag.longPressToSelect';
+  static const tag_nameCantBeEmpty = 'tag.nameCantBeEmpty';
+  static const tag_ifYouWantToCancelTheEditPressTheCloseButton = 'tag.ifYouWantToCancelTheEditPressTheCloseButton';
+  static const tag_add = 'tag.add';
+  static const tag_selected = 'tag.selected';
+  static const tag_noItemsFound = 'tag.noItemsFound';
+  static const tag = 'tag';
 
 }

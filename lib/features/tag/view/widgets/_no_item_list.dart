@@ -3,7 +3,7 @@ part of tag_detail_view;
 /// if there are no items, show this widget
 class _NoItemList extends StatelessWidget {
   const _NoItemList();
-  static const _noItemsFound = 'No items found';
+  static final _noItemsFound = tr(LocaleKeys.tag_noItemsFound);
 
   @override
   Widget build(BuildContext context) {

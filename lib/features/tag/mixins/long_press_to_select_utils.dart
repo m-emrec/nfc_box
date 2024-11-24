@@ -2,7 +2,7 @@ part of '../view/widgets/bottom sheet/add_item_bottom_sheet.dart';
 
 mixin _LongPressToSelectUtils on State<_LongPressToSelect> {
   late AnimationController controller;
-  final String longPressToSelectText = 'Long press to select an item';
+  final String longPressToSelectText = tr(LocaleKeys.tag_longPressToSelect);
   void initializeAnimationController(TickerProvider vsync) {
     controller = AnimationController(
       vsync: vsync,

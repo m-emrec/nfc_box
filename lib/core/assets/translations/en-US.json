@@ -157,5 +157,14 @@
         "color": "Color",
         "date": "Date",
         "text": "Text"
+    },
+    "tag": {
+        "noNameText": "No name",
+        "longPressToSelect": "Long press to select an item",
+        "nameCantBeEmpty": "Name cannot be empty",
+        "ifYouWantToCancelTheEditPressTheCloseButton": "If you want to cancel the edit, press the close button",
+        "add": "Add",
+        "selected": "Selected",
+        "noItemsFound": "No items found"
     }
 }

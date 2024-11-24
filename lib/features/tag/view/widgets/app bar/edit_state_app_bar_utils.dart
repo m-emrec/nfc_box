@@ -3,9 +3,9 @@ part of tag_detail_view;
 mixin _EditStateAppBarUtils on ConsumerState<_EditStateAppBar> {
   final TextEditingController controller = TextEditingController();
 
-  final String nameCantBeEmpty = "Name can't be empty";
+  final String nameCantBeEmpty = tr(LocaleKeys.tag_nameCantBeEmpty);
   final String ifYouWantToCancelTheEditPressTheCloseButton =
-      'If you want to cancel the edit, press the close button';
+      tr(LocaleKeys.tag_ifYouWantToCancelTheEditPressTheCloseButton);
 
   bool get _validate => controller.text.isNotEmpty;
 

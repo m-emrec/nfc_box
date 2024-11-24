@@ -16,7 +16,7 @@ class _AddItemTextButton extends ConsumerWidget {
           TagDetailProviders.addItemToTag(ref, selectedItems);
           context.pop();
         },
-        child: const Text("Add "),
+        child: Text(tr(LocaleKeys.tag_add)),
       ),
     );
   }

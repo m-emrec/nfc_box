@@ -20,7 +20,7 @@ class _TagDetailItemCard extends StatelessWidget {
         backgroundColor: AppColors.accentSuccess[90],
         alignment: Alignment.topLeft,
         padding: EdgeInsets.all(AppPaddings.xxsPadding),
-        label: const Text("Selected"),
+        label: Text(tr(LocaleKeys.tag_selected)),
         child: ItemCard(
           item: item,
         ),
