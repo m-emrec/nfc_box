@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 import 'package:nfc_box/core/utils/models/item.dart';
 
 import '../../../core/resources/data_state.dart';
@@ -19,11 +21,11 @@ class CreateItemViewModel extends ChangeNotifier {
       item: item,
     );
     if (dataState is DataSuccess) {
-      Toast.succToast(title: 'Item created successfully');
+      Toast.succToast(title: tr(LocaleKeys.createItem_success_itemCreated));
       return DataSuccess(null);
     } else {
       Toast.errToast(
-        title: 'Failed to create item',
+        title: tr(LocaleKeys.createItem_errors_failedToCreateItem),
         desc: AppErrorText.errorMessageConverter(dataState.exception),
       );
       return DataFailed(null);
@@ -38,11 +40,11 @@ class CreateItemViewModel extends ChangeNotifier {
       item: item,
     );
     if (dataState is DataSuccess) {
-      Toast.succToast(title: 'Item updated successfully');
+      Toast.succToast(title: tr(LocaleKeys.createItem_success_itemUpdated));
       return DataSuccess(dataState.data);
     } else {
       Toast.errToast(
-        title: 'Failed to update item',
+        title: tr(LocaleKeys.createItem_errors_failedToUpdateItem),
         desc: AppErrorText.errorMessageConverter(dataState.exception),
       );
       return DataFailed(null);

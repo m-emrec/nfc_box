@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../../../../../core/utils/widgets/custom_text_field.dart';
 import '../../../providers/providers.dart';
@@ -15,8 +17,7 @@ class FieldNameEntry extends ConsumerWidget {
   final TextEditingController? controller;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var label = "Field Name";
-    // final CreateItemProvider createItemProvider = CreateItemProvider.instance;
+    var label = tr(LocaleKeys.createItem_fieldNameEntry_label);
     return CustomTextField(
       label: label,
       controller: controller,

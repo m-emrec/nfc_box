@@ -12,8 +12,10 @@ mixin _ImageContainerUtils on State<ChooseImageContainer> {
   late final TextEditingController controller;
   final ImagePicker _picker = ImagePicker();
   File? image;
-  static const String chooseFromGallery = 'Choose from gallery';
-  static const String takeAPicture = 'Take a picture';
+  static final String chooseFromGallery =
+      tr(LocaleKeys.createItem_chooseImage_takePhoto);
+  static final String takeAPicture =
+      tr(LocaleKeys.createItem_chooseImage_takePhoto);
   @override
   void initState() {
     controller = widget.controller;

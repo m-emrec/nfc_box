@@ -15,7 +15,7 @@ class _ChooseImageMenuSheet extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.photo),
-            title: const Text(_ImageContainerUtils.chooseFromGallery),
+            title: Text(_ImageContainerUtils.chooseFromGallery),
             onTap: () {
               context.pop();
               pickImageFromGallery();
@@ -23,7 +23,7 @@ class _ChooseImageMenuSheet extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.camera_alt),
-            title: const Text(_ImageContainerUtils.takeAPicture),
+            title: Text(_ImageContainerUtils.takeAPicture),
             onTap: () {
               context.pop();
               pickImageFromCamera();

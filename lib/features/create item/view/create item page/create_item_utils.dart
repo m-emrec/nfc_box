@@ -5,9 +5,9 @@ part of 'create_item_page.dart';
 /// This class contains the properties for the CreateItem widget
 mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
   /// Constants
-  final String addField = 'Add Field';
-  final String enterItemName = 'Enter item name';
-  final String itemName = 'Item Name';
+  final String addField = tr(LocaleKeys.createItem_addField);
+  final String enterItemName = tr(LocaleKeys.createItem_enterItemName);
+  final String itemName = tr(LocaleKeys.createItem_itemName);
   late String pageTitle;
 
   /// Returns true if the widget is in edit mode (i.e., an existing item is being edited)
@@ -21,7 +21,9 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
     if (isEdit) {
       WidgetsBinding.instance.addPostFrameCallback(_initializeEditState);
     }
-    pageTitle = isEdit ? 'Edit Item' : 'Create Item';
+    pageTitle = isEdit
+        ? tr(LocaleKeys.createItem_pageTitleEdit)
+        : tr(LocaleKeys.createItem_pageTitleCreate);
     super.initState();
   }
 
@@ -156,14 +158,15 @@ mixin _CreateItemUtils on ConsumerState<CreateItemPage> {
       if (lastField.fieldNameController.text.isEmpty ||
           lastField.fieldController.text.isEmpty) {
         /// if the last field is empty then show a error toast
-        Toast.errToast(desc: 'Field name and field value cannot be empty');
+        Toast.errToast(
+            desc: tr(LocaleKeys.createItem_errors_fieldNameAndFieldValidation));
         return false;
       }
     }
 
     /// check if the item name is empty
     if (itemNameController.text.isEmpty) {
-      Toast.errToast(desc: 'Item name cannot be empty');
+      Toast.errToast(desc: tr(LocaleKeys.createItem_errors_itemNameValidation));
       return false;
     }
 

@@ -121,5 +121,28 @@ abstract class  LocaleKeys {
   static const itemDetail_tapToSeeFullImage = 'itemDetail.tapToSeeFullImage';
   static const itemDetail_noFieldsText = 'itemDetail.noFieldsText';
   static const itemDetail = 'itemDetail';
+  static const createItem_pageTitleCreate = 'createItem.pageTitleCreate';
+  static const createItem_pageTitleEdit = 'createItem.pageTitleEdit';
+  static const createItem_addField = 'createItem.addField';
+  static const createItem_enterItemName = 'createItem.enterItemName';
+  static const createItem_itemName = 'createItem.itemName';
+  static const createItem_errors_failedToCreateItem = 'createItem.errors.failedToCreateItem';
+  static const createItem_errors_failedToUpdateItem = 'createItem.errors.failedToUpdateItem';
+  static const createItem_errors_fieldNameAndFieldValidation = 'createItem.errors.fieldNameAndFieldValidation';
+  static const createItem_errors_itemNameValidation = 'createItem.errors.itemNameValidation';
+  static const createItem_errors = 'createItem.errors';
+  static const createItem_success_itemCreated = 'createItem.success.itemCreated';
+  static const createItem_success_itemUpdated = 'createItem.success.itemUpdated';
+  static const createItem_success = 'createItem.success';
+  static const createItem_chooseImage_takePhoto = 'createItem.chooseImage.takePhoto';
+  static const createItem_chooseImage_chooseFromGallery = 'createItem.chooseImage.chooseFromGallery';
+  static const createItem_chooseImage = 'createItem.chooseImage';
+  static const createItem_fieldNameEntry_label = 'createItem.fieldNameEntry.label';
+  static const createItem_fieldNameEntry = 'createItem.fieldNameEntry';
+  static const createItem = 'createItem';
+  static const itemFieldNames_color = 'itemFieldNames.color';
+  static const itemFieldNames_date = 'itemFieldNames.date';
+  static const itemFieldNames_text = 'itemFieldNames.text';
+  static const itemFieldNames = 'itemFieldNames';
 
 }

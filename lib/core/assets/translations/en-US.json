@@ -128,5 +128,34 @@
         "createdDate": "Created Date",
         "tapToSeeFullImage": "Tap to see full image",
         "noFieldsText": "No fields"
+    },
+    "createItem": {
+        "pageTitleCreate": "Create Item",
+        "pageTitleEdit": "Edit Item",
+        "addField": "Add Field",
+        "enterItemName": "Enter item name",
+        "itemName": "Item Name",
+        "errors": {
+            "failedToCreateItem": "Failed to create item",
+            "failedToUpdateItem": "Failed to update item",
+            "fieldNameAndFieldValidation": "Field name and field value cannot be empty",
+            "itemNameValidation": "Item name cannot be empty"
+        },
+        "success": {
+            "itemCreated": "Item created successfully",
+            "itemUpdated": "Item updated successfully"
+        },
+        "chooseImage": {
+            "takePhoto": "Take Photo",
+            "chooseFromGallery": "Choose from Gallery"
+        },
+        "fieldNameEntry": {
+            "label": "Field Name"
+        }
+    },
+    "itemFieldNames": {
+        "color": "Color",
+        "date": "Date",
+        "text": "Text"
     }
 }
