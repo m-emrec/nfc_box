@@ -18,7 +18,7 @@ class _CreatedDateText extends StatelessWidget {
           style: context.textTheme.bodyMedium,
         ),
         Text(
-          DateFormat.yMMMEd().format(
+          DateFormat.yMMMEd(context.locale.toString()).format(
             item.createdDate ?? DateTime.now(),
           ),
           style: context.textTheme.bodyMedium?.copyWith(

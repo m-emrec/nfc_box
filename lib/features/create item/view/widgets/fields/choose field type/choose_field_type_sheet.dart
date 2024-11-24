@@ -29,7 +29,7 @@ class ChooseFieldTypeSheet extends ConsumerWidget {
         children: List.generate(
           _ChooseFieldTypeSheetUtils._fieldNames.length,
           (index) => ListTile(
-            title: Text(_ChooseFieldTypeSheetUtils._fieldNames[index].name),
+            title: Text(_ChooseFieldTypeSheetUtils._fieldNames[index].nameTr),
             onTap: () => chooseFieldTypeSheetUtils.onSelected(
               context,
               ref: ref,

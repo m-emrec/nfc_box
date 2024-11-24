@@ -14,8 +14,8 @@ enum ItemFieldNames {
 }
 
 extension ItemFieldNamesExtension on ItemFieldNames {
-  /// Returns the name of the field.
-  String get name {
+  /// Returns the name of the field in the current locale.
+  String get nameTr {
     switch (this) {
       case ItemFieldNames.Color:
         return tr(LocaleKeys.itemFieldNames_color);

@@ -6,7 +6,7 @@ part of "../../../main.dart";
 class _LocalizationInit {
   static List<Locale> supportedLocales = const [
     Locale('en', 'US'),
-    // Locale('tr')
+    Locale('tr')
   ];
   static String path = 'lib/core/assets/translations';
   static Locale fallbackLocale = const Locale('en', 'US');
