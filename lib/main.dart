@@ -34,6 +34,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    context.setLocale(Locale("ru"));
+
     return ToastificationWrapper(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

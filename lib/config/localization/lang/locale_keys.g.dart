@@ -80,10 +80,10 @@ abstract class  LocaleKeys {
   static const signup_signup = 'signup.signup';
   static const signup_iAcceptThe = 'signup.iAcceptThe';
   static const signup_termsAndConditions = 'signup.termsAndConditions';
-  static const signup_termAndConditionsText = 'signup.termAndConditionsText';
   static const signup_alreadyHaveAnAccount = 'signup.alreadyHaveAnAccount';
   static const signup_here = 'signup.here';
   static const signup_pleaseAcceptTermsConditions = 'signup.pleaseAcceptTermsConditions';
+  static const signup_termAndConditionsText = 'signup.termAndConditionsText';
   static const signup_createYourAccount = 'signup.createYourAccount';
   static const signup_welcomeNfcBox = 'signup.welcomeNfcBox';
   static const signup = 'signup';

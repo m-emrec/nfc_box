@@ -13,7 +13,7 @@ mixin _ImageContainerUtils on State<ChooseImageContainer> {
   final ImagePicker _picker = ImagePicker();
   File? image;
   static final String chooseFromGallery =
-      tr(LocaleKeys.createItem_chooseImage_takePhoto);
+      tr(LocaleKeys.createItem_chooseImage_chooseFromGallery);
   static final String takeAPicture =
       tr(LocaleKeys.createItem_chooseImage_takePhoto);
   @override
