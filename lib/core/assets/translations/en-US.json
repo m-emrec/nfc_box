@@ -112,5 +112,16 @@
         "nfcReadSuccessfully": "NFC read successfully",
         "statusText": "Scanning...",
         "pleaseHoldYourPhoneNearTheNFCTagText": "Please hold your phone near the NFC tag"
+    },
+    "item": {
+        "sortTypes": {
+            "date": "Sort by date",
+            "name": "Sort by name",
+            "fieldCount": "Sort by field count"
+        },
+        "pageTitle": "Items",
+        "noItemsText": "No items found",
+        "asc": "ASC",
+        "desc": "DESC"
     }
 }

@@ -5,37 +5,8 @@ class _SortButton extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SortButtonState();
 }
 
-class _SortButtonState extends ConsumerState<_SortButton> {
-  SortType initialValue = SortType.date;
-  void popMenuButtonOnSelected(value) {
-    switch (value) {
-      case SortType.date:
-        ItemListProvider.sortByCreatedDate(ref);
-        setState(() {
-          initialValue = SortType.date;
-        });
-        break;
-      case SortType.name:
-        ItemListProvider.sortByName(ref);
-        setState(() {
-          initialValue = SortType.name;
-        });
-        break;
-      case SortType.fieldCount:
-        ItemListProvider.sortByFieldCount(ref);
-        setState(() {
-          initialValue = SortType.fieldCount;
-        });
-        break;
-      default:
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _SortButtonState extends ConsumerState<_SortButton>
+    with _SortButtonMixin {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(

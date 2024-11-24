@@ -15,7 +15,9 @@ class _SortOrderButton extends StatelessWidget {
           backgroundColor: Colors.transparent,
           alignment: Alignment.bottomLeft,
           label: Text(
-            ItemListProvider.isDescending(ref) ? 'ASC' : 'DESC',
+            ItemListProvider.isDescending(ref)
+                ? tr(LocaleKeys.item_asc)
+                : tr(LocaleKeys.item_desc),
             style: context.textTheme.labelSmall,
           ),
           child: IconButton(

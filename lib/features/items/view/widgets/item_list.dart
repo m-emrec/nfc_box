@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nfc_box/config/localization/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app_paddings.dart';
 import '../../../../core/utils/models/item.dart';
@@ -16,10 +18,10 @@ class ItemList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const noItemsFound = 'No items found';
+    final String noItemsFound = tr(LocaleKeys.item_noItemsText);
 
     if (items.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(noItemsFound),
       );
     }

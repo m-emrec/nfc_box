@@ -108,5 +108,14 @@ abstract class  LocaleKeys {
   static const nfc_statusText = 'nfc.statusText';
   static const nfc_pleaseHoldYourPhoneNearTheNFCTagText = 'nfc.pleaseHoldYourPhoneNearTheNFCTagText';
   static const nfc = 'nfc';
+  static const item_sortTypes_date = 'item.sortTypes.date';
+  static const item_sortTypes_name = 'item.sortTypes.name';
+  static const item_sortTypes_fieldCount = 'item.sortTypes.fieldCount';
+  static const item_sortTypes = 'item.sortTypes';
+  static const item_pageTitle = 'item.pageTitle';
+  static const item_noItemsText = 'item.noItemsText';
+  static const item_asc = 'item.asc';
+  static const item_desc = 'item.desc';
+  static const item = 'item';
 
 }
