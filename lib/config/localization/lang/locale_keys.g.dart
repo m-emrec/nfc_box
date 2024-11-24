@@ -117,5 +117,9 @@ abstract class  LocaleKeys {
   static const item_asc = 'item.asc';
   static const item_desc = 'item.desc';
   static const item = 'item';
+  static const itemDetail_createdDate = 'itemDetail.createdDate';
+  static const itemDetail_tapToSeeFullImage = 'itemDetail.tapToSeeFullImage';
+  static const itemDetail_noFieldsText = 'itemDetail.noFieldsText';
+  static const itemDetail = 'itemDetail';
 
 }

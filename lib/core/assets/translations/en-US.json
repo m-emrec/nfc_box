@@ -123,5 +123,10 @@
         "noItemsText": "No items found",
         "asc": "ASC",
         "desc": "DESC"
+    },
+    "itemDetail": {
+        "createdDate": "Created Date",
+        "tapToSeeFullImage": "Tap to see full image",
+        "noFieldsText": "No fields"
     }
 }

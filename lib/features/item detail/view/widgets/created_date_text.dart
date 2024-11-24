@@ -1,13 +1,13 @@
 part of '../item_detail_view.dart';
 
 class _CreatedDateText extends StatelessWidget {
-  const _CreatedDateText({
+  _CreatedDateText({
     required this.item,
-  });
+  }) : createdDate = tr(LocaleKeys.itemDetail_createdDate);
 
   final Item item;
 
-  final String createdDate = 'Created Date';
+  final String createdDate;
   @override
   Widget build(BuildContext context) {
     return Row(
