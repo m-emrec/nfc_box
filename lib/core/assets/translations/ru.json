@@ -166,5 +166,19 @@
         "add": "Добавить",
         "selected": "Выбрано",
         "noItemsFound": "Элементы не найдены"
+    },
+    "profile": {
+        "profile": "Профиль",
+        "logout": "Выйти",
+        "changePassword": "Изменить пароль",
+        "removeItems": "Удалить все элементы",
+        "removeItemsText": "Вы уверены, что хотите удалить все элементы?",
+        "itemsRemoved": "Элементы успешно удалены",
+        "yes": "Да",
+        "no": "Нет",
+        "passwordChanged": "Пароль успешно изменен",
+        "deleteAccount": "Удалить аккаунт",
+        "deleteAccountText": "Вы уверены, что хотите удалить ваш аккаунт?",
+        "dangerZone": "Опасная зона"
     }
 }

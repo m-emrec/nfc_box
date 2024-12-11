@@ -26,8 +26,8 @@ class Home extends StatelessWidget with FirebaseUtils {
         title: const Text(nfcBox),
         actions: [
           IconButton(
-            onPressed: () async => await signOut(),
-            icon: const Icon(Icons.logout),
+            onPressed: () async => context.goNamed(Routes.profile.name),
+            icon: const Icon(Icons.person),
           ),
         ],
       ),

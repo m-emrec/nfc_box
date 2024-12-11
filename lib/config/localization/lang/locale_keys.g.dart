@@ -152,5 +152,18 @@ abstract class  LocaleKeys {
   static const tag_selected = 'tag.selected';
   static const tag_noItemsFound = 'tag.noItemsFound';
   static const tag = 'tag';
+  static const profile_profile = 'profile.profile';
+  static const profile_logout = 'profile.logout';
+  static const profile_changePassword = 'profile.changePassword';
+  static const profile_removeItems = 'profile.removeItems';
+  static const profile_removeItemsText = 'profile.removeItemsText';
+  static const profile_itemsRemoved = 'profile.itemsRemoved';
+  static const profile_yes = 'profile.yes';
+  static const profile_no = 'profile.no';
+  static const profile_passwordChanged = 'profile.passwordChanged';
+  static const profile_deleteAccount = 'profile.deleteAccount';
+  static const profile_deleteAccountText = 'profile.deleteAccountText';
+  static const profile_dangerZone = 'profile.dangerZone';
+  static const profile = 'profile';
 
 }

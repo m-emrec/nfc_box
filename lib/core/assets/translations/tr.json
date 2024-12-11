@@ -166,5 +166,19 @@
         "add": "Ekle",
         "selected": "Seçildi",
         "noItemsFound": "Hiç öğe bulunamadı"
+    },
+    "profile": {
+        "profile": "Profil",
+        "logout": "Çıkış Yap",
+        "changePassword": "Şifreyi Değiştir",
+        "removeItems": "Tüm Öğeleri Kaldır",
+        "removeItemsText": "Tüm öğeleri kaldırmak istediğinizden emin misiniz?",
+        "itemsRemoved": "Öğeler başarıyla kaldırıldı",
+        "yes": "Evet",
+        "no": "Hayır",
+        "passwordChanged": "Şifre başarıyla değiştirildi",
+        "deleteAccount": "Hesabı Sil",
+        "deleteAccountText": "Hesabınızı silmek istediğinizden emin misiniz?",
+        "dangerZone": "Tehlikeli Bölge"
     }
 }

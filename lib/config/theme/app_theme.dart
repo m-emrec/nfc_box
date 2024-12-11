@@ -18,6 +18,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
     primaryColor: AppColors.primaryBlue[50],
     textTheme: TextStyles().textTheme,
+    dialogTheme: _dialogTheme(),
 
     /// Widget Themes
     appBarTheme: _appBarTheme(),
@@ -32,6 +33,15 @@ class AppTheme {
     floatingActionButtonTheme: _floatingActionButtonTheme(),
     datePickerTheme: _datePickerTheme(),
   );
+
+  static DialogTheme _dialogTheme() {
+    return DialogTheme(
+      backgroundColor: AppColors.neutralBackgroundLight[50],
+      shape: RoundedRectangleBorder(
+        borderRadius: AppBorderRadius.smallBorderRadius,
+      ),
+    );
+  }
 
   static PopupMenuThemeData _popMenuTheme() {
     return PopupMenuThemeData(

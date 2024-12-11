@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nfc_box/features/profile/view/profile_view.dart';
 import 'package:nfc_box/main.dart';
 import '../../features/item%20detail/view/item_detail_view.dart';
 import '../../features/nfc/view/prepare_nfc_page.dart';
@@ -32,6 +33,7 @@ enum Routes {
   tagDetail,
   tagLoading,
   splash,
+  profile,
   ;
 
   /// returns the path of the route
@@ -90,6 +92,13 @@ final class AppRouter {
             builder: (context, state) {
               final Map extra = state.extra as Map;
               return ScanNfcPage(extra['isWrite'], extra['tag']);
+            },
+          ),
+          GoRoute(
+            path: Routes.profile.path,
+            name: Routes.profile.name,
+            builder: (context, state) {
+              return ProfileView();
             },
           ),
           //* Tag Detail page

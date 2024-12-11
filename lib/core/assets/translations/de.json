@@ -166,5 +166,19 @@
         "add": "Hinzufügen",
         "selected": "Ausgewählt",
         "noItemsFound": "Keine Elemente gefunden"
+    },
+    "profile": {
+        "profile": "Profil",
+        "logout": "Abmelden",
+        "changePassword": "Passwort ändern",
+        "removeItems": "Alle Elemente entfernen",
+        "removeItemsText": "Sind Sie sicher, dass Sie alle Elemente entfernen möchten?",
+        "itemsRemoved": "Elemente erfolgreich entfernt",
+        "yes": "Ja",
+        "no": "Nein",
+        "passwordChanged": "Passwort erfolgreich geändert",
+        "deleteAccount": "Konto löschen",
+        "deleteAccountText": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+        "dangerZone": "Gefahrenzone"
     }
 }

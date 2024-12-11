@@ -166,5 +166,19 @@
         "add": "Add",
         "selected": "Selected",
         "noItemsFound": "No items found"
+    },
+    "profile": {
+        "profile": "Profile",
+        "logout": "Logout",
+        "changePassword": "Change Password",
+        "removeItems": "Remove All Items",
+        "removeItemsText": "Are you sure you want to remove all items?",
+        "itemsRemoved": "Items removed successfully",
+        "yes": "Yes",
+        "no": "No",
+        "passwordChanged": "Password changed successfully",
+        "deleteAccount": "Delete Account",
+        "deleteAccountText": "Are you sure you want to delete your account?",
+        "dangerZone": "Danger Zone"
     }
 }
