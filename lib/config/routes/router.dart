@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nfc_box/features/profile/view/profile_view.dart';
-import 'package:nfc_box/main.dart';
 import '../../features/item%20detail/view/item_detail_view.dart';
 import '../../features/nfc/view/prepare_nfc_page.dart';
 import '../../features/nfc/view/scan_nfc_page.dart';
@@ -18,6 +17,7 @@ import '../../features/auth/view/sign_up.dart';
 import '../../features/create%20item/view/create%20item%20page/create_item_page.dart';
 import '../../features/home/view/home.dart';
 import '../../features/items/view/item_list_page.dart';
+import '../../splash_screen.dart';
 import 'auth_checker.dart';
 
 /// This enum contains the name of the routes in the app
