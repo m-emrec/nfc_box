@@ -18,9 +18,9 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.neutralBackgroundLight[50],
     primaryColor: AppColors.primaryBlue[50],
     textTheme: TextStyles().textTheme,
-    dialogTheme: _dialogTheme(),
 
     /// Widget Themes
+    dialogTheme: _dialogTheme(),
     appBarTheme: _appBarTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     popupMenuTheme: _popMenuTheme(),
