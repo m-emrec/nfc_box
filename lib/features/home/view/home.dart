@@ -27,7 +27,7 @@ class Home extends StatelessWidget with FirebaseUtils {
         actions: [
           IconButton(
             onPressed: () async => context.goNamed(Routes.profile.name),
-            icon: const Icon(Icons.settings),
+            icon: Image.asset(AppAssets.settings),
           ),
         ],
       ),

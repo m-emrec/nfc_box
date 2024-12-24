@@ -38,6 +38,7 @@ enum _IconPaths {
   save("${_rootIconPath}ic_save.png"),
   sort("${_rootIconPath}ic_sort.png"),
   viewType("${_rootIconPath}ic_viewType.png"),
+  settings("${_rootIconPath}ic_settings.png"),
   ;
 
   static const String _rootIconPath = "lib/core/assets/icons/";
